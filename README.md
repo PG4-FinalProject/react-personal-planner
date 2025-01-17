@@ -1,50 +1,48 @@
-# React + TypeScript + Vite
+### git 브랜치 전략(git flow 전략도입)
+| 브랜치 이름 | 내용                                               |
+| --------- | -----------------------------------------------------|
+| main      | 배포브랜치                                             |
+| develop   | 다음버전을 위한 개발브랜치                              |
+| feature   | 하나의 기능을 개발하기 위한 브랜치                      |
+| hotfix    | 배포된 버전에 문제가 생겼을 때 해결하는 브랜치           |  
+### 커밋 메시지 구조
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+타입(스코프) : 주제(제목) // Header(헤더)
 
-Currently, two official plugins are available:
+본문 // Body(바디)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+바닥글 // Footer
 
-## Expanding the ESLint configuration
+#### 타입
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+| 타입 이름 | 내용                                                  |
+| --------- | ----------------------------------------------------- |
+| feat      | 새로운 기능에 대한 커밋                               |
+| fix       | 버그 수정에 대한 커밋                                 |
+| build     | 빌드 관련 파일 수정 / 모듈 설치 또는 삭제에 대한 커밋 |
+| chore     | 그 외 자잘한 수정에 대한 커밋                         |
+| ci        | CI 관련 설정 수정에 대한 커밋                         |
+| docs      | 문서 수정에 대한 커밋                                 |
+| style     | 코드 스타일 혹은 포맷 등에 관한 커밋                  |
+| refactor  | 코드 리팩토링에 대한 커밋                             |
+| test      | 테스트 코드 수정에 대한 커밋                          |
+| perf      | 성능 개선에 대한 커밋                                 |
 
-- Configure the top-level `parserOptions` property like this:
+- Body
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-});
+  - Body는 Header에서 표현할 수 없는 상세한 내요
+  - Header에서 충분히 표현할 수 있다면 생략 가능
+
+- Footer
+
+  - 바닥글로 어떤 이슈에서 왔는지 같은 참조 정보 추가
+  - 특정 이슈 참조
+  - 생략 가능
+
+- 작성 예시
+
 ```
+git commit -m "fix: Safari에서 모달을 띄웠을 때 스크롤 이슈 수정
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from "eslint-plugin-react";
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: "18.3" } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs["jsx-runtime"].rules,
-  },
-});
-```
+모바일 사파리에서 Carousel 모달을 띄웠을 때,
+모달 밖의 상하 스크롤이 움직이는 이슈 수정.
