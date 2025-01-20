@@ -1,6 +1,7 @@
 import React from 'react';
 import { Bell, Menu } from 'lucide-react';
 import Logo from '../../assets/Logo.png';  // 상대 경로로 로고 import
+import { palette } from '../../styles/Palette'; // 팔레트 임포트
 
 const Header = () => {
   return (
@@ -10,7 +11,7 @@ const Header = () => {
           className="menu-button" 
           aria-label="메뉴 열기"
         >
-          <Menu size={24} color="#333333" />
+          <Menu size={24} color={palette.gray} /> {/* 중괄호 추가 */}
         </button>
         <img 
           src={Logo} 
@@ -22,7 +23,7 @@ const Header = () => {
         className="notification-button" 
         aria-label="알림 보기"
       >
-        <Bell size={20} color="#333333" />
+        <Bell size={20} color={palette.gray} /> {/* 중괄호 추가 */}
       </button>
     </header>
   );
