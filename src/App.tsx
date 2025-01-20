@@ -1,10 +1,14 @@
-function App() {
-  const a = "r";
+import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import AppRoutes from './routes/routes'; // routes 경로
+import './index.css'; // 필요한 경우 CSS 파일을 추가
+
+const App: React.FC = () => {
   return (
-    <>
-      <h1>App</h1>
-    </>
+    <Router>
+      <AppRoutes /> {/* 라우트 컴포넌트 사용 */}
+    </Router>
   );
-}
+};
 
 export default App;
