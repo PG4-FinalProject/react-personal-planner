@@ -1,13 +1,21 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 import Header from './Header';
 import Footer from './Footer';
 import Content from './Content';
+import { palette } from '../../styles/palette';
 import { PlusButton } from '../common/PlusBtn';
 
 interface MainLayoutProps {
   children: React.ReactNode;
 }
+
+const LayoutWrapper = styled.div`
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+`;
 
 const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   const navigate = useNavigate();
@@ -20,15 +28,24 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
     navigate(path);
   };
 
+  const handleMenuClick = () => {
+    console.log('Menu clicked');
+  };
+
+  const handleNotificationClick = () => {
+    console.log('Notification clicked');
+  };
+
   return (
-    <div className="main-layout">
-      <Header />
-      <main className="main-content">
-        <Content>{children}</Content>
-      </main>
+    <LayoutWrapper>
+      <Header
+        onMenuClick={handleMenuClick}
+        onNotificationClick={handleNotificationClick}
+      />
+      <Content>{children}</Content>
       <PlusButton onClick={handleAddClick} />
       <Footer onPageChange={handlePageChange} />
-    </div>
+    </LayoutWrapper>
   );
 };
 
