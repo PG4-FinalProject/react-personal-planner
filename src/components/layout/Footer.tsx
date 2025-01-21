@@ -1,5 +1,6 @@
 import React from 'react';
 import { Calendar, ListTodo, BarChart2, User } from 'lucide-react';
+import { palette } from '../../styles/palette'; // 팔레트 임포트
 
 interface FooterProps {
   currentPage: string;
