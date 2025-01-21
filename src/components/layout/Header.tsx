@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Bell, Menu } from 'lucide-react';
+import { palette } from '../../styles/palette';
 import Logo from '../../assets/Logo.png';
 
 interface HeaderProps {
@@ -16,7 +17,7 @@ const HeaderWrapper = styled.header`
   width: 100%;
   max-width: 534px;
   height: 56px;
-  background-color: #ffffff;
+  background-color: ${palette.white};
   border-bottom: 1px solid #ebebeb;
   display: flex;
   align-items: center;
