@@ -1,16 +1,18 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
-import Calendar from '../pages/Calendar'; // Calendar 경로를 맞춰주세요.
-// import CreatePlans from '../pages/CreatePlans';
+import { Route, Routes, Navigate } from 'react-router-dom';
+import Calendar from '../pages/Calendar';
+import Plans from '../pages/Plans';
+import Statistics from '../pages/Statistics';
+import Users from '../pages/Users';
 
 const AppRoutes: React.FC = () => {
   return (
     <Routes>
-      <Route path="/" element={<Calendar />} index /> {/* 기본 경로에서 캘린더 페이지 표시 */}
-      <Route path="/calendar" element={<Calendar />} /> 캘린더 페이지
-      {/* <Route path="/plans" element={<CreatePlans />} /> */}
-      {/* 다른 페이지를 추가하려면 여기에 Route를 추가 */}
-
+      <Route path="/" element={<Navigate to="/calendar" replace />} />
+      <Route path="/calendar" element={<Calendar />} />
+      <Route path="/plans" element={<Plans />} />
+      <Route path="/statistics" element={<Statistics />} />
+      <Route path="/users" element={<Users />} />
     </Routes>
   );
 };
