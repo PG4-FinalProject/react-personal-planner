@@ -7,7 +7,7 @@ const StyledBox = styled.div<{
   margin?: string; // margin을 선택적으로 수정
 }>`
   padding: ${props => props.padding || '16px'}; // 패딩을 유연하게 설정
-  border-radius: 4px;
+  border-radius: 8px;
   background-color: ${props => props.bgColor || '#fff'};
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
   margin: ${props => props.margin || '16px'}; // 마진을 유연하게게 설정
