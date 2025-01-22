@@ -6,6 +6,8 @@ import Footer from './Footer';
 import Content from './Content';
 import { PlusButton } from '../common/PlusBtn';
 
+
+
 interface MainLayoutProps {
   children: React.ReactNode;
 }
@@ -18,10 +20,6 @@ const LayoutWrapper = styled.div`
 
 const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   const navigate = useNavigate();
-
-  const handleAddClick = () => {
-    navigate('/plans/create');
-  };
 
   const handlePageChange = (path: string) => {
     navigate(path);
@@ -42,7 +40,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
         onNotificationClick={handleNotificationClick}
       />
       <Content>{children}</Content>
-      <PlusButton onClick={handleAddClick} />
+
       <Footer onPageChange={handlePageChange} />
     </LayoutWrapper>
   );

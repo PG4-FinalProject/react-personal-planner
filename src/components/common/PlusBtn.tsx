@@ -1,31 +1,43 @@
 import React from 'react';
-import { Plus } from 'lucide-react'; // 아이콘 임포트
-import { palette } from '../../styles/palette'; // 팔레트 임포트
+import styled from 'styled-components';
+import { Plus } from 'lucide-react';
+import { palette } from '../../styles/palette';
 
 interface PlusButtonProps {
-  onClick: () => void; // onClick prop의 타입 정의
+  onClick: () => void;
 }
+
+const StyledButton = styled.button`
+  background-color: ${palette.blue};
+  color: ${palette.white};
+  border: none;
+  border-radius: 50%;
+  padding: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+`;
 
 export const PlusButton: React.FC<PlusButtonProps> = ({ onClick }) => {
   return (
-    <button
-      onClick={onClick}
-      style={{
-        backgroundColor: palette.blue, // 팔레트의 파란색 사용
-        color: palette.white, // 아이콘 색상
-        border: 'none', // 테두리 없음
-        borderRadius: '50%', // 완전한 원형으로 만들기
-        padding: '10px', // 여백
-        cursor: 'pointer', // 커서 모양
-        display: 'flex', // 아이콘 정렬
-        alignItems: 'center', // 세로 정렬
-        justifyContent: 'center', // 가로 정렬
-        width: '50px', // 버튼 너비
-        height: '50px', // 버튼 높이
-        position: 'fixed', // 고정 위치
-      }}
-    >
-      <Plus color={palette.white} size={24} /> {/* 아이콘 */}
-    </button>
+    <StyledButton onClick={onClick}>
+      <Plus color={palette.white} size={24} />
+    </StyledButton>
   );
 };
