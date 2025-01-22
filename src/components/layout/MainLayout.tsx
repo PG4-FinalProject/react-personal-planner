@@ -4,7 +4,9 @@ import styled from 'styled-components';
 import Header from './Header';
 import Footer from './Footer';
 import Content from './Content';
-import { palette } from '../../styles/palette';
+import { PlusButton } from '../common/PlusBtn';
+
+
 
 interface MainLayoutProps {
   children: React.ReactNode;
