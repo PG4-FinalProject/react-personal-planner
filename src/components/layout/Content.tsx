@@ -4,9 +4,12 @@ import { palette } from '../../styles/palette';
 
 interface ContentProps {
   children: React.ReactNode;
+  color?: string;
 }
 
-const ContentWrapper = styled.div`
+const ContentWrapper = styled.div<{
+  color?: string;
+}>`
   width: 100%;
   max-width: 534px;
   margin-left: auto;
@@ -14,12 +17,12 @@ const ContentWrapper = styled.div`
   padding-top: 56px;
   padding-bottom: 56px;
   min-height: 100vh;
-  background-color: ${palette.background};
+  background-color: ${props => props.color || palette.background};
   position: relative;
 `;
 
-const Content: React.FC<ContentProps> = ({ children }) => {
-  return <ContentWrapper>{children}</ContentWrapper>;
+const Content: React.FC<ContentProps> = ({ children, color }) => {
+  return <ContentWrapper color={color}>{children}</ContentWrapper>;
 };
 
 export default Content;

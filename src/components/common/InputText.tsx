@@ -6,13 +6,17 @@ const StyledInput = styled.input<{
   width?: string;
   bgColor?: string;
   fontSize?: string;
+  borderColor?: string; // 테두리 색상
+  borderWidth?: string; // 테두리 두께
+  borderStyle?: string; // 테두리 스타일
 }>`
   height: ${props => props.height || '40px'};
   width: ${props => props.width || '200px'};
   background-color: ${props => props.bgColor || '#fff'};
   font-size: ${props => props.fontSize || '16px'};
   color: #333;
-  border: 1px solid #ccc;
+  border: ${props =>
+    `${props.borderWidth || '1px'} ${props.borderStyle || 'solid'} ${props.borderColor || '#ccc'}`}; // 사용자 지정 테두리
   border-radius: 4px;
   padding: 8px;
   outline: none;
@@ -32,6 +36,11 @@ interface InputTextProps {
   placeholder?: string;
   value?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  type?: string; // type prop 추가
+  style?: React.CSSProperties; // style prop 추가
+  borderColor?: string; // 테두리 색상 prop 추가
+  borderWidth?: string; // 테두리 두께 prop 추가
+  borderStyle?: string; // 테두리 스타일 prop 추가
 }
 
 const InputText: React.FC<InputTextProps> = ({
@@ -42,6 +51,11 @@ const InputText: React.FC<InputTextProps> = ({
   placeholder,
   value,
   onChange,
+  type = 'text', // 기본 타입 설정
+  style,
+  borderColor,
+  borderWidth,
+  borderStyle,
 }) => {
   return (
     <StyledInput
@@ -52,6 +66,11 @@ const InputText: React.FC<InputTextProps> = ({
       placeholder={placeholder}
       value={value}
       onChange={onChange}
+      type={type} // type prop 전달
+      style={style} // style prop 전달
+      borderColor={borderColor} // 테두리 색상 전달
+      borderWidth={borderWidth} // 테두리 두께 전달
+      borderStyle={borderStyle} // 테두리 스타일 전달
     />
   );
 };
