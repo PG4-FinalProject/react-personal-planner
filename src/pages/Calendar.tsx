@@ -36,6 +36,24 @@ const Calendar: React.FC = () => {
           {/* 캘린더 컴포넌트나 기능을 여기에 추가할 수 있습니다. */}
         </ContentUIBox>
       </ContentUIBox>
+      <ContentUIBox bgColor={palette.white}>
+        <h1>캘린더 페이지</h1>
+        <p>여기에 캘린더 관련 콘텐츠를 추가하세요.</p>
+        {/* 캘린더 컴포넌트나 기능을 여기에 추가할 수 있습니다. */}
+
+        <ContentUIBox bgColor={palette.lightblue} padding="4px" margin="8px">
+          <ButtonContainer>
+            <div>
+              <h2>옵션 설정</h2>
+            </div>
+            <Toggle
+              isActive={isActive}
+              onToggle={() => setIsActive(prev => !prev)}
+            />
+          </ButtonContainer>
+          {/* 캘린더 컴포넌트나 기능을 여기에 추가할 수 있습니다. */}
+        </ContentUIBox>
+      </ContentUIBox>
     </MainLayout>
   );
 };
