@@ -1,13 +1,5 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import styled from 'styled-components';
-import { Bell, Menu } from 'lucide-react';
-import { palette } from '../../styles/palette';
-import Logo from '../../assets/Logo.png';
-
-interface HeaderProps {
-  onMenuClick: () => void;
-  onNotificationClick: () => void;
-}
 
 const HeaderWrapper = styled.header`
   position: fixed;
@@ -17,7 +9,7 @@ const HeaderWrapper = styled.header`
   width: 100%;
   max-width: 534px;
   height: 56px;
-  background-color: ${palette.white};
+  background-color: #ffffff; /* 배경색을 직접 지정 */
   border-bottom: 1px solid #ebebeb;
   display: flex;
   align-items: center;
@@ -26,51 +18,12 @@ const HeaderWrapper = styled.header`
   z-index: 100;
 `;
 
-const HeaderLeft = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 12px;
-`;
+interface HeaderProps {
+  children: ReactNode; // children의 타입을 ReactNode로 설정
+}
 
-const HeaderButton = styled.button`
-  background: none;
-  border: none;
-  padding: 8px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 8px;
-  color: #666666;
-
-  &:hover {
-    background-color: #f5f5f5;
-  }
-`;
-
-const LogoImage = styled.img`
-  height: 24px;
-  width: auto;
-  object-fit: contain;
-`;
-
-const Header: React.FC<HeaderProps> = ({
-  onMenuClick,
-  onNotificationClick,
-}) => {
-  return (
-    <HeaderWrapper>
-      <HeaderLeft>
-        <HeaderButton onClick={onMenuClick} aria-label="메뉴 열기">
-          <Menu size={24} color="#4B5563" />
-        </HeaderButton>
-        <LogoImage src={Logo} alt="로고" />
-      </HeaderLeft>
-      <HeaderButton onClick={onNotificationClick} aria-label="알림 보기">
-        <Bell size={20} color="#4B5563" />
-      </HeaderButton>
-    </HeaderWrapper>
-  );
+const Header: React.FC<HeaderProps> = ({ children }) => {
+  return <HeaderWrapper>{children}</HeaderWrapper>;
 };
 
 export default Header;

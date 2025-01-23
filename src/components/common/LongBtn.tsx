@@ -1,0 +1,53 @@
+import React from 'react';
+import styled from 'styled-components';
+
+const StyledButton = styled.button<{
+  height?: string;
+  width?: string;
+  color?: string;
+  fontSize?: string;
+}>`
+  height: ${props => props.height || '40px'};
+  width: ${props => props.width || '100px'};
+  background-color: ${props => props.color || '#007BFF'};
+  font-size: ${props => props.fontSize || '16px'};
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+interface ButtonProps {
+  children: React.ReactNode;
+  height?: string;
+  width?: string;
+  color?: string;
+  fontSize?: string;
+  onClick?: () => void;
+}
+
+const Button: React.FC<ButtonProps> = ({
+  children,
+  height,
+  width,
+  color,
+  fontSize,
+  onClick,
+}) => {
+  return (
+    <StyledButton
+      height={height}
+      width={width}
+      color={color}
+      fontSize={fontSize}
+      onClick={onClick}
+    >
+      {children}
+    </StyledButton>
+  );
+};
+
+export default Button;
