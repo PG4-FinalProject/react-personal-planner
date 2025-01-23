@@ -8,7 +8,7 @@ const HeaderWrapper = styled.header`
   transform: translateX(-50%);
   width: 100%;
   max-width: 534px;
-  height: 56px;
+  height: 65px;
   background-color: #ffffff; /* 배경색을 직접 지정 */
   border-bottom: 1px solid #ebebeb;
   display: flex;

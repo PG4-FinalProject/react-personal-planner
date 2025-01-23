@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
 import { palette } from '../../styles/palette';
 
 interface FooterProps {
   onPageChange: (path: string) => void;
+  children?: ReactNode; // children prop 추가
 }
 
 // 스타일 정의
@@ -15,7 +16,7 @@ const FooterWrapper = styled.footer`
   transform: translateX(-50%);
   width: 100%;
   max-width: 534px;
-  height: 56px;
+  height: 65px;
   background-color: ${palette.white};
   border-top: 1px solid #ebebeb;
   display: flex;
@@ -24,11 +25,11 @@ const FooterWrapper = styled.footer`
   z-index: 100;
 `;
 
-const Footer: React.FC<FooterProps> = () => {
+const Footer: React.FC<FooterProps> = ({ onPageChange, children }) => {
+  // children 추가
   return (
     <FooterWrapper>
-      {/* 레이아웃만 잡기 위해 내용은 비워둡니다. */}
-      {/* 필요한 경우 여기에 자식 컴포넌트를 추가할 수 있습니다. */}
+      {children} {/* children을 사용하여 외부에서 전달된 내용 표시 */}
     </FooterWrapper>
   );
 };
