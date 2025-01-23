@@ -4,6 +4,7 @@ import MainLayout from '../components/layout/MainLayout'; // MainLayout 경로�
 import ContentUIBox from '../components/layout/ContentUIBox';
 import { palette } from '../styles/palette';
 import Toggle from '../components/common/ToggleBtn';
+import Button from '../components/common/LongBtn'; // 경로를 맞춰주세요
 
 const ButtonContainer = styled.div`
   display: flex;

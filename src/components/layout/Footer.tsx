@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Calendar, ListTodo, BarChart2, User } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
 import { palette } from '../../styles/palette';
 
@@ -8,6 +7,7 @@ interface FooterProps {
   onPageChange: (path: string) => void;
 }
 
+// 스타일 정의
 const FooterWrapper = styled.footer`
   position: fixed;
   bottom: 0;
@@ -24,64 +24,11 @@ const FooterWrapper = styled.footer`
   z-index: 100;
 `;
 
-interface FooterButtonProps {
-  isActive: boolean;
-}
-
-const FooterButton = styled.button<FooterButtonProps>`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  border: none;
-  background: none;
-  cursor: pointer;
-  width: 25%;
-  padding: 8px 0;
-  color: ${props => (props.isActive ? palette.blue : '#666666')};
-  transition: all 0.2s ease-in-out;
-
-  &:hover {
-    opacity: 0.8;
-  }
-`;
-
-const ButtonText = styled.span<FooterButtonProps>`
-  font-size: 11px;
-  line-height: 1.2;
-  color: ${props => (props.isActive ? palette.blue : '#666666')};
-  transition: color 0.2s ease-in-out;
-`;
-
-const menuItems = [
-  { id: 'calendar', icon: Calendar, label: '캘린더', path: '/calendar' },
-  { id: 'plans', icon: ListTodo, label: '할일', path: '/plans' },
-  { id: 'statistics', icon: BarChart2, label: '통계', path: '/statistics' },
-  { id: 'users', icon: User, label: '프로필', path: '/users' },
-];
-
-const Footer: React.FC<FooterProps> = ({ onPageChange }) => {
-  const location = useLocation();
-  const currentPath = location.pathname;
-
+const Footer: React.FC<FooterProps> = () => {
   return (
     <FooterWrapper>
-      {menuItems.map(item => {
-        const isActive =
-          currentPath === item.path ||
-          (currentPath === '/' && item.path === '/calendar');
-        return (
-          <FooterButton
-            key={item.id}
-            isActive={isActive}
-            onClick={() => onPageChange(item.path)}
-            aria-label={item.label}
-          >
-            <item.icon size={20} color={isActive ? palette.blue : '#666666'} />
-            <ButtonText isActive={isActive}>{item.label}</ButtonText>
-          </FooterButton>
-        );
-      })}
+      {/* 레이아웃만 잡기 위해 내용은 비워둡니다. */}
+      {/* 필요한 경우 여기에 자식 컴포넌트를 추가할 수 있습니다. */}
     </FooterWrapper>
   );
 };
