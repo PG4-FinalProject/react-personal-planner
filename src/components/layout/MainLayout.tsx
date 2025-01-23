@@ -1,15 +1,22 @@
 import React, { ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { palette } from '../../styles/palette';
 import Header from './Header';
 import Footer from './Footer';
 import Content from './Content';
 import { PlusButton } from '../common/PlusBtn';
-import LucideIcon from '../common/LucideIcon';
+import LucideIcon, { type LucideIconProps } from '../common/LucideIcon';
 import Logo from '../common/Logo';
 
 interface MainLayoutProps {
   children: ReactNode;
+}
+
+interface NavItem {
+  path: string;
+  icon: LucideIconProps['name'];
+  label: string;
 }
 
 const LayoutWrapper = styled.div`
@@ -50,8 +57,37 @@ const FloatingButtonWrapper = styled.div`
   }
 `;
 
+const FooterIconButton = styled.button<{ isActive: boolean }>`
+  background: none;
+  border: none;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  color: ${({ isActive }) =>
+    isActive ? palette.blue : '#666666'}; /* 활성화된 색상 */
+  font-size: 12px;
+
+  &:hover {
+    color: ${palette.blue}; /* 호버 시 텍스트 색상 변경 */
+
+    /* 호버 시 아이콘 색상 변경 */
+    svg {
+      color: ${palette.blue}; /* 아이콘 색상 변경 */
+    }
+  }
+`;
+
+const IconLabel = styled.span`
+  margin-top: 2px;
+  font-size: 12px;
+`;
+
 const MainLayout = ({ children }: MainLayoutProps) => {
   const navigate = useNavigate();
+  const currentPath = window.location.pathname; // 현재 경로 가져오기
 
   const handlePageChange = (path: string) => {
     navigate(path);
@@ -69,26 +105,46 @@ const MainLayout = ({ children }: MainLayoutProps) => {
     <>
       <HeaderLeft>
         <HeaderButton onClick={handleMenuClick} aria-label="메뉴 열기">
-          <LucideIcon name="Menu" size={24} color="#4B5563" />
+          <LucideIcon name="Menu" size={24} />
         </HeaderButton>
         <Logo height="24px" />
       </HeaderLeft>
       <HeaderButton onClick={handleNotificationClick} aria-label="알림 보기">
-        <LucideIcon name="Bell" size={20} color="#4B5563" />
+        <LucideIcon name="Bell" size={20} />
       </HeaderButton>
+    </>
+  );
+
+  const navItems: NavItem[] = [
+    { path: '/calendar', icon: 'Calendar', label: '캘린더' },
+    { path: '/plans', icon: 'ListTodo', label: '할일' },
+    { path: '/statistics', icon: 'ChartBar', label: '통계' },
+    { path: '/users', icon: 'User', label: '프로필' },
+  ];
+
+  const footerContent = (
+    <>
+      {navItems.map(({ path, icon, label }) => (
+        <FooterIconButton
+          key={path}
+          onClick={() => handlePageChange(path)}
+          isActive={currentPath === path} // 현재 경로와 비교하여 활성화 상태 결정
+        >
+          <LucideIcon name={icon} size={24} /> {/* 색상 prop 제거 */}
+          <IconLabel>{label}</IconLabel>
+        </FooterIconButton>
+      ))}
     </>
   );
 
   return (
     <LayoutWrapper>
       <Header>{headerContent}</Header>
-      <Content>
-        {children}
-        <FloatingButtonWrapper>
-          <PlusButton onClick={() => navigate('/plans/create')} />
-        </FloatingButtonWrapper>
-      </Content>
-      <Footer onPageChange={handlePageChange} />
+      <Content>{children}</Content>
+      <FloatingButtonWrapper>
+        <PlusButton onClick={() => navigate('/plans/create')} />
+      </FloatingButtonWrapper>
+      <Footer onPageChange={handlePageChange}>{footerContent}</Footer>
     </LayoutWrapper>
   );
 };
