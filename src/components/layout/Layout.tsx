@@ -14,7 +14,7 @@ const Layout = ({ children, headerContent, onPageChange }: LayoutProps) => {
   return (
     <div className="relative min-h-screen w-full">
       <Header color={palette.white}>{headerContent}</Header>
-      <Content color={palette.white}>{children}</Content>
+      <Content color={palette.background}>{children}</Content>
       <Footer color={palette.white} onPageChange={onPageChange} />
     </div>
   );
