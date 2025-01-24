@@ -34,7 +34,7 @@ const Join: React.FC = () => {
     }
 
     try {
-      const result = await join(name, email, password); // 순서 변경
+      const result = await join(name, email, password);
       console.log('회원가입 성공:', result);
       navigate('/users/login');
     } catch (error) {
