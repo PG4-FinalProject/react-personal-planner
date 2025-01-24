@@ -140,7 +140,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
   return (
     <LayoutWrapper>
       <Header>{headerContent}</Header>
-      <Content>{children}</Content>
+      <Content background-color={palette.background}>{children}</Content>
       <FloatingButtonWrapper>
         <PlusButton onClick={() => navigate('/plans/create')} />
       </FloatingButtonWrapper>

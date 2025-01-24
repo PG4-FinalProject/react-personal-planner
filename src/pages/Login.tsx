@@ -1,10 +1,11 @@
+// src/pages/Login.tsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 import InputText from '../components/common/InputText';
 import Logo from '../components/common/Logo';
-import { login } from '../utils/auth';
+import { login } from '../apis/auth';
 import {
   StyledContent,
   FormContainer,
@@ -29,17 +30,18 @@ const Login: React.FC = () => {
 
   const handleLogin = async () => {
     try {
-      const data = await login(email, password);
-      console.log('로그인 성공:', data);
-      navigate('/dashboard');
+      await login(email, password);
+      navigate('/'); // 메인 페이지로 이동
     } catch (error) {
-      console.error('로그인 실패:', error);
+      alert(
+        (error as Error).message || '로그인 중 알 수 없는 오류가 발생했습니다.',
+      );
     }
   };
 
   return (
     <>
-      <Header>
+      <Header borderWidth="0px">
         <div></div>
       </Header>
       <StyledContent>
@@ -73,13 +75,13 @@ const Login: React.FC = () => {
             />
           </InputContainer>
 
-          <LoginButton onClick={handleLogin} width={'100%'} height={'48px'}>
+          <LoginButton onClick={handleLogin} width={'100%'} height={'54px'}>
             로그인
           </LoginButton>
 
           <SignupText>
             아직 회원이 아니세요?
-            <a onClick={() => navigate('/usrs/join')}>회원 가입하기</a>
+            <a onClick={() => navigate('/users/join')}>회원 가입하기</a>
           </SignupText>
 
           <Divider>

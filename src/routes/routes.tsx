@@ -4,7 +4,7 @@ import Calendar from '../pages/Calendar';
 import Plans from '../pages/Plans';
 import Statistics from '../pages/Statistics';
 import Users from '../pages/Users';
-import Join from '../pages/Users';
+import Join from '../pages/Join';
 import Login from '../pages/Login';
 // import CreatePlans from '../pages/CreatePlans';
 
