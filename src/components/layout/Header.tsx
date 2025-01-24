@@ -2,7 +2,10 @@ import React, { ReactNode } from 'react';
 import styled from 'styled-components';
 import { palette } from '../../styles/palette';
 
-const HeaderWrapper = styled.header`
+const HeaderWrapper = styled.header<{
+  borderWidth?: string;
+  borderColor?: string;
+}>`
   position: fixed;
   top: 0;
   left: 50%;
@@ -11,7 +14,8 @@ const HeaderWrapper = styled.header`
   max-width: 534px;
   height: 65px;
   background-color: ${props => props.color || palette.white};
-  border-bottom: 1px solid #ebebeb;
+  border-bottom: ${props => props.borderWidth || '1px'} solid
+    ${props => props.borderColor || '#ebebeb'};
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -21,11 +25,26 @@ const HeaderWrapper = styled.header`
 
 interface HeaderProps {
   children: ReactNode; // children의 타입을 ReactNode로 설정
-  color?: string;
+  color?: string; // 배경색
+  borderColor?: string; // 하단 테두리 색상
+  borderWidth?: string; // 하단 테두리 두께
 }
 
-const Header: React.FC<HeaderProps> = ({ children, color }) => {
-  return <HeaderWrapper color={color}>{children}</HeaderWrapper>;
+const Header: React.FC<HeaderProps> = ({
+  children,
+  color,
+  borderColor,
+  borderWidth,
+}) => {
+  return (
+    <HeaderWrapper
+      color={color}
+      borderColor={borderColor}
+      borderWidth={borderWidth}
+    >
+      {children}
+    </HeaderWrapper>
+  );
 };
 
 export default Header;

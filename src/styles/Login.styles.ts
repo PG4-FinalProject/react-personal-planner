@@ -9,7 +9,7 @@ export const StyledContent = styled(Content)`
   align-items: flex-start;
   padding-top: 120px;
   min-height: calc(100vh - 112px);
-  background-color: ${palette.white};
+  background-color: ${palette.black};
   margin-top: 20px;
 `;
 
@@ -18,10 +18,10 @@ export const FormContainer = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  max-width: 400px;
+  max-width: 502px;
   padding: 0 20px;
   padding-top: 130px;
-  margin: 70px;
+  margin: 20px;
 `;
 
 export const LogoContainer = styled.div`
@@ -45,7 +45,7 @@ export const InputContainer = styled.div`
 
 export const LoginButton = styled(Button)`
   width: 100%;
-  height: 48px;
+  height: 54px;
   margin-bottom: 16px;
   background-color: #4285f4;
 `;
