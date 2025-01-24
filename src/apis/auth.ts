@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3000';
+const API_URL = 'http://localhost:9999';
 
 // 프론트엔드 auth.ts 수정
 export const join = async (name: string, email: string, password: string) => {

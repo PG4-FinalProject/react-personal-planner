@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
+import { palette } from '../styles/palette';
 import InputText from '../components/common/InputText';
 import Logo from '../components/common/Logo';
 import { login } from '../apis/auth';
@@ -44,7 +45,7 @@ const Login: React.FC = () => {
       <Header borderWidth="0px">
         <div></div>
       </Header>
-      <StyledContent>
+      <StyledContent color={palette.white}>
         <FormContainer>
           <LogoContainer>
             <Logo height="40px" />
@@ -107,7 +108,7 @@ const Login: React.FC = () => {
           </SocialLoginContainer>
         </FormContainer>
       </StyledContent>
-      <Footer onPageChange={handlePageChange} />
+      <Footer onPageChange={handlePageChange} borderWidth={'0px'} />
     </>
   );
 };

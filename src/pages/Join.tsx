@@ -1,11 +1,11 @@
-// src/pages/Join.tsx
-import React, { Children, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { palette } from '../styles/palette';
+import { join } from '../apis/auth';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 import InputText from '../components/common/InputText';
-import { palette } from '../styles/palette';
-import { join } from '../apis/auth';
+import Button from '../components/common/LongBtn';
 import Title from '../components/common/Title';
 import {
   StyledContent,
@@ -13,7 +13,6 @@ import {
   Subtitle,
   InputContainer,
   TermsContainer,
-  JoinButton,
 } from '../styles/Join.styles';
 
 const Join: React.FC = () => {
@@ -23,34 +22,34 @@ const Join: React.FC = () => {
   const [agreed, setAgreed] = useState(false);
   const navigate = useNavigate();
 
-  const handlePageChange = (path: string) => {
-    navigate(path);
-  };
-
-  const handleJoin = async (): Promise<void> => {
+  const handleJoin = async () => {
     if (!agreed) {
       alert('이용약관에 동의해주세요.');
       return;
     }
 
     try {
-      const result = await join(name, email, password);
-      console.log('회원가입 성공:', result);
+      await join(name, email, password);
       navigate('/users/login');
     } catch (error) {
-      alert(
-        (error as Error).message ||
-          '회원가입 중 알 수 없는 오류가 발생했습니다.',
-      );
+      alert((error as Error).message || '회원가입 중 오류가 발생했습니다.');
     }
+  };
+
+  const inputProps = {
+    height: '54px',
+    width: '100%',
+    bgColor: '#f8f8f8',
+    fontSize: '16px',
+    borderWidth: '0px',
   };
 
   return (
     <>
-      <Header borderWidth={'0px'}>
-        <div></div>
+      <Header borderWidth="0px">
+        <div />
       </Header>
-      <StyledContent background-Color={palette.black}>
+      <StyledContent color={palette.white}>
         <FormContainer>
           <Title fontSize="34px" color="#000" textAlign="left">
             회원가입
@@ -59,34 +58,22 @@ const Join: React.FC = () => {
 
           <InputContainer>
             <InputText
-              height="54px"
-              width="100%"
-              bgColor="#f8f8f8"
-              fontSize="16px"
+              {...inputProps}
               placeholder="이름"
               value={name}
-              borderWidth="0px"
               onChange={e => setName(e.target.value)}
             />
             <InputText
-              height="54px"
-              width="100%"
-              bgColor="#f8f8f8"
-              fontSize="16px"
+              {...inputProps}
               placeholder="이메일"
               value={email}
-              borderWidth="0px"
               onChange={e => setEmail(e.target.value)}
             />
             <InputText
-              height="54px"
-              width="100%"
-              bgColor="#f8f8f8"
-              fontSize="16px"
+              {...inputProps}
               type="password"
               placeholder="비밀번호"
               value={password}
-              borderWidth="0px"
               onChange={e => setPassword(e.target.value)}
             />
           </InputContainer>
@@ -105,12 +92,17 @@ const Join: React.FC = () => {
             </label>
           </TermsContainer>
 
-          <JoinButton onClick={handleJoin} width={'100%'} height={'54px'}>
+          <Button
+            onClick={handleJoin}
+            width="100%"
+            height="54px"
+            background-color={palette.blue}
+          >
             가입하기
-          </JoinButton>
+          </Button>
         </FormContainer>
       </StyledContent>
-      <Footer onPageChange={handlePageChange} />
+      <Footer onPageChange={path => navigate(path)} borderWidth="0px" />
     </>
   );
 };
