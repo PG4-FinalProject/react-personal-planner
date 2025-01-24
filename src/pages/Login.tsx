@@ -1,3 +1,4 @@
+// src/pages/Login.tsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/layout/Header';
@@ -32,9 +33,9 @@ const Login: React.FC = () => {
       await login(email, password);
       navigate('/'); // 메인 페이지로 이동
     } catch (error) {
-      if (error instanceof Error) {
-        alert(error.message);
-      }
+      alert(
+        (error as Error).message || '로그인 중 알 수 없는 오류가 발생했습니다.',
+      );
     }
   };
 

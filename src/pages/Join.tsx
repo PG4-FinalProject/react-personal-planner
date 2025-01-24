@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+// src/pages/Join.tsx
+import React, { Children, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
@@ -33,26 +34,23 @@ const Join: React.FC = () => {
     }
 
     try {
-      // 회원가입 처리 로직
-      const result = await join(email, password, name);
+      const result = await join(name, email, password); // 순서 변경
       console.log('회원가입 성공:', result);
-      // 성공 시 다른 페이지로 이동하거나 알림 등을 추가
-      navigate('/users/login'); // 예시: 가입 성공 후 이동할 페이지
+      navigate('/users/login');
     } catch (error) {
-      if (error instanceof Error) {
-        alert(error.message); // 오류 메시지 표시
-      } else {
-        alert('회원가입 중 알 수 없는 오류가 발생했습니다.');
-      }
+      alert(
+        (error as Error).message ||
+          '회원가입 중 알 수 없는 오류가 발생했습니다.',
+      );
     }
   };
 
   return (
     <>
-      <Header borderWidth="0px">
+      <Header borderWidth={'0px'}>
         <div></div>
       </Header>
-      <StyledContent background-color={palette.black}>
+      <StyledContent background-Color={palette.black}>
         <FormContainer>
           <Title fontSize="34px" color="#000" textAlign="left">
             회원가입

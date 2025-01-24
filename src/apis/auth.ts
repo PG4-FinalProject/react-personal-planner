@@ -1,44 +1,38 @@
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 
-interface AuthResponse {
-  token: string;
-  message: string;
-}
+const API_URL = 'http://localhost:3000';
 
-interface ErrorResponse {
-  message: string;
-}
-
-export const login = async (email: string, password: string) => {
+export const join = async (email: string, password: string, name: string) => {
   try {
-    const response = await axios.post<AuthResponse>('/api/users/login', {
+    const response = await axios.post(`${API_URL}/users/join`, {
+      name, // 순서 변경
       email,
       password,
     });
-
-    const { token } = response.data;
-    localStorage.setItem('token', token);
     return response.data;
   } catch (error) {
-    const axiosError = error as AxiosError<ErrorResponse>;
-    throw new Error(
-      axiosError.response?.data.message || '로그인에 실패했습니다.',
-    );
+    if (axios.isAxiosError(error)) {
+      throw new Error(error.response?.data.message || '회원가입 실패');
+    }
+    throw error;
   }
 };
 
-export const join = async (name: string, email: string, password: string) => {
+export const login = async (email: string, password: string) => {
   try {
-    const response = await axios.post<AuthResponse>('/api/users/join', {
-      name,
+    const response = await axios.post(`${API_URL}/users/login`, {
       email,
       password,
     });
+
+    if (response.data.token) {
+      localStorage.setItem('token', response.data.token);
+    }
     return response.data;
   } catch (error) {
-    const axiosError = error as AxiosError<ErrorResponse>;
-    throw new Error(
-      axiosError.response?.data.message || '회원가입에 실패했습니다.',
-    );
+    if (axios.isAxiosError(error)) {
+      throw new Error(error.response?.data.message || '로그인 실패');
+    }
+    throw error;
   }
 };
