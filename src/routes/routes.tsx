@@ -6,6 +6,7 @@ import Statistics from '../pages/Statistics';
 import Users from '../pages/Users';
 import Join from '../pages/Join';
 import Login from '../pages/Login';
+import WeatherDetail from '../pages/Weather';
 // import CreatePlans from '../pages/CreatePlans';
 
 const AppRoutes: React.FC = () => {
@@ -19,6 +20,7 @@ const AppRoutes: React.FC = () => {
       <Route path="/users" element={<Users />} />
       <Route path="/users/join" element={<Join />} />
       <Route path="/users/login" element={<Login />} />
+      <Route path="/weather" element={<WeatherDetail />} />
     </Routes>
   );
 };
