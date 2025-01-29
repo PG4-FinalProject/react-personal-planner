@@ -8,11 +8,11 @@ import tsParser from '@typescript-eslint/parser';
 export default tseslint.config(
   { ignores: ['dist'] },
   {
-    //parser: tsParser,
+    parser: tsParser,
     extends: [
       js.configs.recommended,
       ...tseslint.configs.recommended,
-      // "plugin:prettier/recommended",
+      'plugin:prettier/recommended',
     ],
     files: ['**/*.{js,jsx,ts,tsx}'],
     languageOptions: {
@@ -29,7 +29,7 @@ export default tseslint.config(
         'warn',
         { allowConstantExport: true },
       ],
-      //"prettier/prettier": "error",
+      'prettier/prettier': 'error',
     },
   },
 );
