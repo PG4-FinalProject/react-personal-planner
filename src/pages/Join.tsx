@@ -1,39 +1,41 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { palette } from '../styles/palette';
-import { join } from '../apis/auth.api';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 import InputText from '../components/common/InputText';
 import Button from '../components/common/LongBtn';
 import Title from '../components/common/Title';
 import {
-  StyledContent,
   FormContainer,
   Subtitle,
   InputContainer,
   TermsContainer,
 } from '../styles/Join.styles';
+import { useAuth } from '../hooks/useAuth';
+import { useAlert } from '../hooks/useAlert';
+import Content from '../components/layout/Content';
 
 const Join: React.FC = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [agreed, setAgreed] = useState(false);
+
+  const { userJoin } = useAuth();
+  const { showAlert } = useAlert();
   const navigate = useNavigate();
 
-  const handleJoin = async () => {
+  const handleJoin = () => {
     if (!agreed) {
-      alert('이용약관에 동의해주세요.');
+      showAlert('이용약관에 동의해주세요.');
       return;
     }
-
-    try {
-      await join(name, email, password);
-      navigate('/users/login');
-    } catch (error) {
-      alert((error as Error).message || '회원가입 중 오류가 발생했습니다.');
-    }
+    userJoin({
+      name,
+      email,
+      password,
+    });
   };
 
   const inputProps = {
@@ -49,7 +51,7 @@ const Join: React.FC = () => {
       <Header borderWidth="0px">
         <div />
       </Header>
-      <StyledContent color={palette.white}>
+      <Content color={palette.white}>
         <FormContainer>
           <Title fontSize="34px" color="#000" textAlign="left">
             회원가입
@@ -101,7 +103,7 @@ const Join: React.FC = () => {
             가입하기
           </Button>
         </FormContainer>
-      </StyledContent>
+      </Content>
       <Footer onPageChange={path => navigate(path)} borderWidth="0px" />
     </>
   );
