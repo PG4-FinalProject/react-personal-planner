@@ -6,6 +6,7 @@ import MainLayout from '../components/layout/MainLayout';
 import ContentUIBox from '../components/layout/ContentUIBox';
 import WeatherWidget from '../components/WeatherWiget';
 import TodayPriority from '../components/TodyaPriority';
+import CalendarWiget from '../components/calendarwiget/CalendarWiget';
 
 const PageContainer = styled.div`
   display: flex;
@@ -26,11 +27,13 @@ const Calendar: React.FC = () => {
   return (
     <MainLayout>
       <TodayPriority></TodayPriority>
-      <PageContainer>
-        <SideContent>
-          <WeatherWidget />
-        </SideContent>
-      </PageContainer>
+      <SideContent>
+        <WeatherWidget />
+      </SideContent>
+      <div></div>
+      <SideContent>
+        <CalendarWiget></CalendarWiget>
+      </SideContent>
     </MainLayout>
   );
 };

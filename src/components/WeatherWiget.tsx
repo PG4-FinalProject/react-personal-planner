@@ -9,7 +9,7 @@ const StyledWeatherContainer = styled(ContentUIBox)`
   width: 600px;
   cursor: pointer;
   transition: transform 0.2s;
-
+  border-radius: 8px;
   &:hover {
     transform: translateY(-2px);
   }

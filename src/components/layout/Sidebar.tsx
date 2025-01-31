@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import BackBtn from '../common/BackBtn';
+import IconButton from '../common/CheckBtn';
 import styled from 'styled-components';
 import { palette } from '../../styles/palette';
-import IconButton from '../common/CheckBtn';
+import { useAuthStore } from '../../store/authStore';
+import { Bell, Moon, LogOut } from 'lucide-react';
 
 const Overlay = styled.div`
   position: fixed;
@@ -15,12 +17,80 @@ const Overlay = styled.div`
   z-index: 150;
 `;
 
+const ButtonWrapper = styled.div`
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+`;
+
+const SidebarHeader = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  padding: 16px;
+  border-bottom: 1px solid #ebebeb;
+`;
+
+const ProfileSection = styled.div`
+  padding: 24px 16px;
+  border-bottom: 1px solid #ebebeb;
+`;
+
+const ProfileImage = styled.div`
+  width: 64px;
+  height: 64px;
+  border-radius: 32px;
+  background-color: #f5f5f5;
+  margin-bottom: 12px;
+`;
+
+const ProfileName = styled.h2`
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 4px;
+`;
+
+const ProfileEmail = styled.p`
+  font-size: 14px;
+  color: ${palette.gray};
+`;
+
+const MenuSection = styled.div`
+  padding: 16px 0;
+`;
+
+const MenuTitle = styled.h3`
+  font-size: 16px;
+  font-weight: 600;
+  padding: 0 16px;
+  margin-bottom: 8px;
+`;
+
+const MenuItem = styled.button`
+  width: 100%;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: none;
+  background: none;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #f5f5f5;
+  }
+
+  span {
+    font-size: 16px;
+    color: ${palette.gray};
+  }
+`;
+
 const SidebarContainer = styled.div`
   position: fixed;
   top: 0;
   left: 50%;
   width: 387px;
-  transform: translateX(-265px); // (534px + 387px) / 2
+  transform: translateX(-265px);
   height: 100%;
   background-color: white;
   z-index: 200;
@@ -32,37 +102,38 @@ const SidebarContainer = styled.div`
 
   @media (max-width: 1068px) {
     left: 0;
-    transform: none; // 모바일에서는 transform 제거
+    transform: none;
   }
 `;
 
-const SidebarHeader = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  padding: 16px;
-  border-bottom: 1px solid #ebebeb;
-`;
-
-const CloseButton = styled.button`
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+const MenuItemButton = styled(IconButton)`
+  margin: 4px 0;
+  width: 100%;
+  height: 48px;
+  border-radius: 0;
+  background-color: transparent;
   color: ${palette.gray};
+  font-weight: normal;
 
   &:hover {
     background-color: #f5f5f5;
-    border-radius: 50%;
   }
 `;
 
-const ButtonWrapper = styled.div`
-  padding: 20px;
-  display: flex;
-  justify-content: center;
+const LogoutMenuButton = styled(IconButton)`
+  margin: 4px 0;
+  width: 100%;
+  height: 48px;
+  border-radius: 0;
+  background-color: transparent;
+  color: ${palette.red};
+  font-weight: normal;
+  border-top: 1px solid #ebebeb;
+  margin-top: auto;
+
+  &:hover {
+    background-color: #f5f5f5;
+  }
 `;
 
 interface SidebarMenuProps {
@@ -72,6 +143,7 @@ interface SidebarMenuProps {
 
 const SidebarMenu: React.FC<SidebarMenuProps> = ({ isOpen, onClose }) => {
   const navigate = useNavigate();
+  const { isLogin, storeLogout } = useAuthStore();
 
   useEffect(() => {
     if (isOpen) {
@@ -86,8 +158,14 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ isOpen, onClose }) => {
   }, [isOpen]);
 
   const handleLogin = () => {
-    onClose(); // 사이드바를 먼저 닫고
-    navigate('/users/login'); // 로그인 페이지로 이동
+    onClose();
+    navigate('/users/login');
+  };
+
+  const handleLogout = () => {
+    storeLogout();
+    onClose();
+    navigate('/');
   };
 
   if (!isOpen) return null;
@@ -97,21 +175,73 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ isOpen, onClose }) => {
       <Overlay onClick={onClose} />
       <SidebarContainer>
         <SidebarHeader>
-          <CloseButton onClick={onClose} aria-label="메뉴 닫기">
-            <BackBtn size={24} />
-          </CloseButton>
+          <BackBtn size={24} onClick={onClose} />
         </SidebarHeader>
-        <ButtonWrapper>
-          <IconButton
-            width="90%"
-            bgColor={palette.white}
-            color={palette.gray}
-            onClick={handleLogin}
-            fontSize="20px"
-          >
-            로그인하기
-          </IconButton>
-        </ButtonWrapper>
+
+        {isLogin ? (
+          <>
+            <ProfileSection>
+              <ProfileImage />
+              <ProfileName>김철수</ProfileName>
+              <ProfileEmail>kimcs@email.com</ProfileEmail>
+            </ProfileSection>
+
+            <MenuTitle>My account</MenuTitle>
+            <MenuSection>
+              <MenuItemButton
+                width="100%"
+                bgColor="transparent"
+                color={palette.gray}
+              >
+                <div
+                  style={{ display: 'flex', alignItems: 'center', gap: '12px' }}
+                >
+                  <Bell size={20} />
+                  알림 설정
+                </div>
+              </MenuItemButton>
+
+              <MenuItemButton
+                width="100%"
+                bgColor="transparent"
+                color={palette.gray}
+              >
+                <div
+                  style={{ display: 'flex', alignItems: 'center', gap: '12px' }}
+                >
+                  <Moon size={20} />
+                  테마 설정
+                </div>
+              </MenuItemButton>
+
+              <LogoutMenuButton
+                width="100%"
+                bgColor="transparent"
+                color="#ef4444"
+                onClick={handleLogout}
+              >
+                <div
+                  style={{ display: 'flex', alignItems: 'center', gap: '12px' }}
+                >
+                  <LogOut size={20} />
+                  로그아웃
+                </div>
+              </LogoutMenuButton>
+            </MenuSection>
+          </>
+        ) : (
+          <ButtonWrapper>
+            <IconButton
+              width="90%"
+              bgColor={palette.white}
+              color={palette.gray}
+              onClick={handleLogin}
+              fontSize="20px"
+            >
+              로그인하기
+            </IconButton>
+          </ButtonWrapper>
+        )}
       </SidebarContainer>
     </>
   );

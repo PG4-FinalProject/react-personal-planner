@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { fetchCurrentWeather, fetchDetailedWeather } from '../apis/weather.api';
-import type { ProcessedWeatherData, WeatherDetail } from '../utils/weather';
+import type { ProcessedWeatherData, WeatherDetail } from '../types/weather';
 
 interface UseWeatherProps {
   isWidget?: boolean;
