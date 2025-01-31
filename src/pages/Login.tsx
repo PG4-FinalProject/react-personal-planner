@@ -6,7 +6,6 @@ import { palette } from '../styles/palette';
 import styled from 'styled-components';
 import InputText from '../components/common/InputText';
 import Logo from '../components/common/Logo';
-import { login } from '../apis/auth';
 import BackBtn from '../components/common/BackBtn';
 import {
   StyledContent,
@@ -20,6 +19,7 @@ import {
   SocialLoginContainer,
   SocialButtons,
 } from '../styles/Login.styles';
+import { useAuth } from '../hooks/useAuth';
 
 const HeaderContent = styled.div`
   display: flex;
@@ -31,21 +31,20 @@ const HeaderContent = styled.div`
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const { userLogin } = useAuth();
   const navigate = useNavigate();
 
   const handlePageChange = (path: string) => {
     navigate(path);
   };
 
-  const handleLogin = async () => {
-    try {
-      await login(email, password);
-      navigate('/');
-    } catch (error) {
-      alert(
-        (error as Error).message || '로그인 중 알 수 없는 오류가 발생했습니다.',
-      );
-    }
+
+  const handleLogin = () => {
+    userLogin({
+      email,
+      password,
+    });
   };
 
   return (

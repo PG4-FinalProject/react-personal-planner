@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { palette } from '../styles/palette';
-import { join } from '../apis/auth';
+import { join } from '../apis/auth.api';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 import InputText from '../components/common/InputText';

@@ -1,4 +1,4 @@
-// weatherAPI.ts
+// weather.api.ts
 import { WeatherData, ForecastData, WeatherDetail } from '../utils/weather';
 const API_KEY = import.meta.env.VITE_APP_WEATHER_API_KEY;
 const BASE_URL = 'https://api.openweathermap.org/data/2.5';
