@@ -6,7 +6,6 @@ import Footer from '../components/layout/Footer';
 import { palette } from '../styles/palette';
 import InputText from '../components/common/InputText';
 import Logo from '../components/common/Logo';
-import { login } from '../apis/auth';
 import {
   StyledContent,
   FormContainer,
@@ -19,25 +18,24 @@ import {
   SocialLoginContainer,
   SocialButtons,
 } from '../styles/Login.styles';
+import { useAuth } from '../hooks/useAuth';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const { userLogin } = useAuth();
   const navigate = useNavigate();
 
   const handlePageChange = (path: string) => {
     navigate(path);
   };
 
-  const handleLogin = async () => {
-    try {
-      await login(email, password);
-      navigate('/'); // 메인 페이지로 이동
-    } catch (error) {
-      alert(
-        (error as Error).message || '로그인 중 알 수 없는 오류가 발생했습니다.',
-      );
-    }
+  const handleLogin = () => {
+    userLogin({
+      email,
+      password,
+    });
   };
 
   return (
