@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { palette } from '../../styles/palette';
 
 interface FooterProps {
-  onPageChange: (path: string) => void;
+  onPageChange?: (path: string) => void;
   children?: ReactNode; // children prop 추가
   color?: string;
   borderColor?: string; // 하단 테두리 색상
