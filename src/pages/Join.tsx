@@ -14,7 +14,7 @@ import {
   Subtitle,
   InputContainer,
   TermsContainer,
-} from '../styles/Join.styles';
+} from '../styles/Join.style';
 
 const Join: React.FC = () => {
   const [name, setName] = useState('');
