@@ -1,9 +1,5 @@
-// hooks/useWeather.ts
 import { useState, useEffect } from 'react';
-import {
-  fetchCurrentWeather,
-  fetchDetailedWeather,
-} from '../apis/WeatherAPI.ts';
+import { fetchCurrentWeather, fetchDetailedWeather } from '../apis/weather.api';
 import type { ProcessedWeatherData, WeatherDetail } from '../utils/weather';
 
 interface UseWeatherProps {
