@@ -3,7 +3,7 @@ import { Route, Routes, Navigate } from 'react-router-dom';
 import Calendar from '../pages/Calendar';
 import Plans from '../pages/Plans';
 import Statistics from '../pages/Statistics';
-import Users from '../pages/Users';
+import Users from '../pages/User';
 import Join from '../pages/Join';
 import Login from '../pages/Login';
 import WeatherDetail from '../pages/Weather';
