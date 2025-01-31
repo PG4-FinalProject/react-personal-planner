@@ -9,6 +9,7 @@ import { PlusButton } from '../common/PlusBtn';
 import LucideIcon, { type LucideIconProps } from '../common/LucideIcon';
 import Logo from '../common/Logo';
 import SidebarMenu from './Sidebar';
+import NotificationButton from '../notifications/NotificationBtn';
 
 interface MainLayoutProps {
   children: ReactNode;
@@ -42,9 +43,6 @@ const HeaderButton = styled.button`
   justify-content: center;
   border-radius: 8px;
   color: #666666;
-  &:hover {
-    background-color: #f5f5f5;
-  }
 `;
 
 const FloatingButtonWrapper = styled.div`
@@ -117,7 +115,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
         <Logo height="24px" />
       </HeaderLeft>
       <HeaderButton onClick={handleNotificationClick} aria-label="알림 보기">
-        <LucideIcon name="Bell" size={20} />
+        <NotificationButton />
       </HeaderButton>
     </>
   );

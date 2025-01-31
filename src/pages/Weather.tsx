@@ -9,7 +9,7 @@ import Title from '../components/common/Title';
 import LucideIcon from '../components/common/LucideIcon';
 import { useWeather } from '../hooks/useWeather';
 import { palette } from '../styles/palette';
-import type { WeatherDetail } from '../utils/weather';
+import type { WeatherDetail } from '../types/weather';
 
 const SectionTitle = styled.h3`
   font-size: 17px;
