@@ -1,11 +1,12 @@
-// src/pages/Login.tsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 import { palette } from '../styles/palette';
+import styled from 'styled-components';
 import InputText from '../components/common/InputText';
 import Logo from '../components/common/Logo';
+import BackBtn from '../components/common/BackBtn';
 import {
   StyledContent,
   FormContainer,
@@ -20,6 +21,13 @@ import {
 } from '../styles/Login.styles';
 import { useAuth } from '../hooks/useAuth';
 
+const HeaderContent = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0 10px;
+`;
+
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -31,6 +39,7 @@ const Login: React.FC = () => {
     navigate(path);
   };
 
+
   const handleLogin = () => {
     userLogin({
       email,
@@ -41,7 +50,9 @@ const Login: React.FC = () => {
   return (
     <>
       <Header borderWidth="0px">
-        <div></div>
+        <HeaderContent>
+          <BackBtn onClick={() => navigate(-1)} />
+        </HeaderContent>
       </Header>
       <StyledContent color={palette.white}>
         <FormContainer>
@@ -74,7 +85,7 @@ const Login: React.FC = () => {
             />
           </InputContainer>
 
-          <LoginButton onClick={handleLogin} width={'100%'} height={'54px'}>
+          <LoginButton onClick={handleLogin} width="100%" height="54px">
             로그인
           </LoginButton>
 
@@ -106,7 +117,7 @@ const Login: React.FC = () => {
           </SocialLoginContainer>
         </FormContainer>
       </StyledContent>
-      <Footer onPageChange={handlePageChange} borderWidth={'0px'} />
+      <Footer onPageChange={handlePageChange} borderWidth="0px" />
     </>
   );
 };
