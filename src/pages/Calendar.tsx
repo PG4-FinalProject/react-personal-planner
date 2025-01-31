@@ -5,6 +5,7 @@ import { Routes, Route } from 'react-router-dom';
 import MainLayout from '../components/layout/MainLayout';
 import ContentUIBox from '../components/layout/ContentUIBox';
 import WeatherWidget from '../components/WeatherWiget';
+import TodayPriority from '../components/TodyaPriority';
 
 const PageContainer = styled.div`
   display: flex;
@@ -24,6 +25,7 @@ const SideContent = styled.div`
 const Calendar: React.FC = () => {
   return (
     <MainLayout>
+      <TodayPriority></TodayPriority>
       <PageContainer>
         <SideContent>
           <WeatherWidget />

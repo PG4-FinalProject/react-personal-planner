@@ -6,6 +6,7 @@ import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 import InputText from '../components/common/InputText';
 import Button from '../components/common/LongBtn';
+import BackBtn from '../components/common/BackBtn';
 import Title from '../components/common/Title';
 import {
   StyledContent,
@@ -47,7 +48,7 @@ const Join: React.FC = () => {
   return (
     <>
       <Header borderWidth="0px">
-        <div />
+        <BackBtn onClick={() => navigate(-1)} />
       </Header>
       <StyledContent color={palette.white}>
         <FormContainer>
