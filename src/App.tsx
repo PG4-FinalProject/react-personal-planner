@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import AppRoutes from './routes/Routes'; // routes 경로
+import AppRoutes from './routes/Routing'; // routes 경로
 import './index.css'; // 필요한 경우 CSS 파일을 추가
 
 const App: React.FC = () => {
