@@ -39,7 +39,6 @@ const Login: React.FC = () => {
     navigate(path);
   };
 
-
   const handleLogin = () => {
     userLogin({
       email,
@@ -50,9 +49,7 @@ const Login: React.FC = () => {
   return (
     <>
       <Header borderWidth="0px">
-        <HeaderContent>
-          <BackBtn onClick={() => navigate(-1)} />
-        </HeaderContent>
+        <BackBtn onClick={() => navigate(-1)} />
       </Header>
       <StyledContent color={palette.white}>
         <FormContainer>

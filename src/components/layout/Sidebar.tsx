@@ -18,8 +18,9 @@ const Overlay = styled.div`
 const SidebarContainer = styled.div`
   position: fixed;
   top: 0;
-  left: calc(50% - 265px);
+  left: 50%;
   width: 387px;
+  transform: translateX(-265px); // (534px + 387px) / 2
   height: 100%;
   background-color: white;
   z-index: 200;
@@ -31,6 +32,7 @@ const SidebarContainer = styled.div`
 
   @media (max-width: 1068px) {
     left: 0;
+    transform: none; // 모바일에서는 transform 제거
   }
 `;
 
