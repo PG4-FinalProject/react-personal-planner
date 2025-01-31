@@ -12,18 +12,19 @@ const PageContainer = styled.div`
 `;
 
 const MainContent = styled.div`
-  flex: 1;
+  margin: 16px 0;
+  padding: 0 16px; // 좌우 패딩을 동일하게 적용
+  margin: 16px 0;
 `;
 
 const SideContent = styled.div`
-  width: 542px; // 542px는 너무 넓어 보여서 수정
+  width: 534px;
 `;
 
 const Calendar: React.FC = () => {
   return (
     <MainLayout>
       <PageContainer>
-        <MainContent>{/* 캘린더 메인 콘텐츠 */}</MainContent>
         <SideContent>
           <WeatherWidget />
         </SideContent>
