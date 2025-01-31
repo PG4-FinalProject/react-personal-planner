@@ -18,7 +18,7 @@ import {
   Divider,
   SocialLoginContainer,
   SocialButtons,
-} from '../styles/Login.styles';
+} from '../styles/Login.style';
 import { useAuth } from '../hooks/useAuth';
 
 const HeaderContent = styled.div`

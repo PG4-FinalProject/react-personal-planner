@@ -12,7 +12,7 @@ import {
   Subtitle,
   InputContainer,
   TermsContainer,
-} from '../styles/Join.styles';
+} from '../styles/Join.style';
 import { useAuth } from '../hooks/useAuth';
 import { useAlert } from '../hooks/useAlert';
 import Content from '../components/layout/Content';
