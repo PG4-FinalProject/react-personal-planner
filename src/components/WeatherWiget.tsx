@@ -6,7 +6,7 @@ import LucideIcon from './common/LucideIcon';
 import { useWeather } from '../hooks/useWeather';
 
 const StyledWeatherContainer = styled(ContentUIBox)`
-  width: 280px;
+  width: 600px;
   cursor: pointer;
   transition: transform 0.2s;
 

@@ -5,7 +5,6 @@ import { Routes, Route } from 'react-router-dom';
 import MainLayout from '../components/layout/MainLayout';
 import ContentUIBox from '../components/layout/ContentUIBox';
 import WeatherWidget from '../components/WeatherWiget';
-import { palette } from '../styles/palette';
 
 const PageContainer = styled.div`
   display: flex;
@@ -17,7 +16,7 @@ const MainContent = styled.div`
 `;
 
 const SideContent = styled.div`
-  width: 300px; // 542px는 너무 넓어 보여서 수정
+  width: 542px; // 542px는 너무 넓어 보여서 수정
 `;
 
 const Calendar: React.FC = () => {

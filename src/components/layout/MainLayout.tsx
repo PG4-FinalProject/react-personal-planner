@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { palette } from '../../styles/palette';
@@ -8,6 +8,7 @@ import Content from './Content';
 import { PlusButton } from '../common/PlusBtn';
 import LucideIcon, { type LucideIconProps } from '../common/LucideIcon';
 import Logo from '../common/Logo';
+import SidebarMenu from './Sidebar';
 
 interface MainLayoutProps {
   children: ReactNode;
@@ -88,13 +89,19 @@ const IconLabel = styled.span`
 const MainLayout = ({ children }: MainLayoutProps) => {
   const navigate = useNavigate();
   const currentPath = window.location.pathname; // 현재 경로 가져오기
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const handlePageChange = (path: string) => {
     navigate(path);
   };
 
   const handleMenuClick = () => {
-    console.log('Menu clicked');
+    setIsSidebarOpen(true);
+    console.log('Menu clicked, sidebar state:', true); // 디버깅용 로그 추가
+  };
+
+  const handleSidebarClose = () => {
+    setIsSidebarOpen(false);
   };
 
   const handleNotificationClick = () => {
@@ -139,6 +146,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
 
   return (
     <LayoutWrapper>
+      <SidebarMenu isOpen={isSidebarOpen} onClose={handleSidebarClose} />
       <Header>{headerContent}</Header>
       <Content background-color={palette.background}>{children}</Content>
       <FloatingButtonWrapper>
