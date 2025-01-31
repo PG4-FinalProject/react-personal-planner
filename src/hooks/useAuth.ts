@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../store/authStore';
-import { LoginData } from '../models/user.model';
-import { login } from '../apis/auth.api';
+import { JoinData, LoginData } from '../models/user.model';
+import { join, login } from '../apis/auth.api';
 import { useAlert } from './useAlert';
 
 export const useAuth = () => {
@@ -23,7 +23,15 @@ export const useAuth = () => {
     );
   };
 
+  const userJoin = (joinData: JoinData) => {
+    join(joinData).then(res => {
+      showAlert('회원가입이 완료되었습니다');
+      navigate('/users/login');
+    });
+  };
+
   return {
     userLogin,
+    userJoin,
   };
 };

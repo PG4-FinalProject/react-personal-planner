@@ -2,20 +2,11 @@ import styled from 'styled-components';
 import { palette } from './palette';
 import Content from '../components/layout/Content';
 
-export const StyledContent = styled(Content)`
-  display: block;
-  padding-top: 100px;
-  min-height: calc(100vh - 112px);
-  margin-top: 15px;
-`;
-
 export const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: left;
-  max-width: 502px;
-  padding: 0 20px;
-  margin: 225px auto 0;
+  margin: 30% 30px;
 `;
 
 export const Subtitle = styled.p`
