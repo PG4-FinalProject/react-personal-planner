@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../store/authStore';
-import { JoinData, LoginData } from '../models/user.model';
+import { JoinData, LoginData } from '../types/user.type';
 import { join, login } from '../apis/auth.api';
 import { useAlert } from './useAlert';
 
