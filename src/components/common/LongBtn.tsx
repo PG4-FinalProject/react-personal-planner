@@ -6,11 +6,13 @@ const StyledButton = styled.button<{
   width?: string;
   color?: string;
   fontSize?: string;
+  fontWeight?: string;
 }>`
   height: ${props => props.height || '40px'};
-  width: ${props => props.width || '100px'};
-  background-color: ${props => props.color || '#007BFF'};
+  width: ${props => props.width || '100%'};
+  background-color: ${props => props.color || '#3B82F6'};
   font-size: ${props => props.fontSize || '16px'};
+  font-weight: ${props => props.fontWeight || 'bold'};
   color: #ffffff;
   border: none;
   border-radius: 4px;
@@ -26,6 +28,7 @@ interface ButtonProps {
   width?: string;
   color?: string;
   fontSize?: string;
+  fontWeight?: string;
   onClick?: () => void;
 }
 
@@ -35,6 +38,7 @@ const Button: React.FC<ButtonProps> = ({
   width,
   color,
   fontSize,
+  fontWeight,
   onClick,
 }) => {
   return (
@@ -43,6 +47,7 @@ const Button: React.FC<ButtonProps> = ({
       width={width}
       color={color}
       fontSize={fontSize}
+      fontWeight={fontWeight}
       onClick={onClick}
     >
       {children}
