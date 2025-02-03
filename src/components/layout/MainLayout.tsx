@@ -21,7 +21,7 @@ interface NavItem {
   label: string;
 }
 
-const LayoutWrapper = styled.div`
+export const LayoutWrapper = styled.div`
   position: relative;
   padding: 65px 0;
   margin: 0 auto;
