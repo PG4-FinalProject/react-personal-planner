@@ -11,7 +11,7 @@ export const FormContainer = styled.div`
 
 export const Subtitle = styled.p`
   font-size: 14px;
-  color: #666;
+  padding: 8px 0px;
   margin: 0 0 40px;
   text-align: left;
 `;

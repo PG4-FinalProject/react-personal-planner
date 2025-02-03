@@ -52,6 +52,7 @@ export const LoginButton = styled(Button)`
 export const SignupText = styled.p`
   color: #666;
   font-size: 14px;
+  padding: 8px 0px;
   margin: 0;
   margin-bottom: 8px;
 
