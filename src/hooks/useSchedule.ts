@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 import { useAuthStore } from '../store/authStore';
 import type { Schedule } from '../types/schedule';
-import { formatDate } from '../utils/date';
+import { getDateFormat } from '../utils/date';
 import { mockSchedules } from '../mocks/scheduleDate';
 
 export const useSchedule = () => {
@@ -13,7 +13,7 @@ export const useSchedule = () => {
   // src/hooks/useSchedule.ts
   const getSchedulesByDate = useCallback(
     (date: Date) => {
-      const dateString = formatDate(date);
+      const dateString = getDateFormat(date);
       return schedules.filter(schedule => schedule.date === dateString);
     },
     [schedules],
