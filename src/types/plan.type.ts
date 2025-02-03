@@ -16,4 +16,13 @@ export interface PlanI {
   categoryName: string;
 }
 
-export type CreatePlanReqBody = Omit<PlanI, 'id'>;
+export interface EditPlanReqBody {
+  id: number;
+  title: string;
+  detail: string;
+  startTime: string;
+  endTime: string;
+  categoryId: number;
+}
+
+export type CreatePlanReqBody = Omit<EditPlanReqBody, 'id'>;
