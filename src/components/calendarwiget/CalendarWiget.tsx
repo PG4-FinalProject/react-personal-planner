@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Trash2 } from 'lucide-react';
 import { useCalendar } from '../../hooks/useCalendar';
 import { useSchedule } from '../../hooks/useSchedule';
-import { formatDate } from '../../utils/date';
+import { getDateFormat } from '../../utils/date';
 import type { Schedule } from '../../types/schedule';
 import {
   CalendarContainer,
@@ -56,12 +56,12 @@ const CalendarWidget: React.FC = () => {
     calendarDays.forEach(dayInfo => {
       const localDate = new Date(dayInfo.date);
       localDate.setHours(0, 0, 0, 0); // 자정으로 설정
-      const dateString = formatDate(localDate); // 로컬 시간대 기준으로 포맷팅
+      const dateString = getDateFormat(localDate); // 로컬 시간대 기준으로 포맷팅
 
       counts[dateString] = schedules.filter(schedule => {
         const scheduleDate = new Date(schedule.date);
         scheduleDate.setHours(0, 0, 0, 0); // 스케줄 날짜도 자정으로 설정
-        const scheduleDateString = formatDate(scheduleDate); // 로컬 시간대 기준으로 포맷팅
+        const scheduleDateString = getDateFormat(scheduleDate); // 로컬 시간대 기준으로 포맷팅
         return scheduleDateString === dateString; // 날짜 비교
       }).length;
     });
@@ -119,7 +119,7 @@ const CalendarWidget: React.FC = () => {
                 selectedDate.getMonth() === dayInfo.date.getMonth() &&
                 selectedDate.getFullYear() === dayInfo.date.getFullYear();
 
-              const dateString = formatDate(dayInfo.date);
+              const dateString = getDateFormat(dayInfo.date);
               const scheduleCount = scheduleCounts[dateString] || 0;
 
               return (
