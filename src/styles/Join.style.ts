@@ -6,7 +6,10 @@ export const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: left;
-  margin: 30% 30px;
+  padding: 24px;
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
 `;
 
 export const Subtitle = styled.p`
