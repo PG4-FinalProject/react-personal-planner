@@ -1,10 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import AppRoutes from './routes/Routing'; // routes 경로
-import { QueryClientProvider } from '@tanstack/react-query';
-import { queryClient } from './apis/queryClient';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const App: React.FC = () => {
+  const queryClient = new QueryClient();
+
   return (
     <QueryClientProvider client={queryClient}>
       <Router>
