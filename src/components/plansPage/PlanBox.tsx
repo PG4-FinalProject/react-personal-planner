@@ -34,8 +34,8 @@ const PlanContent = styled.div`
 const ColorDot = styled.div<{
   $bgColor: string;
 }>`
-  width: 8px;
-  height: 8px;
+  width: 9px;
+  height: 9px;
   border-radius: 50%;
   background-color: ${props => props.$bgColor || 'black'};
 `;

@@ -22,7 +22,7 @@ export const usePlans = () => {
   const startDate = params.get('startDate');
   const endDate = params.get('endDate');
 
-  const todayDateFormat = getDateFormat(new Date('2025-01-24 8:30:00'));
+  const todayDateFormat = getDateFormat(new Date());
 
   const { isLoading, isError } = useQuery({
     queryKey: ['plans', location.search],

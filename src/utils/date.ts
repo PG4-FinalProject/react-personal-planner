@@ -21,6 +21,12 @@ export const getDateTimeFormat = (date: Date) => {
   return addedDate.toISOString().slice(0, 19).replace('T', ' ');
 };
 
+export const addDateToday = (plusDate: number) => {
+  const date = new Date();
+  date.setDate(date.getDate() + plusDate);
+  return date;
+};
+
 export const formatTime = (time: string): string => {
   const [hours, minutes] = time.split(':').map(Number);
   const kstHours = (hours + 9) % 24; // UTC를 KST로 변환 (UTC + 9)
