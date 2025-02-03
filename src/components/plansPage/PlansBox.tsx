@@ -36,7 +36,7 @@ const PlansCount = styled.div`
 interface PlansBoxProps {}
 
 function PlansBox({}: PlansBoxProps) {
-  const { plans } = usePlans();
+  const { plans, deletePlan } = usePlans();
 
   const [planDate, setPlanDate] = useState<PlanDateType>('오늘');
 
@@ -69,7 +69,7 @@ function PlansBox({}: PlansBoxProps) {
         <PlansCount>3개의 할 일</PlansCount>
       </PlanDateBox>
       {plans.map(plan => (
-        <PlanBox plan={plan} />
+        <PlanBox plan={plan} deletePlan={deletePlan} />
       ))}
     </ContentUIBox>
   );

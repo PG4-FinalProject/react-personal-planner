@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import IconButton from '../common/CheckBtn';
 import LucideIcon from '../common/LucideIcon';
 import { PlanI } from '../../types/plan.type';
+import { useAlert } from '../../hooks/useAlert';
 
 const PlanBoxStyle = styled.div`
   display: flex;
@@ -12,13 +12,17 @@ const PlanBoxStyle = styled.div`
   background-color: #f9fafb;
   align-items: center;
   justify-content: space-between;
+
+  &:hover {
+    background-color: #eff6ff;
+  }
 `;
 
 const TrashBtn = styled.button`
   height: 100%;
   padding: 8px;
   background-color: #f9fafb;
-  border: 1px solid red;
+  border: none;
 `;
 
 const PlanContent = styled.div`
@@ -27,11 +31,13 @@ const PlanContent = styled.div`
   gap: 12px;
 `;
 
-const ColorDot = styled.div`
+const ColorDot = styled.div<{
+  $bgColor: string;
+}>`
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background-color: black;
+  background-color: ${props => props.$bgColor || 'black'};
 `;
 
 const PlanTitle = styled.div`
@@ -45,15 +51,22 @@ const PlanTime = styled.div`
 
 interface PlanBoxProps {
   plan: PlanI;
+  deletePlan: (planId: number) => void;
 }
 
-function PlanBox({ plan }: PlanBoxProps) {
-  const handleDelete = () => {};
+function PlanBox({ plan, deletePlan }: PlanBoxProps) {
+  const { showConfirm } = useAlert();
+
+  const handleDelete = () => {
+    showConfirm('정말 삭제하시겠습니까?', () => {
+      deletePlan(plan.id);
+    });
+  };
 
   return (
     <PlanBoxStyle>
       <PlanContent>
-        <ColorDot />
+        <ColorDot $bgColor={plan.color} />
         <div>
           <PlanTitle>{plan.title}</PlanTitle>
           <PlanTime>{plan.startTime}</PlanTime>

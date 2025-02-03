@@ -1,10 +1,8 @@
 import styled from 'styled-components';
 
-interface PlanDateRadioBtnStyleProps {
-  $isChecked: boolean;
-}
-
-const PlanDateRadioBtnStyle = styled.div<PlanDateRadioBtnStyleProps>`
+const PlanDateRadioBtnStyle = styled.div<{
+  $isChecked?: boolean;
+}>`
   display: flex;
   height: 30px;
   justify-content: center;
