@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 import IconButton from '../common/CheckBtn';
 import LucideIcon from '../common/LucideIcon';
+import { PlanI } from '../../types/plan.type';
 
 const PlanBoxStyle = styled.div`
   display: flex;
   height: 60px;
-  margin: 6px 0px;
+  margin: 8px 0px;
   padding: 12px;
   border-radius: 8px;
   background-color: #f9fafb;
@@ -42,9 +43,11 @@ const PlanTime = styled.div`
   color: #91929f;
 `;
 
-interface PlanBoxProps {}
+interface PlanBoxProps {
+  plan: PlanI;
+}
 
-function PlanBox({}: PlanBoxProps) {
+function PlanBox({ plan }: PlanBoxProps) {
   const handleDelete = () => {};
 
   return (
@@ -52,8 +55,8 @@ function PlanBox({}: PlanBoxProps) {
       <PlanContent>
         <ColorDot />
         <div>
-          <PlanTitle>팀 미팅</PlanTitle>
-          <PlanTime>시간</PlanTime>
+          <PlanTitle>{plan.title}</PlanTitle>
+          <PlanTime>{plan.startTime}</PlanTime>
         </div>
       </PlanContent>
       <TrashBtn type="button" onClick={handleDelete}>
