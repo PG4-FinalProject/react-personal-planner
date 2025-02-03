@@ -20,6 +20,7 @@ import {
   SocialButtons,
 } from '../styles/Login.style';
 import { useAuth } from '../hooks/useAuth';
+import { LayoutWrapper } from '../components/layout/MainLayout';
 
 const HeaderContent = styled.div`
   display: flex;
@@ -47,7 +48,7 @@ const Login: React.FC = () => {
   };
 
   return (
-    <>
+    <LayoutWrapper>
       <Header borderWidth="0px">
         <BackBtn onClick={() => navigate(-1)} />
       </Header>
@@ -115,7 +116,7 @@ const Login: React.FC = () => {
         </FormContainer>
       </StyledContent>
       <Footer onPageChange={handlePageChange} borderWidth="0px" />
-    </>
+    </LayoutWrapper>
   );
 };
 
