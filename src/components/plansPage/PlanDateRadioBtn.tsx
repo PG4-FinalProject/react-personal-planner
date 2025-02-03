@@ -1,43 +1,62 @@
 import styled from 'styled-components';
 
-interface PlanDateRadioBtnProps {
-  children: React.ReactNode;
-  value: string;
-  name: string;
-  defaultChecked?: boolean | undefined;
-  disabled?: boolean | undefined;
+interface PlanDateRadioBtnStyleProps {
+  $isChecked: boolean;
 }
 
-const PlanDateRadioBtnStyle = styled.label`
+const PlanDateRadioBtnStyle = styled.div<PlanDateRadioBtnStyleProps>`
+  display: flex;
+  height: 30px;
+  justify-content: center;
+  align-items: center;
+  background-color: ${({ $isChecked }) => ($isChecked ? '#3578FF' : '#e5e7eb')};
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+
   input[type='radio'] {
     appearance: none;
   }
 
-  border-radius: 4px;
-  padding: 4px 12px;
-  background-color: #e5e7eb;
+  label {
+    font-weight: bold;
+    color: #4b5563;
+    margin: 0px 6px 0px 0px;
+  }
 
-  box-sizing: border-box;
-  border: 1px solid #e5e7eb;
+  input:checked + label {
+    color: #ffffff;
+  }
 `;
 
+interface PlanDateRadioBtnProps {
+  value: string;
+  name: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  defaultChecked?: boolean | undefined;
+  disabled?: boolean | undefined;
+}
+
 function PlanDateRadioBtn({
-  children,
   value,
   name,
+  onChange,
   defaultChecked,
   disabled,
 }: PlanDateRadioBtnProps) {
+  const isChecked = value === name;
+
   return (
-    <PlanDateRadioBtnStyle>
+    <PlanDateRadioBtnStyle $isChecked={isChecked}>
       <input
         type="radio"
-        value={value}
-        name={name}
+        id={name}
+        name="planDate"
+        value={name}
         defaultChecked={defaultChecked}
         disabled={disabled}
+        onChange={onChange}
       />
-      {children}
+      <label htmlFor={name}>{name}</label>
     </PlanDateRadioBtnStyle>
   );
 }
