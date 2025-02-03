@@ -70,14 +70,14 @@ type RequestMethod = 'get' | 'post' | 'put' | 'delete';
 export const requestHandler = async <T>(
   method: RequestMethod,
   url: string,
-  payload?: T,
+  payload?: T | undefined,
 ) => {
   try {
     let res;
 
     switch (method) {
       case 'get':
-        res = await httpClient.get(url);
+        res = await httpClient.get(url, payload as AxiosRequestConfig<T>);
         break;
       case 'post':
         res = await httpClient.post(url, payload);

@@ -4,3 +4,16 @@ export interface GetPlansParams {
   startDate: string;
   endDate: string;
 }
+
+export interface PlanI {
+  id: number;
+  title: string;
+  detail: string;
+  startTime: string;
+  endTime: string;
+  color: string;
+  categoryId: number;
+  categoryName: string;
+}
+
+export type CreatePlanReqBody = Omit<PlanI, 'id'>;
