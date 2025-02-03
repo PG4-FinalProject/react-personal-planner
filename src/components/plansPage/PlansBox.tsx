@@ -36,7 +36,7 @@ const PlansCount = styled.div`
 interface PlansBoxProps {}
 
 function PlansBox({}: PlansBoxProps) {
-  const { plans, isPlansLoading } = usePlans();
+  // const { plans, isPlansLoading } = usePlans();
 
   const [planDate, setPlanDate] = useState<PlanDateType>('오늘');
 
