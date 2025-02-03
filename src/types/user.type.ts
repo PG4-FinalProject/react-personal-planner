@@ -1,9 +1,9 @@
-export interface LoginData {
+export interface LoginReqBody {
   email: string;
   password: string;
 }
 
-export interface JoinData {
+export interface JoinReqBody {
   name: string;
   email: string;
   password: string;

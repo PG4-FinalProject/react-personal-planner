@@ -16,6 +16,7 @@ import {
 import { useAuth } from '../hooks/useAuth';
 import { useAlert } from '../hooks/useAlert';
 import Content from '../components/layout/Content';
+import { LayoutWrapper } from '../components/layout/MainLayout';
 
 const Join: React.FC = () => {
   const [name, setName] = useState('');
@@ -48,13 +49,18 @@ const Join: React.FC = () => {
   };
 
   return (
-    <>
+    <LayoutWrapper>
       <Header borderWidth="0px">
         <BackBtn onClick={() => navigate(-1)} />
       </Header>
       <Content color={palette.white}>
         <FormContainer>
-          <Title fontSize="34px" color="#000" textAlign="left">
+          <Title
+            fontSize="34px"
+            fontWeight="bold"
+            color="#000"
+            textAlign="left"
+          >
             회원가입
           </Title>
           <Subtitle>회원가입을 위한 정보를 입력해주세요.</Subtitle>
@@ -106,7 +112,7 @@ const Join: React.FC = () => {
         </FormContainer>
       </Content>
       <Footer onPageChange={path => navigate(path)} borderWidth="0px" />
-    </>
+    </LayoutWrapper>
   );
 };
 

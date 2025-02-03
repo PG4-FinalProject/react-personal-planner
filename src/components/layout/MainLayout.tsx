@@ -21,7 +21,7 @@ interface NavItem {
   label: string;
 }
 
-const LayoutWrapper = styled.div`
+export const LayoutWrapper = styled.div`
   position: relative;
   padding: 65px 0;
   margin: 0 auto;
@@ -58,7 +58,7 @@ const FloatingButtonWrapper = styled.div`
   }
 `;
 
-const FooterIconButton = styled.button<{ isActive: boolean }>`
+const FooterIconButton = styled.button<{ $isActive: boolean }>`
   background: none;
   border: none;
   padding: 8px;
@@ -67,8 +67,8 @@ const FooterIconButton = styled.button<{ isActive: boolean }>`
   align-items: center;
   gap: 4px;
   cursor: pointer;
-  color: ${({ isActive }) =>
-    isActive ? palette.blue : '#666666'}; /* 활성화된 색상 */
+  color: ${({ $isActive }) =>
+    $isActive ? palette.blue : '#666666'}; /* 활성화된 색상 */
   font-size: 12px;
 
   &:hover {
@@ -135,7 +135,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
         <FooterIconButton
           key={path}
           onClick={() => handlePageChange(path)}
-          isActive={currentPath === path} // 현재 경로와 비교하여 활성화 상태 결정
+          $isActive={currentPath === path} // 현재 경로와 비교하여 활성화 상태 결정
         >
           <LucideIcon name={icon} size={24} /> {/* 색상 prop 제거 */}
           <IconLabel>{label}</IconLabel>

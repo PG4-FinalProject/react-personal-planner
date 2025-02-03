@@ -1,13 +1,17 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import AppRoutes from './routes/Routing'; // routes 경로
-import './index.css'; // 필요한 경우 CSS 파일을 추가
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const App: React.FC = () => {
+  const queryClient = new QueryClient();
+
   return (
-    <Router>
-      <AppRoutes /> {/* 라우트 컴포넌트 사용 */}
-    </Router>
+    <QueryClientProvider client={queryClient}>
+      <Router>
+        <AppRoutes /> {/* 라우트 컴포넌트 사용 */}
+      </Router>
+    </QueryClientProvider>
   );
 };
 

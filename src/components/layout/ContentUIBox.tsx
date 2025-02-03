@@ -2,13 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyledBox = styled.div<{
-  bgColor?: string;
+  $bgColor?: string;
   padding?: string;
   margin?: string; // margin을 선택적으로 수정
 }>`
   padding: ${props => props.padding || '16px'}; // 패딩을 유연하게 설정
   border-radius: 8px;
-  background-color: ${props => props.bgColor || '#fff'};
+  background-color: ${props => props.$bgColor || '#fff'};
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
   margin: ${props => props.margin || '16px'}; // 마진을 유연하게게 설정
 `;
@@ -27,7 +27,7 @@ const ContentUIBox: React.FC<ContentUIBoxProps> = ({
   margin,
 }) => {
   return (
-    <StyledBox bgColor={bgColor} padding={padding} margin={margin}>
+    <StyledBox $bgColor={bgColor} padding={padding} margin={margin}>
       {children}
     </StyledBox>
   );
