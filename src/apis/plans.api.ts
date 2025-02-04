@@ -16,3 +16,19 @@ export const createPlan = async (planData: FormData) => {
     throw error;
   }
 };
+
+export interface PriorityTask {
+  name: string;
+  duration: string;
+}
+
+// 오늘의 우선순위 일정 조회 API
+export const fetchTodayPriorityPlans = async (): Promise<PriorityTask[]> => {
+  try {
+    const response = await requestHandler('get', '/plans/today-priority');
+    return response.tasks || [];
+  } catch (error) {
+    console.error('오늘의 우선순위 일정 조회 실패:', error);
+    return [];
+  }
+};

@@ -16,7 +16,7 @@ export const mockSchedules: Schedule[] = [
     title: '점심 약속',
     startTime: '12:00',
     endTime: '13:30',
-    date: '2025-01-14',
+    date: '2025-02-04',
     category: 'personal',
   },
   {
@@ -24,7 +24,7 @@ export const mockSchedules: Schedule[] = [
     title: '운동',
     startTime: '18:00',
     endTime: '19:30',
-    date: '2025-01-15',
+    date: '2025-02-04',
     category: 'health',
   },
   {

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { ClockAlert } from 'lucide-react';
 import { palette } from '../styles/palette';
 import ContentUIBox from './layout/ContentUIBox';
+import { useTodayPriority } from '../hooks/useTodayPriority';
 
 const Title = styled.div`
   font-size: 16px;
@@ -18,6 +19,7 @@ const PriorityItem = styled.div`
   background-color: ${palette.lightblue};
   padding: 12px 16px;
   border-radius: 8px;
+  margin-bottom: 8px;
 `;
 
 const TaskInfo = styled.div`
@@ -27,25 +29,44 @@ const TaskInfo = styled.div`
 `;
 
 const TaskName = styled.span`
-  font-size: 24px;
+  font-size: 16px;
   color: ${palette.black};
 `;
 
 const TimeInfo = styled.div`
-  font-size: 24px;
+  font-size: 16px;
   color: ${palette.red};
 `;
 
-interface TodayPriorityProps {
-  tasks?: Array<{
-    name: string;
-    duration: string;
-  }>;
-}
+const LoadingPlaceholder = styled.div`
+  text-align: center;
+  color: ${palette.gray};
+  padding: 16px;
+`;
 
-const TodayPriority: React.FC<TodayPriorityProps> = ({
-  tasks = [{ name: '팀 미팅', duration: '2시간 남음' }],
-}) => {
+const TodayPriority: React.FC = () => {
+  const { tasks, isLoading, error } = useTodayPriority();
+
+  if (isLoading) {
+    return (
+      <ContentUIBox bgColor={palette.lightblue}>
+        <LoadingPlaceholder>일정을 불러오는 중...</LoadingPlaceholder>
+      </ContentUIBox>
+    );
+  }
+
+  if (error) {
+    return (
+      <ContentUIBox bgColor={palette.lightblue}>
+        <LoadingPlaceholder>{error}</LoadingPlaceholder>
+      </ContentUIBox>
+    );
+  }
+
+  if (tasks.length === 0) {
+    return null;
+  }
+
   return (
     <ContentUIBox bgColor={palette.lightblue}>
       <Title>오늘의 우선순위</Title>
