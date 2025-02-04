@@ -4,7 +4,7 @@ import { palette } from '../styles/palette';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 import InputText from '../components/common/InputText';
-import Button from '../components/common/LongBtn';
+import Button from '../components/common/Button';
 import BackBtn from '../components/common/BackBtn';
 import Title from '../components/common/Title';
 import {

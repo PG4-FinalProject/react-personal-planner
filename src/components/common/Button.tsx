@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { ButtonHTMLAttributes } from 'react';
 import styled from 'styled-components';
+import { palette } from '../../styles/palette';
 
 const StyledButton = styled.button<{
   height?: string;
@@ -10,7 +11,7 @@ const StyledButton = styled.button<{
 }>`
   height: ${props => props.height || '40px'};
   width: ${props => props.width || '100%'};
-  background-color: ${props => props.color || '#3B82F6'};
+  background-color: ${props => props.color || palette.blue};
   font-size: ${props => props.fontSize || '16px'};
   font-weight: ${props => props.fontWeight || 'bold'};
   color: #ffffff;
@@ -22,36 +23,32 @@ const StyledButton = styled.button<{
   justify-content: center;
 `;
 
-interface ButtonProps {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   height?: string;
   width?: string;
   color?: string;
   fontSize?: string;
   fontWeight?: string;
-  onClick?: () => void;
-  type?: 'submit' | 'button' | 'reset'; // type prop 추가
 }
 
-const Button: React.FC<ButtonProps> = ({
+const Button = ({
   children,
   height,
   width,
   color,
   fontSize,
   fontWeight,
-  onClick,
   type = 'button', // 기본값을 'button'으로 설정
-}) => {
+}: ButtonProps) => {
   return (
     <StyledButton
+      type={type}
       height={height}
       width={width}
       color={color}
       fontSize={fontSize}
       fontWeight={fontWeight}
-      onClick={onClick}
-      type={type}
     >
       {children}
     </StyledButton>

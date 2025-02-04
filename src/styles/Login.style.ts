@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { palette } from './palette';
 import Content from '../components/layout/Content';
-import Button from '../components/common/LongBtn';
+import Button from '../components/common/Button';
 
 export const FormContainer = styled.div`
   display: flex;
