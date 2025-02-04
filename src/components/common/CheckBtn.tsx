@@ -5,13 +5,13 @@ import styled from 'styled-components';
 const StyledButton = styled.button<{
   height?: string;
   width?: string;
-  bgColor?: string;
+  $bgColor?: string;
   color?: string;
   fontSize?: string;
 }>`
   height: ${props => props.height || '40px'};
   width: ${props => props.width || '200px'};
-  background-color: ${props => props.bgColor || '#007BFF'};
+  background-color: ${props => props.$bgColor || '#007BFF'};
   color: ${props => props.color || '#FFFFFF'};
   font-size: ${props => props.fontSize || '16px'};
   border: none;
@@ -52,7 +52,7 @@ const IconButton: React.FC<IconButtonProps> = ({
     <StyledButton
       height={height}
       width={width}
-      bgColor={bgColor}
+      $bgColor={bgColor}
       color={color}
       fontSize={fontSize}
       onClick={onClick}
