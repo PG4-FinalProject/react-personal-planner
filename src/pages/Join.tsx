@@ -101,12 +101,7 @@ const Join: React.FC = () => {
             </label>
           </TermsContainer>
 
-          <Button
-            onClick={handleJoin}
-            width="100%"
-            height="54px"
-            background-color={palette.blue}
-          >
+          <Button onClick={handleJoin} width="100%" height="54px">
             가입하기
           </Button>
         </FormContainer>

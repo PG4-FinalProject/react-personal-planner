@@ -11,7 +11,6 @@ import {
   LogoContainer,
   Subtitle,
   InputContainer,
-  LoginButton,
   SignupText,
   Divider,
   SocialLoginContainer,
@@ -20,6 +19,7 @@ import {
 import { useAuth } from '../hooks/useAuth';
 import { LayoutWrapper } from '../components/layout/MainLayout';
 import Content from '../components/layout/Content';
+import Button from '../components/common/Button';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -77,9 +77,9 @@ const Login: React.FC = () => {
             />
           </InputContainer>
 
-          <LoginButton onClick={handleLogin} width="100%" height="54px">
+          <Button onClick={handleLogin} width="100%" height="54px">
             로그인
-          </LoginButton>
+          </Button>
 
           <SignupText>
             아직 회원이 아니세요?

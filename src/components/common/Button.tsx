@@ -9,7 +9,7 @@ const StyledButton = styled.button<{
   fontSize?: string;
   fontWeight?: string;
 }>`
-  height: ${props => props.height || '40px'};
+  height: ${props => props.height || '54px'};
   width: ${props => props.width || '100%'};
   background-color: ${props => props.color || palette.blue};
   font-size: ${props => props.fontSize || '16px'};
@@ -34,12 +34,13 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const Button = ({
   children,
+  type = 'button', // 기본값을 'button'으로 설정
   height,
   width,
   color,
   fontSize,
   fontWeight,
-  type = 'button', // 기본값을 'button'으로 설정
+  ...props
 }: ButtonProps) => {
   return (
     <StyledButton
@@ -49,6 +50,7 @@ const Button = ({
       color={color}
       fontSize={fontSize}
       fontWeight={fontWeight}
+      {...props}
     >
       {children}
     </StyledButton>
