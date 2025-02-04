@@ -53,6 +53,7 @@ const Login: React.FC = () => {
 
           <InputContainer>
             <InputText
+              type="email"
               height="48px"
               width="100%"
               bgColor="#f8f8f8"
@@ -60,14 +61,15 @@ const Login: React.FC = () => {
               placeholder="이메일"
               borderWidth="0px"
               value={email}
+              autoFocus
               onChange={e => setEmail(e.target.value)}
             />
             <InputText
+              type="password"
               height="48px"
               width="100%"
               bgColor="#f8f8f8"
               fontSize="16px"
-              type="password"
               placeholder="비밀번호"
               borderWidth="0px"
               value={password}
