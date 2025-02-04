@@ -29,3 +29,16 @@ export interface PlanCreateRequest {
   end_time: string;
   category_id?: number;
 }
+
+export interface CreatePlanReqBody {
+  // 플랜 생성에 필요한 필드들
+  title: string;
+  // 다른 필요한 필드들 추가
+}
+
+export interface EditPlanReqBody {
+  id: number;
+  // 플랜 수정에 필요한 필드들
+  title?: string;
+  // 다른 필요한 필드들 추가
+}
