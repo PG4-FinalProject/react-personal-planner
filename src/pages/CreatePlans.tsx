@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Layout from '../../components/layout/Layout';
-import BackBtn from '../../components/common/BackBtn';
-import Title from '../../components/common/Title';
-import InputText from '../../components/common/InputText';
-import Button from '../../components/common/LongBtn';
-import { TagSelector } from '../../components/createplans/TagSelector';
+import Layout from '../components/layout/Layout';
+import BackBtn from '../components/common/BackBtn';
+import Title from '../components/common/Title';
+import InputText from '../components/common/InputText';
+import Button from '../components/common/LongBtn';
+import { TagSelector } from '../components/createplans/TagSelector';
 import {
   FormWrapper,
   HeaderContent,
@@ -13,11 +13,11 @@ import {
   InputGroup,
   Label,
   TimeWrapper,
-} from '../../styles/CreatePlans.styles';
-import type { FormData } from '../../types/createplans';
-import { TAGS } from './constants';
-import { createPlan } from '../../apis/plans.api';
-import { useAlert } from '../../hooks/useAlert';
+} from '../styles/CreatePlan.style';
+import type { FormData } from '../types/createplans';
+import { TAGS } from '../constants/constants';
+import { createPlan } from '../apis/plans.api';
+import { useAlert } from '../hooks/useAlert';
 
 const CreatePlans: React.FC = () => {
   const navigate = useNavigate();

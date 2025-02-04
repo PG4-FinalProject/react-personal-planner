@@ -10,7 +10,6 @@ export const getPlans = async (params: GetPlansParams) => {
   return await requestHandler('get', '/plans', { params });
 };
 
-
 export const createPlan = async (planData: FormData) => {
   try {
     // POST 요청으로 플랜 생성
@@ -20,7 +19,11 @@ export const createPlan = async (planData: FormData) => {
     console.error('플랜 생성 중 오류 발생:', error);
     throw error;
   }
+};
 
+export const createPlanReq = async (data: CreatePlanReqBody) => {
+  return await requestHandler('post', '/plans', data);
+};
 
 export const editPlanReq = async (data: EditPlanReqBody) => {
   return await requestHandler('put', `/plans/${data.id}`, data);
