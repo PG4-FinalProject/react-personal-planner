@@ -21,12 +21,14 @@ export interface WeatherData {
     speed: number;
   };
   name: string;
+  pop?: number; // pop을 옵셔널로 추가
 }
 
 export interface ProcessedWeatherData {
   location: string;
   temperature: number;
   humidity: number;
+  precipitation: number; // 강수확률 추가
   date: string;
   day: string;
   weatherIcon: string;
