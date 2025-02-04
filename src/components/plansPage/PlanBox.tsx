@@ -5,7 +5,7 @@ import { useAlert } from '../../hooks/useAlert';
 
 const PlanBoxStyle = styled.div`
   display: flex;
-  height: 60px;
+  height: 68px;
   margin: 8px 0px;
   padding: 12px;
   border-radius: 8px;

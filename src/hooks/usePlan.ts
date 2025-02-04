@@ -11,12 +11,12 @@ import { useState } from 'react';
 import { CreatePlanReqBody, EditPlanReqBody, PlanI } from '../types/plan.type';
 import { useAlert } from './useAlert';
 
-export const usePlans = () => {
+export const usePlan = () => {
   const [plans, setPlans] = useState<PlanI[]>([]);
   const [plansCount, setPlansCount] = useState<number>(0);
 
-  const navigate = useNavigate();
   const { showAlert } = useAlert();
+  const navigate = useNavigate();
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const startDate = params.get('startDate');
@@ -40,7 +40,7 @@ export const usePlans = () => {
   const createPlan = (data: CreatePlanReqBody) => {
     createPlanReq(data).then(
       res => {
-        navigate(-1);
+        navigate('/calendar');
       },
       err => {
         showAlert('plan 생성을 실패했습니다.');

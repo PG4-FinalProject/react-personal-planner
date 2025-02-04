@@ -5,7 +5,7 @@ import PlanDateRadioBtn from './PlanDateRadioBtn';
 import { useState } from 'react';
 import { PlanDateType } from '../../types/plan.type';
 import PlanBox from './PlanBox';
-import { usePlans } from '../../hooks/usePlans';
+import { usePlan } from '../../hooks/usePlan';
 import { useSearchParams } from 'react-router-dom';
 import { addDateToday, getDateFormat } from '../../utils/date';
 
@@ -38,7 +38,7 @@ const PlansCount = styled.div`
 interface PlansBoxProps {}
 
 function PlansBox({}: PlansBoxProps) {
-  const { plans, deletePlan } = usePlans();
+  const { plans, deletePlan } = usePlan();
 
   const [searchParams, setSearchParams] = useSearchParams();
   const [planDate, setPlanDate] = useState<PlanDateType>('오늘');

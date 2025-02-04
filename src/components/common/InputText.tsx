@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ForwardedRef } from 'react';
 import styled from 'styled-components';
 
 const StyledInput = styled.input<{
@@ -39,30 +39,36 @@ interface InputTextProps extends React.InputHTMLAttributes<HTMLInputElement> {
   borderStyle?: string;
 }
 
-const InputText = ({
-  height,
-  width,
-  bgColor,
-  fontSize,
-  type = 'text',
-  borderColor,
-  borderWidth,
-  borderStyle,
-  ...props
-}: InputTextProps) => {
-  return (
-    <StyledInput
-      height={height}
-      width={width}
-      $bgColor={bgColor}
-      fontSize={fontSize}
-      type={type}
-      borderColor={borderColor}
-      $borderWidth={borderWidth}
-      borderStyle={borderStyle}
-      {...props}
-    />
-  );
-};
+const InputText = React.forwardRef(
+  (
+    {
+      height,
+      width,
+      bgColor,
+      fontSize,
+      type = 'text',
+      borderColor,
+      borderWidth,
+      borderStyle,
+      ...props
+    }: InputTextProps,
+    ref: ForwardedRef<HTMLInputElement>,
+  ) => {
+    return (
+      <StyledInput
+        height={height}
+        width={width}
+        $bgColor={bgColor}
+        fontSize={fontSize}
+        type={type}
+        borderColor={borderColor}
+        $borderWidth={borderWidth}
+        borderStyle={borderStyle}
+        {...props}
+        ref={ref}
+      />
+    );
+  },
+);
 
 export default InputText;

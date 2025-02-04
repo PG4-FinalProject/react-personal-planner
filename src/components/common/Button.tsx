@@ -3,13 +3,15 @@ import styled from 'styled-components';
 import { palette } from '../../styles/palette';
 
 const StyledButton = styled.button<{
+  $margin?: string;
   height?: string;
   width?: string;
   color?: string;
   fontSize?: string;
   fontWeight?: string;
 }>`
-  height: ${props => props.height || '54px'};
+  margin: ${props => props.$margin};
+  height: ${props => props.height || '40px'};
   width: ${props => props.width || '100%'};
   background-color: ${props => props.color || palette.blue};
   font-size: ${props => props.fontSize || '16px'};
@@ -25,6 +27,7 @@ const StyledButton = styled.button<{
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
+  margin?: string;
   height?: string;
   width?: string;
   color?: string;
@@ -35,6 +38,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 const Button = ({
   children,
   type = 'button', // 기본값을 'button'으로 설정
+  margin: margin,
   height,
   width,
   color,
@@ -45,6 +49,7 @@ const Button = ({
   return (
     <StyledButton
       type={type}
+      $margin={margin}
       height={height}
       width={width}
       color={color}
