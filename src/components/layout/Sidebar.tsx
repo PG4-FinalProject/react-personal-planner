@@ -89,7 +89,7 @@ const SidebarContainer = styled.div`
   position: fixed;
   top: 0;
   left: 50%;
-  width: 387px;
+  width: 300px;
   transform: translateX(-265px);
   height: 100%;
   background-color: white;
@@ -100,7 +100,7 @@ const SidebarContainer = styled.div`
   border-top-right-radius: 16px;
   border-bottom-right-radius: 16px;
 
-  @media (max-width: 1068px) {
+  @media (max-width: 534px) {
     left: 0;
     transform: none;
   }
