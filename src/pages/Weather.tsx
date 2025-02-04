@@ -81,6 +81,7 @@ const WeatherDetail: React.FC = () => {
       <StyledContent>
         <WeatherContainer>
           <Section>
+            <SectionTitle>현재위치</SectionTitle>
             <ContentUIBox>
               <WeatherInfo>
                 <WeatherTemp>
@@ -122,7 +123,7 @@ const WeatherDetail: React.FC = () => {
           </Section>
 
           <Section>
-            <SectionTitle>7일간의 날씨</SectionTitle>
+            <SectionTitle>6일간의 날씨</SectionTitle>
             <ContentUIBox>
               <DailyList>
                 {currentWeather.daily.slice(0, 7).map(day => (
