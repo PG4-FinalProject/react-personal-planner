@@ -7,11 +7,9 @@ const StyledInput = styled.input<{
   $bgColor?: string;
   fontSize?: string;
 
-
   borderColor?: string; // 테두리 색상
   $borderWidth?: string; // 테두리 두께
   borderStyle?: string; // 테두리 스타일
-
 }>`
   height: ${props => props.height || '40px'};
   width: ${props => props.width || '200px'};
@@ -19,6 +17,7 @@ const StyledInput = styled.input<{
   font-size: ${props => props.fontSize || '16px'};
   color: #333;
   border: ${props =>
+    `${props.$borderWidth || '1px'} ${props.borderStyle || 'solid'} ${props.borderColor || '#ccc'}`};
   border-radius: 4px;
   padding: 8px;
   outline: none;
@@ -70,14 +69,12 @@ const InputText: React.FC<InputTextProps> = ({
       placeholder={placeholder}
       value={value}
       onChange={onChange}
-
       type={type}
       style={style}
       borderColor={borderColor}
-      borderWidth={borderWidth}
+      $borderWidth={borderWidth}
       borderStyle={borderStyle}
       name={name} // name prop 전달
-
     />
   );
 };
