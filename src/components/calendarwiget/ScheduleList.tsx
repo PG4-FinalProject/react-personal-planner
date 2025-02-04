@@ -2,7 +2,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Pencil } from 'lucide-react';
-import { formatDate, formatTime } from '../../utils/date'; // formatTime 추가
+import { formatTime } from '../../utils/date'; // formatTime 추가
 import type { Schedule } from '../../types/schedule';
 
 interface ScheduleListProps {

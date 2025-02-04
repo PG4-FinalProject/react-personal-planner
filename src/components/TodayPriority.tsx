@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ClockAlert } from 'lucide-react';
+import { ClockAlert, Play } from 'lucide-react';
 import { palette } from '../styles/palette';
 import ContentUIBox from './layout/ContentUIBox';
 import { useTodayPriority } from '../hooks/useTodayPriority';
@@ -12,11 +12,10 @@ const Title = styled.div`
   margin-bottom: 16px;
 `;
 
-const PriorityItem = styled.div`
+const PriorityItem = styled.div<{ $type: 'inProgress' | 'upcoming' }>`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: ${palette.lightblue};
   padding: 12px 16px;
   border-radius: 8px;
   margin-bottom: 8px;
@@ -36,6 +35,9 @@ const TaskName = styled.span`
 const TimeInfo = styled.div`
   font-size: 16px;
   color: ${palette.red};
+  display: flex;
+  align-items: center;
+  gap: 4px;
 `;
 
 const LoadingPlaceholder = styled.div`
@@ -45,7 +47,7 @@ const LoadingPlaceholder = styled.div`
 `;
 
 const TodayPriority: React.FC = () => {
-  const { tasks, isLoading, error } = useTodayPriority();
+  const { tasks, isLoading, error, hasNoTasks } = useTodayPriority();
 
   if (isLoading) {
     return (
@@ -63,17 +65,28 @@ const TodayPriority: React.FC = () => {
     );
   }
 
-  if (tasks.length === 0) {
-    return null;
+  if (hasNoTasks) {
+    return (
+      <ContentUIBox bgColor={palette.lightblue}>
+        <LoadingPlaceholder>오늘의 일정이 없습니다.</LoadingPlaceholder>
+      </ContentUIBox>
+    );
   }
 
   return (
     <ContentUIBox bgColor={palette.lightblue}>
       <Title>오늘의 우선순위</Title>
       {tasks.map((task, index) => (
-        <PriorityItem key={index}>
+        <PriorityItem
+          key={index}
+          $type={task.isInProgress ? 'inProgress' : 'upcoming'}
+        >
           <TaskInfo>
-            <ClockAlert size={20} color={palette.red} />
+            {task.isInProgress ? (
+              <Play size={20} color={palette.blue} />
+            ) : (
+              <ClockAlert size={20} color={palette.red} />
+            )}
             <TaskName>{task.name}</TaskName>
           </TaskInfo>
           <TimeInfo>{task.duration}</TimeInfo>

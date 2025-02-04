@@ -94,6 +94,11 @@ const NotificationModal: React.FC<NotificationModalProps> = ({
 }) => {
   if (!isOpen) return null;
 
+  // 시간순으로 정렬 (시간이 빠른 순)
+  const sortedNotifications = [...notifications].sort((a, b) =>
+    a.timestamp.localeCompare(b.timestamp),
+  );
+
   const handleNotificationClick = (notification: Notification) => {
     if (!notification.isChecked) {
       onMarkAsRead(notification.id);
@@ -104,14 +109,14 @@ const NotificationModal: React.FC<NotificationModalProps> = ({
     <ModalOverlay onClick={onClose}>
       <ModalContent onClick={e => e.stopPropagation()}>
         <ModalHeader>
-          <Title>알림</Title>
+          <Title>오늘의 알림</Title>
           <CloseButton onClick={onClose}>
             <X size={20} />
           </CloseButton>
         </ModalHeader>
         <NotificationList>
-          {notifications.length > 0 ? (
-            notifications.map(notification => (
+          {sortedNotifications.length > 0 ? (
+            sortedNotifications.map(notification => (
               <NotificationItem
                 key={notification.id}
                 isChecked={notification.isChecked}
@@ -125,7 +130,7 @@ const NotificationModal: React.FC<NotificationModalProps> = ({
             <div
               style={{ padding: '16px', textAlign: 'center', color: '#666' }}
             >
-              알림이 없습니다
+              오늘의 일정이 없습니다
             </div>
           )}
         </NotificationList>
