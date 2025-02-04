@@ -46,14 +46,14 @@ const HeaderButton = styled.button`
 `;
 
 const FloatingButtonWrapper = styled.div`
-  position: absolute;
-  bottom: 16px;
+  position: fixed;
+  bottom: 80px;
   right: 16px;
 
-  // @media (min-width: 534px) {
-  //   right: 50%;
-  //   margin-right: -250px;
-  // }
+  @media (min-width: 534px) {
+    right: 50%;
+    margin-right: -250px;
+  }
 `;
 
 const FooterIconButton = styled.button<{ $isActive: boolean }>`
