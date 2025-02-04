@@ -81,6 +81,7 @@ export function useWeather(props: UseWeatherProps = { isWidget: false }) {
             day: new Date().toLocaleDateString('ko-KR', {
               weekday: 'long',
             }),
+            precipitation: data.pop ? Math.round(data.pop * 100) : 0,
           } as ProcessedWeatherData);
         } else {
           const data = await fetchDetailedWeather(

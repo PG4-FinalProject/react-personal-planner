@@ -16,12 +16,6 @@ const StyledWeatherContainer = styled(ContentUIBox)`
 `;
 
 const LocationText = styled.h2`
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-bottom: 4px;
-`;
-
-const DateText = styled.p`
   font-size: 0.875rem;
   color: #666;
 `;
@@ -36,19 +30,52 @@ const WeatherInfo = styled.div`
 const WeatherTemp = styled.div`
   display: flex;
   align-items: center;
-  gap: 8px;
-
-  span {
-    font-size: 1.5rem;
-    font-weight: 600;
-  }
+  gap: 24px;
 `;
 
-const HumidityWrapper = styled.div`
+const WeatherIconGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+`;
+
+const WeatherIconAndTemp = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+`;
+
+const Temperature = styled.span`
+  font-size: 1.55rem;
+  font-weight: 600;
+`;
+
+const PrecipitationText = styled.div`
+  font-size: 0.85rem;
+  color: #4a90e2;
   display: flex;
   align-items: center;
   gap: 4px;
-  color: #4a90e2;
+`;
+
+const DateWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 18px;
+  margin-top: -32px;
+`;
+
+const DateText = styled.p`
+  font-size: 0.875rem;
+  color: #666;
+`;
+
+const DayText = styled.p`
+  font-size: 1.355rem;
+  font-weight: 600;
+  color: #333;
 `;
 
 const WeatherWidget: React.FC = () => {
@@ -64,7 +91,7 @@ const WeatherWidget: React.FC = () => {
 
   const handleClick = () => {
     navigate('/weather', {
-      state: { coords }, // 위치 정보만 전달
+      state: { coords },
     });
   };
 
@@ -73,24 +100,31 @@ const WeatherWidget: React.FC = () => {
       <StyledWeatherContainer>
         <div>
           <LocationText>{weatherData.location}</LocationText>
-          <DateText>
-            {weatherData.date} {weatherData.day}
-          </DateText>
         </div>
         <WeatherInfo>
           <WeatherTemp>
-            <img
-              src={`http://openweathermap.org/img/wn/${weatherData.weatherIcon}@2x.png`}
-              alt={weatherData.description}
-              width="40"
-              height="40"
-            />
-            <span>{weatherData.temperature}°</span>
+            <WeatherIconGroup>
+              <WeatherIconAndTemp>
+                <img
+                  src={`http://openweathermap.org/img/wn/${weatherData.weatherIcon}@2x.png`}
+                  alt={weatherData.description}
+                  width="40"
+                  height="40"
+                />
+                <Temperature>{weatherData.temperature}°</Temperature>
+              </WeatherIconAndTemp>
+              <PrecipitationText>
+                <LucideIcon name="Droplet" size={14} />
+                <span>강수확률</span>
+                <span>{weatherData.precipitation}%</span>
+              </PrecipitationText>
+            </WeatherIconGroup>
           </WeatherTemp>
-          <HumidityWrapper>
-            <LucideIcon name="Droplets" size={20} />
-            <span>{weatherData.humidity}%</span>
-          </HumidityWrapper>
+
+          <DateWrapper>
+            <DateText>{weatherData.date}</DateText>
+            <DayText>{weatherData.day}</DayText>
+          </DateWrapper>
         </WeatherInfo>
       </StyledWeatherContainer>
     </div>

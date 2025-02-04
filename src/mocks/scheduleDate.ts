@@ -14,17 +14,17 @@ export const mockSchedules: Schedule[] = [
   {
     id: 2,
     title: '점심 약속',
-    startTime: '12:00',
-    endTime: '13:30',
-    date: '2025-01-14',
+    startTime: '13:00',
+    endTime: '13:59',
+    date: '2025-02-04',
     category: 'personal',
   },
   {
     id: 3,
     title: '운동',
-    startTime: '18:00',
+    startTime: '17:00',
     endTime: '19:30',
-    date: '2025-01-15',
+    date: '2025-02-04',
     category: 'health',
   },
   {
