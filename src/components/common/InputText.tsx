@@ -4,19 +4,20 @@ import styled from 'styled-components';
 const StyledInput = styled.input<{
   height?: string;
   width?: string;
-  bgColor?: string;
+  $bgColor?: string;
   fontSize?: string;
-  borderColor?: string;
-  borderWidth?: string;
-  borderStyle?: string;
+
+  borderColor?: string; // 테두리 색상
+  $borderWidth?: string; // 테두리 두께
+  borderStyle?: string; // 테두리 스타일
 }>`
   height: ${props => props.height || '40px'};
   width: ${props => props.width || '200px'};
-  background-color: ${props => props.bgColor || '#fff'};
+  background-color: ${props => props.$bgColor || '#fff'};
   font-size: ${props => props.fontSize || '16px'};
   color: #333;
   border: ${props =>
-    `${props.borderWidth || '1px'} ${props.borderStyle || 'solid'} ${props.borderColor || '#ccc'}`};
+    `${props.$borderWidth || '1px'} ${props.borderStyle || 'solid'} ${props.borderColor || '#ccc'}`};
   border-radius: 4px;
   padding: 8px;
   outline: none;
@@ -63,7 +64,7 @@ const InputText: React.FC<InputTextProps> = ({
     <StyledInput
       height={height}
       width={width}
-      bgColor={bgColor}
+      $bgColor={bgColor}
       fontSize={fontSize}
       placeholder={placeholder}
       value={value}
@@ -71,7 +72,7 @@ const InputText: React.FC<InputTextProps> = ({
       type={type}
       style={style}
       borderColor={borderColor}
-      borderWidth={borderWidth}
+      $borderWidth={borderWidth}
       borderStyle={borderStyle}
       name={name} // name prop 전달
     />

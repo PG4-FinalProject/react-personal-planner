@@ -23,10 +23,8 @@ interface NavItem {
 
 export const LayoutWrapper = styled.div`
   position: relative;
-  padding: 65px 0;
   margin: 0 auto;
   max-width: 534px;
-  min-height: 100vh;
 `;
 
 const HeaderLeft = styled.div`
@@ -148,11 +146,11 @@ const MainLayout = ({ children }: MainLayoutProps) => {
     <LayoutWrapper>
       <SidebarMenu isOpen={isSidebarOpen} onClose={handleSidebarClose} />
       <Header>{headerContent}</Header>
-      <Content background-color={palette.background}>{children}</Content>
+      <Content>{children}</Content>
       <FloatingButtonWrapper>
         <PlusButton onClick={() => navigate('/plans/create')} />
       </FloatingButtonWrapper>
-      <Footer onPageChange={handlePageChange}>{footerContent}</Footer>
+      <Footer>{footerContent}</Footer>
     </LayoutWrapper>
   );
 };

@@ -17,15 +17,29 @@ export interface GetPlansParams {
   endDate: string;
 }
 
-export interface TodayPlanResponse {
-  todayPlan?: Plan;
-  inProgressPlans?: Plan[];
+export interface PlanI {
+  id: number;
+  title: string;
+  detail: string;
+  startTime: string;
+  endTime: string;
+  color: string;
+  categoryId: number;
+  categoryName: string;
 }
 
-export interface PlanCreateRequest {
+export interface EditPlanReqBody {
+  id: number;
   title: string;
-  detail?: string;
-  start_time: string;
-  end_time: string;
-  category_id?: number;
+  detail: string;
+  startTime: string;
+  endTime: string;
+  categoryId: number;
+}
+
+export type CreatePlanReqBody = Omit<EditPlanReqBody, 'id'>;
+
+export interface TodayPlanResponse {
+  todayPlan?: PlanI;
+  inProgressPlans?: PlanI[];
 }

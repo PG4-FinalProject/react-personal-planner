@@ -4,8 +4,8 @@ import {
   TagButton,
   Label,
   InputGroup,
-} from '../../styles/CreatePlans.styles';
-import { TAGS } from '../../pages/CreatePlans/constants';
+} from '../../styles/CreatePlan.style';
+import { TAGS } from '../../constants/constants';
 
 interface TagSelectorProps {
   selectedTagId: number;

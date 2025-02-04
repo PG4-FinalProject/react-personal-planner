@@ -3,12 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 import { palette } from '../styles/palette';
-import styled from 'styled-components';
 import InputText from '../components/common/InputText';
 import Logo from '../components/common/Logo';
 import BackBtn from '../components/common/BackBtn';
 import {
-  StyledContent,
   FormContainer,
   LogoContainer,
   Subtitle,
@@ -21,13 +19,7 @@ import {
 } from '../styles/Login.style';
 import { useAuth } from '../hooks/useAuth';
 import { LayoutWrapper } from '../components/layout/MainLayout';
-
-const HeaderContent = styled.div`
-  display: flex;
-  align-items: center;
-  width: 100%;
-  padding: 0 10px;
-`;
+import Content from '../components/layout/Content';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -52,7 +44,7 @@ const Login: React.FC = () => {
       <Header borderWidth="0px">
         <BackBtn onClick={() => navigate(-1)} />
       </Header>
-      <StyledContent color={palette.white}>
+      <Content color={palette.white}>
         <FormContainer>
           <LogoContainer>
             <Logo height="40px" />
@@ -114,8 +106,8 @@ const Login: React.FC = () => {
             </SocialButtons>
           </SocialLoginContainer>
         </FormContainer>
-      </StyledContent>
-      <Footer onPageChange={handlePageChange} borderWidth="0px" />
+      </Content>
+      <Footer borderWidth="0px" />
     </LayoutWrapper>
   );
 };
