@@ -6,9 +6,12 @@ const StyledInput = styled.input<{
   width?: string;
   $bgColor?: string;
   fontSize?: string;
+
+
   borderColor?: string; // 테두리 색상
   $borderWidth?: string; // 테두리 두께
   borderStyle?: string; // 테두리 스타일
+
 }>`
   height: ${props => props.height || '40px'};
   width: ${props => props.width || '200px'};
@@ -16,7 +19,6 @@ const StyledInput = styled.input<{
   font-size: ${props => props.fontSize || '16px'};
   color: #333;
   border: ${props =>
-    `${props.$borderWidth || '1px'} ${props.borderStyle || 'solid'} ${props.borderColor || '#ccc'}`}; // 사용자 지정 테두리
   border-radius: 4px;
   padding: 8px;
   outline: none;
@@ -36,11 +38,12 @@ interface InputTextProps {
   placeholder?: string;
   value?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  type?: string; // type prop 추가
-  style?: React.CSSProperties; // style prop 추가
-  borderColor?: string; // 테두리 색상 prop 추가
-  borderWidth?: string; // 테두리 두께 prop 추가
-  borderStyle?: string; // 테두리 스타일 prop 추가
+  type?: string;
+  style?: React.CSSProperties;
+  borderColor?: string;
+  borderWidth?: string;
+  borderStyle?: string;
+  name?: string; // name prop 추가
 }
 
 const InputText: React.FC<InputTextProps> = ({
@@ -51,11 +54,12 @@ const InputText: React.FC<InputTextProps> = ({
   placeholder,
   value,
   onChange,
-  type = 'text', // 기본 타입 설정
+  type = 'text',
   style,
   borderColor,
   borderWidth,
   borderStyle,
+  name, // name prop 추가
 }) => {
   return (
     <StyledInput
@@ -66,11 +70,14 @@ const InputText: React.FC<InputTextProps> = ({
       placeholder={placeholder}
       value={value}
       onChange={onChange}
-      type={type} // type prop 전달
-      style={style} // style prop 전달
-      borderColor={borderColor} // 테두리 색상 전달
-      $borderWidth={borderWidth} // 테두리 두께 전달
-      borderStyle={borderStyle} // 테두리 스타일 전달
+
+      type={type}
+      style={style}
+      borderColor={borderColor}
+      borderWidth={borderWidth}
+      borderStyle={borderStyle}
+      name={name} // name prop 전달
+
     />
   );
 };
