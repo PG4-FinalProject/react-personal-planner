@@ -39,7 +39,7 @@ export const usePlans = () => {
 
   const createPlan = (data: CreatePlanReqBody) => {
     createPlanReq(data).then(
-      req => {
+      res => {
         navigate(-1);
       },
       err => {
@@ -50,7 +50,7 @@ export const usePlans = () => {
 
   const editPlan = (data: EditPlanReqBody) => {
     editPlanReq(data).then(
-      req => {
+      res => {
         navigate(-1);
       },
       err => {
@@ -61,7 +61,7 @@ export const usePlans = () => {
 
   const deletePlan = (planId: number) => {
     deletePlanReq(planId).then(
-      req => {
+      res => {
         setPlans(plans.filter(plan => plan.id !== planId));
         setPlansCount(plansCount - 1);
       },
