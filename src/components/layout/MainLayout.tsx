@@ -148,11 +148,11 @@ const MainLayout = ({ children }: MainLayoutProps) => {
     <LayoutWrapper>
       <SidebarMenu isOpen={isSidebarOpen} onClose={handleSidebarClose} />
       <Header>{headerContent}</Header>
-      <Content background-color={palette.background}>{children}</Content>
+      <Content>{children}</Content>
       <FloatingButtonWrapper>
         <PlusButton onClick={() => navigate('/plans/create')} />
       </FloatingButtonWrapper>
-      <Footer onPageChange={handlePageChange}>{footerContent}</Footer>
+      <Footer>{footerContent}</Footer>
     </LayoutWrapper>
   );
 };

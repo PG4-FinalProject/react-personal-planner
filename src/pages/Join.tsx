@@ -111,7 +111,7 @@ const Join: React.FC = () => {
           </Button>
         </FormContainer>
       </Content>
-      <Footer onPageChange={path => navigate(path)} borderWidth="0px" />
+      <Footer borderWidth="0px" />
     </LayoutWrapper>
   );
 };

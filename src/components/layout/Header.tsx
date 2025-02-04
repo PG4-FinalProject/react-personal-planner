@@ -6,14 +6,13 @@ const HeaderWrapper = styled.header<{
   $borderWidth?: string;
   borderColor?: string;
 }>`
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
   max-width: 534px;
   height: 65px;
-  margin: 0 auto;
   background-color: ${props => props.color || palette.white};
   border-bottom: ${props => props.$borderWidth || '1px'} solid
     ${props => props.borderColor || '#ebebeb'};

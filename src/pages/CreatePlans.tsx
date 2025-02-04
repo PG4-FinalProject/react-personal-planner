@@ -18,6 +18,9 @@ import type { FormData } from '../types/createplans';
 import { TAGS } from '../constants/constants';
 import { createPlan } from '../apis/plans.api';
 import { useAlert } from '../hooks/useAlert';
+import { LayoutWrapper } from '../components/layout/MainLayout';
+import Header from '../components/layout/Header';
+import Content from '../components/layout/Content';
 
 const CreatePlans: React.FC = () => {
   const navigate = useNavigate();
@@ -87,79 +90,80 @@ const CreatePlans: React.FC = () => {
   );
 
   return (
-    <Layout
-      headerContent={headerContent}
-      footerContent={footerContent}
-      onPageChange={handlePageChange}
-    >
-      <FormWrapper onSubmit={handleSubmit}>
-        <InputGroup>
-          <Label>제목</Label>
-          <InputText
-            type="text"
-            name="title"
-            placeholder="일정 제목을 입력하세요"
-            value={formData.title}
-            onChange={handleInputChange}
-            width="100%"
-            borderWidth="0px"
-          />
-        </InputGroup>
-        <InputGroup>
-          <Label>날짜 선택</Label>
-          <InputText
-            type="date"
-            name="date"
-            value={formData.date}
-            onChange={handleInputChange}
-            width="100%"
-            borderWidth="0px"
-          />
-        </InputGroup>
-
-        <InputGroup>
-          <Label>시간 선택</Label>
-          <TimeWrapper>
+    <LayoutWrapper>
+      <Header borderWidth="0px">
+        <HeaderContent>
+          <BackBtn onClick={() => navigate(-1)} />
+          <Title>일정 기록</Title>
+        </HeaderContent>
+      </Header>
+      <Content>
+        <FormWrapper onSubmit={handleSubmit}>
+          <InputGroup>
+            <Label>제목</Label>
             <InputText
-              type="time"
-              name="startTime"
-              value={formData.startTime}
+              type="text"
+              name="title"
+              placeholder="일정 제목을 입력하세요"
+              value={formData.title}
               onChange={handleInputChange}
-              width="50%"
+              width="100%"
               borderWidth="0px"
             />
-            <span>-</span>
+          </InputGroup>
+          <InputGroup>
+            <Label>날짜 선택</Label>
             <InputText
-              type="time"
-              name="endTime"
-              value={formData.endTime}
+              type="date"
+              name="date"
+              value={formData.date}
               onChange={handleInputChange}
-              width="50%"
+              width="100%"
               borderWidth="0px"
             />
-          </TimeWrapper>
-        </InputGroup>
-
-        <InputGroup>
-          <Label>메모</Label>
-          <InputText
-            type="text"
-            name="memo"
-            placeholder="메모를 입력하세요"
-            value={formData.memo}
-            onChange={handleInputChange}
-            width="100%"
-            height="80px"
-            borderWidth="0px"
+          </InputGroup>
+          <InputGroup>
+            <Label>시간 선택</Label>
+            <TimeWrapper>
+              <InputText
+                type="time"
+                name="startTime"
+                value={formData.startTime}
+                onChange={handleInputChange}
+                width="50%"
+                borderWidth="0px"
+              />
+              <span>-</span>
+              <InputText
+                type="time"
+                name="endTime"
+                value={formData.endTime}
+                onChange={handleInputChange}
+                width="50%"
+                borderWidth="0px"
+              />
+            </TimeWrapper>
+          </InputGroup>
+          <InputGroup>
+            <Label>메모</Label>
+            <InputText
+              type="text"
+              name="memo"
+              placeholder="메모를 입력하세요"
+              value={formData.memo}
+              onChange={handleInputChange}
+              width="100%"
+              height="80px"
+              borderWidth="0px"
+            />
+          </InputGroup>
+          <TagSelector
+            selectedTagId={formData.categoryId}
+            onSelect={handleTagSelect}
           />
-        </InputGroup>
-
-        <TagSelector
-          selectedTagId={formData.categoryId}
-          onSelect={handleTagSelect}
-        />
-      </FormWrapper>
-    </Layout>
+        </FormWrapper>
+      </Content>
+    </LayoutWrapper>
   );
 };
 

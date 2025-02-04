@@ -107,7 +107,7 @@ const Login: React.FC = () => {
           </SocialLoginContainer>
         </FormContainer>
       </Content>
-      <Footer onPageChange={handlePageChange} borderWidth="0px" />
+      <Footer borderWidth="0px" />
     </LayoutWrapper>
   );
 };
