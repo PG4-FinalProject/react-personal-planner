@@ -30,6 +30,7 @@ interface ButtonProps {
   fontSize?: string;
   fontWeight?: string;
   onClick?: () => void;
+  type?: 'submit' | 'button' | 'reset'; // type prop 추가
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -40,6 +41,7 @@ const Button: React.FC<ButtonProps> = ({
   fontSize,
   fontWeight,
   onClick,
+  type = 'button', // 기본값을 'button'으로 설정
 }) => {
   return (
     <StyledButton
@@ -49,6 +51,7 @@ const Button: React.FC<ButtonProps> = ({
       fontSize={fontSize}
       fontWeight={fontWeight}
       onClick={onClick}
+      type={type}
     >
       {children}
     </StyledButton>
