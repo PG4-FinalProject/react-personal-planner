@@ -12,7 +12,7 @@ interface FooterProps {
 
 // 스타일 정의
 const FooterWrapper = styled.footer<{
-  borderWidth?: string;
+  $borderWidth?: string;
   borderColor?: string;
 }>`
   position: fixed;
@@ -24,7 +24,7 @@ const FooterWrapper = styled.footer<{
   height: 65px;
   margin: 0 auto;
   background-color: ${props => props.color || palette.white};
-  border-top: ${props => props.borderWidth || '1px'} solid
+  border-top: ${props => props.$borderWidth || '1px'} solid
     ${props => props.borderColor || '#ebebeb'};
   display: flex;
   align-items: center;
@@ -43,7 +43,7 @@ const Footer: React.FC<FooterProps> = ({
     <FooterWrapper
       color={color}
       borderColor={borderColor}
-      borderWidth={borderWidth}
+      $borderWidth={borderWidth}
     >
       {children} {/* children을 사용하여 외부에서 전달된 내용 표시 */}
     </FooterWrapper>
