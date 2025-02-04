@@ -7,7 +7,7 @@ import Users from '../pages/User';
 import Join from '../pages/Join';
 import Login from '../pages/Login';
 import WeatherDetail from '../pages/Weather';
-import CreatePlans from '../pages/CreatePlans.tsx';
+import CreatePlans from '../pages/CreatePlan.tsx';
 
 const AppRoutes: React.FC = () => {
   return (
