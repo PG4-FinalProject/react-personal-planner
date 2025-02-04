@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { palette } from './palette';
 import Content from '../components/layout/Content';
-import Button from '../components/common/LongBtn';
+import Button from '../components/common/Button';
 
 export const FormContainer = styled.div`
   display: flex;
@@ -30,13 +30,6 @@ export const InputContainer = styled.div`
   flex-direction: column;
   gap: 16px;
   margin-bottom: 24px;
-`;
-
-export const LoginButton = styled(Button)`
-  width: 100%;
-  height: 54px;
-  margin-bottom: 36px;
-  background-color: #4285f4;
 `;
 
 export const SignupText = styled.p`

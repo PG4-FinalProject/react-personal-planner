@@ -11,12 +11,12 @@ import { useState } from 'react';
 import { CreatePlanReqBody, EditPlanReqBody, PlanI } from '../types/plan.type';
 import { useAlert } from './useAlert';
 
-export const usePlans = () => {
+export const usePlan = () => {
   const [plans, setPlans] = useState<PlanI[]>([]);
   const [plansCount, setPlansCount] = useState<number>(0);
 
-  const navigate = useNavigate();
   const { showAlert } = useAlert();
+  const navigate = useNavigate();
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const startDate = params.get('startDate');
@@ -39,8 +39,8 @@ export const usePlans = () => {
 
   const createPlan = (data: CreatePlanReqBody) => {
     createPlanReq(data).then(
-      req => {
-        navigate(-1);
+      res => {
+        navigate('/calendar');
       },
       err => {
         showAlert('plan 생성을 실패했습니다.');
@@ -50,7 +50,7 @@ export const usePlans = () => {
 
   const editPlan = (data: EditPlanReqBody) => {
     editPlanReq(data).then(
-      req => {
+      res => {
         navigate(-1);
       },
       err => {
@@ -61,7 +61,7 @@ export const usePlans = () => {
 
   const deletePlan = (planId: number) => {
     deletePlanReq(planId).then(
-      req => {
+      res => {
         setPlans(plans.filter(plan => plan.id !== planId));
         setPlansCount(plansCount - 1);
       },

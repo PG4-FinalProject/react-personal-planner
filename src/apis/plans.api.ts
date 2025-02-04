@@ -2,21 +2,20 @@ import {
   GetPlansParams,
   CreatePlanReqBody,
   EditPlanReqBody,
-  TodayPlanResponse
+  TodayPlanResponse,
 } from '../types/plan.type';
 import { requestHandler } from './http';
-import { FormData } from '../types/createplans';
 import { getDateTimeFormat } from '../utils/date';
 import axios, { AxiosError } from 'axios';
 
 export const notifyTodayPlan = async (): Promise<TodayPlanResponse> => {
   try {
     const currentTime = getDateTimeFormat(new Date());
-    
+
     const response = await requestHandler('get', '/plans/notifications/today', {
       params: { currentTime },
     });
-    
+
     return {
       todayPlan: response.todayPlan || null,
       inProgressPlans: response.inProgressPlans || [],
@@ -37,24 +36,13 @@ export const notifyTodayPlan = async (): Promise<TodayPlanResponse> => {
         };
       }
     }
-    
+
     throw error;
   }
 };
 
 export const getPlans = async (params: GetPlansParams) => {
   return await requestHandler('get', '/plans', { params });
-};
-
-export const createPlan = async (planData: FormData) => {
-  try {
-    // POST 요청으로 플랜 생성
-    const response = await requestHandler('post', 'plans', planData);
-    return response;
-  } catch (error) {
-    console.error('플랜 생성 중 오류 발생:', error);
-    throw error;
-  }
 };
 
 export const createPlanReq = async (data: CreatePlanReqBody) => {
