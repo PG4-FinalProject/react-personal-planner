@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 import styled from 'styled-components';
 import Header from './Header';
 import Content from './Content';
@@ -26,23 +26,15 @@ interface LayoutProps {
   children: ReactNode;
   headerContent?: ReactNode;
   footerContent?: ReactNode;
-  onPageChange: (path: string) => void;
 }
 
-const Layout = ({
-  children,
-  headerContent,
-  footerContent,
-  onPageChange,
-}: LayoutProps) => {
+const Layout = ({ children, headerContent, footerContent }: LayoutProps) => {
   return (
     <LayoutContainer>
       <LayoutWrapper>
         <Header color={palette.white}>{headerContent}</Header>
         <Content color={palette.background}>{children}</Content>
-        <Footer color={palette.white} onPageChange={onPageChange}>
-          {footerContent}
-        </Footer>
+        <Footer color={palette.white}>{footerContent}</Footer>
       </LayoutWrapper>
     </LayoutContainer>
   );
