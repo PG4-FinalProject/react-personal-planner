@@ -1,5 +1,3 @@
-import { formatTime, getDateTimeFormat } from './date';
-
 export const formatRemainingTime = (
   diffInMilliseconds: number,
 ): string | null => {

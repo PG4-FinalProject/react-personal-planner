@@ -10,7 +10,7 @@ const LayoutContainer = styled.div`
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
-  background-color: ${palette.background};
+  background-color: #efefef;
 `;
 
 const LayoutWrapper = styled.div`
