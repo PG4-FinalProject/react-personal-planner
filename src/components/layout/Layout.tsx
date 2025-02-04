@@ -25,16 +25,24 @@ const LayoutWrapper = styled.div`
 interface LayoutProps {
   children: ReactNode;
   headerContent?: ReactNode;
+  footerContent?: ReactNode;
   onPageChange: (path: string) => void;
 }
 
-const Layout = ({ children, headerContent, onPageChange }: LayoutProps) => {
+const Layout = ({
+  children,
+  headerContent,
+  footerContent,
+  onPageChange,
+}: LayoutProps) => {
   return (
     <LayoutContainer>
       <LayoutWrapper>
         <Header color={palette.white}>{headerContent}</Header>
         <Content color={palette.background}>{children}</Content>
-        <Footer color={palette.white} onPageChange={onPageChange} />
+        <Footer color={palette.white} onPageChange={onPageChange}>
+          {footerContent}
+        </Footer>
       </LayoutWrapper>
     </LayoutContainer>
   );
