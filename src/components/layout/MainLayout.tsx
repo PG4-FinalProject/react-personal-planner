@@ -23,10 +23,8 @@ interface NavItem {
 
 export const LayoutWrapper = styled.div`
   position: relative;
-  padding: 65px 0;
   margin: 0 auto;
   max-width: 534px;
-  min-height: 100vh;
 `;
 
 const HeaderLeft = styled.div`

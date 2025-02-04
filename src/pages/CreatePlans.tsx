@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Layout from '../components/layout/Layout';
 import BackBtn from '../components/common/BackBtn';
 import Title from '../components/common/Title';
 import InputText from '../components/common/InputText';
@@ -97,7 +96,7 @@ const CreatePlans: React.FC = () => {
           <Title>일정 기록</Title>
         </HeaderContent>
       </Header>
-      <Content>
+      <Content noFooter>
         <FormWrapper onSubmit={handleSubmit}>
           <InputGroup>
             <Label>제목</Label>

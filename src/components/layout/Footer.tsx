@@ -14,7 +14,7 @@ const FooterWrapper = styled.footer<{
   $borderWidth?: string;
   borderColor?: string;
 }>`
-  position: absolute;
+  position: fixed;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);

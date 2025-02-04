@@ -6,7 +6,7 @@ const HeaderWrapper = styled.header<{
   $borderWidth?: string;
   borderColor?: string;
 }>`
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 50%;
   transform: translateX(-50%);
