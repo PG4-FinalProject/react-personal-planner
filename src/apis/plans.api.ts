@@ -4,7 +4,6 @@ import { FormData } from '../types/createplans';
 import { getDateTimeFormat } from '../utils/date';
 import axios from 'axios';
 import { TodayPlanResponse } from '../types/plan.type';
-import { Plan } from '../types/plan.type';
 
 export const getPlans = async (params: GetPlansParams) => {
   return await requestHandler('get', '/plans', { params });
