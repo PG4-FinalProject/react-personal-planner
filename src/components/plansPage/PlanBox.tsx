@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import LucideIcon from '../common/LucideIcon';
 import { PlanI } from '../../types/plan.type';
 import { useAlert } from '../../hooks/useAlert';
+import dayjs from 'dayjs';
 
 const PlanBoxStyle = styled.div`
   display: flex;
@@ -54,8 +55,13 @@ interface PlanBoxProps {
   deletePlan: (planId: number) => void;
 }
 
-function PlanBox({ plan, deletePlan }: PlanBoxProps) {
+const PlanBox = ({ plan, deletePlan }: PlanBoxProps) => {
   const { showConfirm } = useAlert();
+
+  const startDateTime = dayjs(plan.startTime);
+  const startTime = startDateTime.format('HH:mm');
+  const endDateTime = dayjs(plan.endTime);
+  const endTime = endDateTime.format('HH:mm');
 
   const handleDelete = () => {
     showConfirm('정말 삭제하시겠습니까?', () => {
@@ -69,7 +75,9 @@ function PlanBox({ plan, deletePlan }: PlanBoxProps) {
         <ColorDot $bgColor={plan.color} />
         <div>
           <PlanTitle>{plan.title}</PlanTitle>
-          <PlanTime>{plan.startTime}</PlanTime>
+          <PlanTime>
+            {startTime} - {endTime}
+          </PlanTime>
         </div>
       </PlanContent>
       <TrashBtn type="button" onClick={handleDelete}>
@@ -77,6 +85,6 @@ function PlanBox({ plan, deletePlan }: PlanBoxProps) {
       </TrashBtn>
     </PlanBoxStyle>
   );
-}
+};
 
 export default PlanBox;

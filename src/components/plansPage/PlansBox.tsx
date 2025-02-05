@@ -37,7 +37,7 @@ const PlansCount = styled.div`
 
 interface PlansBoxProps {}
 
-function PlansBox({}: PlansBoxProps) {
+const PlansBox = ({}: PlansBoxProps) => {
   const { plans, deletePlan } = usePlan();
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -93,6 +93,6 @@ function PlansBox({}: PlansBoxProps) {
       ))}
     </ContentUIBox>
   );
-}
+};
 
 export default PlansBox;

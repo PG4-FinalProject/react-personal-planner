@@ -45,7 +45,7 @@ const CategoriesBox = styled.div`
   gap: 8px;
 `;
 
-const CreatePlans: React.FC = () => {
+const EditPlan: React.FC = () => {
   const {
     register,
     handleSubmit,
@@ -162,4 +162,4 @@ const CreatePlans: React.FC = () => {
   );
 };
 
-export default CreatePlans;
+export default EditPlan;
