@@ -32,9 +32,22 @@ export const useUserProfile = () => {
     fetchUserProfile();
   }, [isLogin]);
 
+  const updateProfile = async (data: Partial<UserProfile>) => {
+    try {
+      const updatedProfile = await userApi.updateProfile(data);
+      // 기존 프로필 정보와 업데이트된 정보를 병합
+      setProfile(prev => (prev ? { ...prev, ...updatedProfile } : null));
+      return updatedProfile;
+    } catch (error) {
+      console.error('프로필 업데이트 실패:', error);
+      throw error;
+    }
+  };
+
   return {
     profile,
     isLoading,
     error,
+    updateProfile, // 업데이트 함수 추가
   };
 };
