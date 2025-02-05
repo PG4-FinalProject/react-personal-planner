@@ -3,17 +3,17 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyledButton = styled.button<{
-  height?: string;
-  width?: string;
-  $bgColor?: string;
-  color?: string;
-  fontSize?: string;
+  height: string;
+  width: string;
+  $bgColor: string;
+  color: string;
+  fontSize: string;
 }>`
-  height: ${props => props.height || '40px'};
-  width: ${props => props.width || '200px'};
-  background-color: ${props => props.$bgColor || '#007BFF'};
-  color: ${props => props.color || '#FFFFFF'};
-  font-size: ${props => props.fontSize || '16px'};
+  height: ${props => props.height};
+  width: ${props => props.width};
+  background-color: ${props => props.$bgColor};
+  color: ${props => props.color};
+  font-size: ${props => props.fontSize};
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -40,11 +40,11 @@ interface IconButtonProps {
 
 const IconButton: React.FC<IconButtonProps> = ({
   children,
-  height,
-  width,
-  bgColor,
-  color,
-  fontSize,
+  height = '40px',
+  width = '200px',
+  bgColor = '#007BFF',
+  color = '#FFFFFF',
+  fontSize = '16px',
   iconSize,
   onClick,
 }) => {
