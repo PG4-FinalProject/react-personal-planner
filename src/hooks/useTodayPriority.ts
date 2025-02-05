@@ -12,7 +12,6 @@ export const useTodayPriority = () => {
   const [error, setError] = useState<string | null>(null);
   const { isLogin } = useAuthStore();
 
-  // useTodayPriority.ts
   const processPriorityTasks = async (): Promise<EnhancedPriorityTask[]> => {
     try {
       if (!isLogin) {
@@ -21,13 +20,23 @@ export const useTodayPriority = () => {
 
         return mockSchedules
           .filter(schedule => schedule.date === today)
-          .map(schedule => ({
-            name: schedule.title,
-            duration: `${schedule.startTime} - ${schedule.endTime}`, // 목데이터는 이미 HH:mm 형식
-            isInProgress:
-              currentTime >= new Date(`${today} ${schedule.startTime}`) &&
-              currentTime <= new Date(`${today} ${schedule.endTime}`),
-          }));
+          .map(schedule => {
+            const startTime = new Date(`${today} ${schedule.startTime}`);
+            const endTime = new Date(`${today} ${schedule.endTime}`);
+
+            return {
+              name: schedule.title,
+              duration: `${schedule.startTime} - ${schedule.endTime}`,
+              isInProgress: currentTime >= startTime && currentTime <= endTime,
+            };
+          })
+          .filter(task => {
+            const currentTime = new Date();
+            return (
+              currentTime <=
+              new Date(`${today} ${task.duration.split(' - ')[1]}`)
+            );
+          }); // 종료 시간이 지나지 않은 태스크만 필터링
       }
 
       const today = getDateFormat(new Date());
@@ -42,23 +51,28 @@ export const useTodayPriority = () => {
 
       const currentTime = new Date();
 
-      return response.plans.map((plan: PlanI) => {
-        // startTime과 endTime이 'YYYY-MM-DD HH:mm:ss' 형식으로 옴
-        const [, startTimeStr] = plan.startTime.split(' '); // HH:mm:ss
-        const [, endTimeStr] = plan.endTime.split(' '); // HH:mm:ss
+      return response.plans
+        .map((plan: PlanI) => {
+          const [, startTimeStr] = plan.startTime.split(' ');
+          const [, endTimeStr] = plan.endTime.split(' ');
 
-        // 시간만 추출 (HH:mm)
-        const startTime = startTimeStr.substring(0, 5);
-        const endTime = endTimeStr.substring(0, 5);
+          const startTime = startTimeStr.substring(0, 5);
+          const endTime = endTimeStr.substring(0, 5);
 
-        return {
-          name: plan.title,
-          duration: `${startTime} - ${endTime}`,
-          isInProgress:
-            currentTime >= new Date(plan.startTime) &&
-            currentTime <= new Date(plan.endTime),
-        };
-      });
+          return {
+            name: plan.title,
+            duration: `${startTime} - ${endTime}`,
+            isInProgress:
+              currentTime >= new Date(plan.startTime) &&
+              currentTime <= new Date(plan.endTime),
+          };
+        })
+        .filter((task: EnhancedPriorityTask) => {
+          // 종료 시간이 현재 시간보다 이후인 태스크만 필터링
+          const today = getDateFormat(new Date());
+          const endTime = new Date(`${today} ${task.duration.split(' - ')[1]}`);
+          return currentTime <= endTime;
+        });
     } catch (err) {
       console.error('Error fetching priority tasks:', err);
       setError('일정을 불러오는 중 오류가 발생했습니다.');
