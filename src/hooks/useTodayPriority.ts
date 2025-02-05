@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useAuthStore } from '../store/authStore';
 import { PlanI, TodayPlanResponse } from '../types/plan.type';
 import { EnhancedPriorityTask } from '../types/priority';
-import { notifyTodayPlan } from '../apis/plans.api';
+import { notifyTodayPlan } from '../apis/plan.api';
 import { formatTime } from '../utils/date';
 import { getDateFormat } from '../utils/date';
 import { mockSchedules } from '../mocks/scheduleDate';
