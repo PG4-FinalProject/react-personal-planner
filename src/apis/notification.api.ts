@@ -7,6 +7,7 @@ interface Plan {
   id: number;
   title: string;
   startTime: string; // ISO 형식의 날짜 문자열
+  endTime: string; // ISO 형식의 날짜 문자열
   // 필요한 다른 필드 추가
 }
 
@@ -27,7 +28,7 @@ export const notificationApi = {
     return response.plans.map((plan: Plan, index: number) => ({
       id: plan.id,
       scheduleId: plan.id,
-      message: `${plan.title} - ${plan.startTime.split(' ')[1].substring(0, 5)}`,
+      message: `${plan.title} - ${plan.startTime.split(' ')[1].substring(0, 5)} ~ ${plan.endTime.split(' ')[1].substring(0, 5)}`,
       timestamp: today,
       isChecked: false,
     }));
