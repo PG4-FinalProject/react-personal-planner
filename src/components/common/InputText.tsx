@@ -6,6 +6,7 @@ const StyledInput = styled.input<{
   width?: string;
   $bgColor?: string;
   fontSize?: string;
+  fontWeight?: string;
   borderColor?: string; // 테두리 색상
   $borderWidth?: string; // 테두리 두께
   borderStyle?: string; // 테두리 스타일
@@ -14,6 +15,7 @@ const StyledInput = styled.input<{
   width: ${props => props.width || '200px'};
   background-color: ${props => props.$bgColor || '#fff'};
   font-size: ${props => props.fontSize || '16px'};
+  font-weight: ${props => props.fontWeight};
   color: #333;
   border: ${props =>
     `${props.$borderWidth || '1px'} ${props.borderStyle || 'solid'} ${props.borderColor || '#ccc'}`};
@@ -33,6 +35,7 @@ interface InputTextProps extends React.InputHTMLAttributes<HTMLInputElement> {
   width?: string;
   bgColor?: string;
   fontSize?: string;
+  fontWeight?: string;
   type?: string;
   borderColor?: string;
   borderWidth?: string;
@@ -46,6 +49,7 @@ const InputText = React.forwardRef(
       width,
       bgColor,
       fontSize,
+      fontWeight,
       type = 'text',
       borderColor,
       borderWidth,
@@ -60,6 +64,7 @@ const InputText = React.forwardRef(
         width={width}
         $bgColor={bgColor}
         fontSize={fontSize}
+        fontWeight={fontWeight}
         type={type}
         borderColor={borderColor}
         $borderWidth={borderWidth}

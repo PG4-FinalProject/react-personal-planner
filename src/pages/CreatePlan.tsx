@@ -15,42 +15,49 @@ import Button from '../components/common/Button';
 import { useAlert } from '../hooks/useAlert';
 import { usePlan } from '../hooks/usePlan';
 import LucideIcon from '../components/common/LucideIcon';
+import dayjs from 'dayjs';
 
-const HeaderContent = styled.div`
+export const HeaderContent = styled.div`
   position: relative;
   width: 100%;
   display: flex;
   align-items: center;
 `;
 
-const CreatePlanForm = styled.form`
+export const CreatePlanForm = styled.form`
   padding: 16px;
 `;
 
-const PlanP = styled.p`
+export const PlanP = styled.p`
   margin: 20px 0px 8px;
   font-weight: bold;
   color: #4b5563;
 `;
 
-const PlanTimeBox = styled.div`
+export const PlanTimeBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-around;
 `;
 
-const CategoriesBox = styled.div`
+export const CategoriesBox = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
 `;
 
-const CreatePlans: React.FC = () => {
+const CreatePlan: React.FC = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<CreatePlanFormI>();
+  } = useForm<CreatePlanFormI>({
+    defaultValues: {
+      date: dayjs().format('YYYY-MM-DD'),
+      startTime: dayjs().format('HH:00:00'),
+      endTime: dayjs().add(1, 'hour').format('HH:00:00'),
+    },
+  });
   const { categories } = useCategory();
   const { createPlan } = usePlan();
 
@@ -94,6 +101,7 @@ const CreatePlans: React.FC = () => {
               autoFocus
               placeholder="일정 이름을 입력하세요."
               borderWidth="0px"
+              fontWeight="bold"
               {...register('title', { required: true })}
             />
           </fieldset>
@@ -106,6 +114,7 @@ const CreatePlans: React.FC = () => {
               height="48px"
               width="100%"
               borderWidth="0px"
+              fontWeight="bold"
               {...register('date', { required: true })}
             />
           </fieldset>
@@ -117,6 +126,7 @@ const CreatePlans: React.FC = () => {
                 height="48px"
                 width="40%"
                 borderWidth="0px"
+                fontWeight="bold"
                 {...register('startTime', { required: true })}
               />
               <LucideIcon name="Minus" size={10} />
@@ -125,6 +135,7 @@ const CreatePlans: React.FC = () => {
                 height="48px"
                 width="40%"
                 borderWidth="0px"
+                fontWeight="bold"
                 {...register('endTime', { required: true })}
               />
             </PlanTimeBox>
@@ -155,11 +166,11 @@ const CreatePlans: React.FC = () => {
       </Content>
       <Footer borderWidth="0px">
         <Button type="submit" form="createPlan" margin="16px" height="48px">
-          저장하기
+          생성하기
         </Button>
       </Footer>
     </LayoutWrapper>
   );
 };
 
-export default CreatePlans;
+export default CreatePlan;

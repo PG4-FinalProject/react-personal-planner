@@ -3,6 +3,7 @@ import LucideIcon from '../common/LucideIcon';
 import { PlanI } from '../../types/plan.type';
 import { useAlert } from '../../hooks/useAlert';
 import dayjs from 'dayjs';
+import { useNavigate } from 'react-router-dom';
 
 const PlanBoxStyle = styled.div`
   display: flex;
@@ -58,10 +59,14 @@ interface PlanBoxProps {
 const PlanBox = ({ plan, deletePlan }: PlanBoxProps) => {
   const { showConfirm } = useAlert();
 
-  const startDateTime = dayjs(plan.startTime);
-  const startTime = startDateTime.format('HH:mm');
-  const endDateTime = dayjs(plan.endTime);
-  const endTime = endDateTime.format('HH:mm');
+  const navigate = useNavigate();
+
+  const startTime = dayjs(plan.startTime).format('HH:mm');
+  const endTime = dayjs(plan.endTime).format('HH:mm');
+
+  const handlePlanClick = () => {
+    navigate('/plans/edit', { state: plan });
+  };
 
   const handleDelete = () => {
     showConfirm('정말 삭제하시겠습니까?', () => {
@@ -70,7 +75,7 @@ const PlanBox = ({ plan, deletePlan }: PlanBoxProps) => {
   };
 
   return (
-    <PlanBoxStyle>
+    <PlanBoxStyle onClick={handlePlanClick}>
       <PlanContent>
         <ColorDot $bgColor={plan.color} />
         <div>

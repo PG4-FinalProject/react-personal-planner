@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import ContentUIBox from '../layout/ContentUIBox';
 import { palette } from '../../styles/palette';
 import PlanDateRadioBtn from './PlanDateRadioBtn';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { PlanDateType } from '../../types/plan.type';
 import PlanBox from './PlanBox';
 import { usePlan } from '../../hooks/usePlan';
@@ -63,6 +63,10 @@ const PlansBox = ({}: PlansBoxProps) => {
     }
     setSearchParams(newSearchParams);
   };
+
+  useEffect(() => {
+    setPlanDate('오늘');
+  }, []);
 
   return (
     <ContentUIBox bgColor={palette.white}>

@@ -40,6 +40,7 @@ export interface EditPlanReqBody {
 export type CreatePlanReqBody = Omit<EditPlanReqBody, 'id'>;
 
 export interface CreatePlanFormI {
+  id: number;
   title: string;
   detail: string;
   date: string;

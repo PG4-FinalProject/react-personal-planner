@@ -40,7 +40,7 @@ export const usePlan = () => {
   const createPlan = (data: CreatePlanReqBody) => {
     createPlanReq(data).then(
       res => {
-        navigate('/calendar');
+        navigate(-1);
       },
       err => {
         showAlert('plan 생성을 실패했습니다.');

@@ -28,7 +28,7 @@ const Login: React.FC = () => {
   const { userLogin } = useAuth();
   const navigate = useNavigate();
 
-  const handleLogin = () => {
+  const handleLogin = (e: React.MouseEvent) => {
     userLogin({
       email,
       password,
