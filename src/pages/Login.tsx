@@ -28,10 +28,6 @@ const Login: React.FC = () => {
   const { userLogin } = useAuth();
   const navigate = useNavigate();
 
-  const handlePageChange = (path: string) => {
-    navigate(path);
-  };
-
   const handleLogin = () => {
     userLogin({
       email,
