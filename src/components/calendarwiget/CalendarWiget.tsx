@@ -150,7 +150,13 @@ const CalendarWidget: React.FC = () => {
           <ScheduleTitle>
             {selectedDate.getMonth() + 1}월 {selectedDate.getDate()}일
           </ScheduleTitle>
-          <AddScheduleButton onClick={() => navigate('/plans/create')}>
+          <AddScheduleButton
+            onClick={() =>
+              navigate('/plans/create', {
+                state: { selectedDate: getDateFormat(selectedDate) },
+              })
+            }
+          >
             + 새 일정
           </AddScheduleButton>
         </ScheduleHeader>

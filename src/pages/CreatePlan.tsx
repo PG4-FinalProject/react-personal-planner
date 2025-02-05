@@ -1,4 +1,5 @@
-import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import BackBtn from '../components/common/BackBtn';
 import Title from '../components/common/Title';
 import { LayoutWrapper } from '../components/layout/MainLayout';
@@ -50,12 +51,23 @@ const CreatePlans: React.FC = () => {
     register,
     handleSubmit,
     formState: { errors },
+    setValue, //전달받은 날짜 사용
   } = useForm<CreatePlanFormI>();
   const { categories } = useCategory();
   const { createPlan } = usePlan();
-
+  const location = useLocation();
   const navigate = useNavigate();
   const { showAlert } = useAlert();
+
+  useEffect(() => {
+    const selectedDate = location.state?.selectedDate;
+    if (selectedDate) {
+      setValue('date', selectedDate);
+    } else {
+      // 선택된 날짜가 없으면 오늘 날짜를 기본값으로 설정
+      setValue('date', getDateFormat(new Date()));
+    }
+  }, [setValue, location.state]);
 
   const onCreatePlan = (data: CreatePlanFormI) => {
     if (data.startTime >= data.endTime) {
