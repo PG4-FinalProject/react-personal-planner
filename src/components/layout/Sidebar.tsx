@@ -7,6 +7,7 @@ import { palette } from '../../styles/palette';
 import { useAuthStore } from '../../store/authStore';
 import { useUserProfile } from '../../hooks/useUserProfile';
 import { Bell, Moon, LogOut } from 'lucide-react';
+import { useUserStore } from '../../store/userStore';
 
 const Overlay = styled.div`
   position: fixed;
@@ -42,6 +43,9 @@ const ProfileImage = styled.div`
   border-radius: 32px;
   background-color: #f5f5f5;
   margin-bottom: 12px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 `;
 
 const ProfileName = styled.h2`
@@ -146,6 +150,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ isOpen, onClose }) => {
   const navigate = useNavigate();
   const { isLogin, storeLogout } = useAuthStore();
   const { profile, isLoading } = useUserProfile();
+  const profileImage = useUserStore(state => state.profileImage);
 
   useEffect(() => {
     if (isOpen) {
@@ -198,9 +203,13 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ isOpen, onClose }) => {
             <ProfileSection>
               <ProfileImage
                 style={{
-                  backgroundImage: profile?.profileImage
-                    ? `url(${profile.profileImage})`
-                    : undefined,
+                  backgroundImage: profileImage
+                    ? `url(${profileImage})`
+                    : profile?.profileImage
+                      ? `url(${profile.profileImage})`
+                      : `url(/assets/MainCharacter.png)`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
                 }}
               />
               <ProfileName>{profile?.name}</ProfileName>
