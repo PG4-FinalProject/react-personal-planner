@@ -5,6 +5,7 @@ import IconButton from '../common/CheckBtn';
 import styled from 'styled-components';
 import { palette } from '../../styles/palette';
 import { useAuthStore } from '../../store/authStore';
+import { useUserProfile } from '../../hooks/useUserProfile';
 import { Bell, Moon, LogOut } from 'lucide-react';
 
 const Overlay = styled.div`
@@ -144,6 +145,7 @@ interface SidebarMenuProps {
 const SidebarMenu: React.FC<SidebarMenuProps> = ({ isOpen, onClose }) => {
   const navigate = useNavigate();
   const { isLogin, storeLogout } = useAuthStore();
+  const { profile, isLoading } = useUserProfile();
 
   useEffect(() => {
     if (isOpen) {
@@ -168,6 +170,19 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ isOpen, onClose }) => {
     navigate('/');
   };
 
+  // const toggleNotification = () => {
+  //   updateSettings({
+  //     notificationEnabled: !settings.notificationEnabled,
+  //   });
+  // };
+
+  // const toggleTheme = () => {
+  //   updateSettings({
+  //     theme: settings.theme === 'light' ? 'dark' : 'light',
+  //   });
+  // };
+  // 로딩 상태나 오류 처리
+  if (isLoading) return <div>Loading...</div>;
   if (!isOpen) return null;
 
   return (
@@ -181,38 +196,49 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ isOpen, onClose }) => {
         {isLogin ? (
           <>
             <ProfileSection>
-              <ProfileImage />
-              <ProfileName>김철수</ProfileName>
-              <ProfileEmail>kimcs@email.com</ProfileEmail>
+              <ProfileImage
+                style={{
+                  backgroundImage: profile?.profileImage
+                    ? `url(${profile.profileImage})`
+                    : undefined,
+                }}
+              />
+              <ProfileName>{profile?.name}</ProfileName>
+              <ProfileEmail>{profile?.email}</ProfileEmail>
             </ProfileSection>
 
             <MenuTitle>My account</MenuTitle>
             <MenuSection>
-              <MenuItemButton
+              {/* <MenuItemButton
                 width="100%"
                 bgColor="transparent"
                 color={palette.gray}
+                onClick={toggleNotification}
               >
                 <div
                   style={{ display: 'flex', alignItems: 'center', gap: '12px' }}
                 >
                   <Bell size={20} />
-                  알림 설정
+                  알림 설정 {settings.notificationEnabled ? '끄기' : '켜기'}
                 </div>
-              </MenuItemButton>
+              </MenuItemButton> */}
 
-              <MenuItemButton
+              {/* <MenuItemButton
                 width="100%"
                 bgColor="transparent"
                 color={palette.gray}
+                onClick={toggleTheme}
               >
                 <div
                   style={{ display: 'flex', alignItems: 'center', gap: '12px' }}
                 >
                   <Moon size={20} />
-                  테마 설정
+                  테마 설정 ({settings.theme === 'light'
+                    ? '다크'
+                    : '라이트'}{' '}
+                  모드)
                 </div>
-              </MenuItemButton>
+              </MenuItemButton> */}
 
               <LogoutMenuButton
                 width="100%"

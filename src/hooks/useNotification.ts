@@ -5,16 +5,14 @@ import { useAuthStore } from '../store/authStore';
 import { notificationApi } from '../apis/notification.api';
 import { getDateFormat } from '../utils/date'; // 날짜 포맷 유틸 import
 
+// useNotification.ts
 export const useNotification = () => {
-  const [notifications, setNotifications] =
-    useState<Notification[]>(mockNotifications);
+  const [notifications, setNotifications] = useState<Notification[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const { isLogin } = useAuthStore();
 
-  // 오늘 날짜 구하기
   const today = getDateFormat(new Date());
 
-  // 오늘의 알림만 필터링하는 함수
   const filterTodayNotifications = useCallback(
     (notis: Notification[]) => {
       return notis.filter(noti => noti.timestamp === today);
@@ -46,18 +44,13 @@ export const useNotification = () => {
     if (isLogin) {
       try {
         const response = await notificationApi.getTodayNotifications();
-        // API에서 가져온 데이터도 오늘 날짜로 필터링
-        const todayNotifications = filterTodayNotifications(response);
-        setNotifications(todayNotifications);
+        setNotifications(response);
       } catch (error) {
         console.error('알림 조회 실패:', error);
-        // 목 데이터도 오늘 날짜로 필터링
-        const todayMockNotifications =
-          filterTodayNotifications(mockNotifications);
-        setNotifications(todayMockNotifications);
+        setNotifications([]); // 에러 시 빈 배열
       }
     } else {
-      // 목 데이터 오늘 날짜로 필터링
+      // 비로그인 시 목데이터
       const todayMockNotifications =
         filterTodayNotifications(mockNotifications);
       setNotifications(todayMockNotifications);
@@ -66,6 +59,8 @@ export const useNotification = () => {
 
   useEffect(() => {
     fetchNotifications();
+    const intervalId = setInterval(fetchNotifications, 60000);
+    return () => clearInterval(intervalId);
   }, [fetchNotifications]);
 
   return {
