@@ -1,8 +1,9 @@
-// src/hooks/useNotification.ts
 import { useState, useCallback, useEffect } from 'react';
 import { mockNotifications } from '../mocks/notificationData';
 import type { Notification } from '../types/notification';
 import { useAuthStore } from '../store/authStore';
+import { notificationApi } from '../apis/notification.api';
+import { getDateFormat } from '../utils/date'; // 날짜 포맷 유틸 import
 
 export const useNotification = () => {
   const [notifications, setNotifications] =
@@ -10,15 +11,23 @@ export const useNotification = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { isLogin } = useAuthStore();
 
-  // 읽지 않은 알림 개수
+  // 오늘 날짜 구하기
+  const today = getDateFormat(new Date());
+
+  // 오늘의 알림만 필터링하는 함수
+  const filterTodayNotifications = useCallback(
+    (notis: Notification[]) => {
+      return notis.filter(noti => noti.timestamp === today);
+    },
+    [today],
+  );
+
   const unreadCount = notifications.filter(noti => !noti.isChecked).length;
 
-  // 알림 읽음 처리
   const markAsRead = useCallback(
     async (id: number) => {
       if (isLogin) {
-        // TODO: API 연동
-        // await notificationApi.markAsRead(id);
+        await notificationApi.markAsRead(id);
       }
       setNotifications(prev =>
         prev.map(noti =>
@@ -29,21 +38,31 @@ export const useNotification = () => {
     [isLogin],
   );
 
-  // 모달 열기/닫기
   const toggleModal = useCallback(() => {
     setIsOpen(prev => !prev);
   }, []);
 
-  // 알림 목록 가져오기
   const fetchNotifications = useCallback(async () => {
     if (isLogin) {
-      // TODO: API 연동
-      // const response = await notificationApi.getNotifications();
-      // setNotifications(response.data);
+      try {
+        const response = await notificationApi.getTodayNotifications();
+        // API에서 가져온 데이터도 오늘 날짜로 필터링
+        const todayNotifications = filterTodayNotifications(response);
+        setNotifications(todayNotifications);
+      } catch (error) {
+        console.error('알림 조회 실패:', error);
+        // 목 데이터도 오늘 날짜로 필터링
+        const todayMockNotifications =
+          filterTodayNotifications(mockNotifications);
+        setNotifications(todayMockNotifications);
+      }
     } else {
-      setNotifications(mockNotifications);
+      // 목 데이터 오늘 날짜로 필터링
+      const todayMockNotifications =
+        filterTodayNotifications(mockNotifications);
+      setNotifications(todayMockNotifications);
     }
-  }, [isLogin]);
+  }, [isLogin, filterTodayNotifications]);
 
   useEffect(() => {
     fetchNotifications();

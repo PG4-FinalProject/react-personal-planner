@@ -1,13 +1,28 @@
 // styles/calendar.styles.ts
 import styled from 'styled-components';
 import { palette } from './palette';
+import ContentUIBox from '../components/layout/ContentUIBox';
 
-export const CalendarContainer = styled.div`
-  max-width: 48rem;
-  margin: 16px;
-  background-color: ${palette.white};
-  border-radius: 8px;
-  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+export const CalendarContainer = styled(ContentUIBox)`
+  width: 100%; // 전체 너비 사용
+  box-sizing: border-box; // 패딩과 보더를 너비에 포함
+  margin: 16px; // 기존 margin 유지
+
+  @media (max-width: 1200px) {
+    transform: scale(0.95);
+  }
+
+  @media (max-width: 992px) {
+    transform: scale(0.9);
+  }
+
+  @media (max-width: 768px) {
+    transform: scale(0.85);
+  }
+
+  @media (max-width: 576px) {
+    transform: scale(0.8);
+  }
 `;
 
 export const CalendarSection = styled.div`
@@ -99,6 +114,7 @@ export const DayCell = styled.button<{
   height: 4rem;
   padding: 0.5rem;
   border-radius: 0.5rem;
+  width: 100%; // 전체 너비 사용
   transition: all 0.2s;
   border: ${props =>
     props.isSelected
@@ -149,6 +165,7 @@ export const BadgeCounter = styled.div`
 
 // Schedule List Styles
 export const ScheduleListSection = styled(CalendarSection)`
+  width: 100%; // 전체 너비 사용
   margin-top: 1.5rem;
   padding: 1.5rem;
 `;
@@ -193,6 +210,7 @@ export const AddScheduleButton = styled.button`
 `;
 
 export const ScheduleList = styled.div`
+  width: 100%; // 전체 너비 사용
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
@@ -211,6 +229,7 @@ export const ScheduleItem = styled.div`
 `;
 
 export const ScheduleItemHeader = styled.div`
+  width: 100%; // 전체 너비 사용
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
