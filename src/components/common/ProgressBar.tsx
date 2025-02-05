@@ -31,6 +31,7 @@ export const ProgressBar = ({
   width = '100%',
   bgColor = palette.blue,
 }: ProgressBarProps) => {
+  if (!percent) percent = percent + 5;
   return (
     <ProgressBarStyle $width={width}>
       <Progress $percent={percent} $bgColor={bgColor} />
