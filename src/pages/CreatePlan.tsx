@@ -49,33 +49,24 @@ export const CategoriesBox = styled.div`
 `;
 
 const CreatePlan: React.FC = () => {
+  const location = useLocation();
+  const selectedDate = location.state?.selectedDate;
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-    setValue,
   } = useForm<CreatePlanFormI>({
     defaultValues: {
-      date: dayjs().format('YYYY-MM-DD'),
+      date: selectedDate || dayjs().format('YYYY-MM-DD'),
       startTime: dayjs().format('HH:00:00'),
       endTime: dayjs().add(1, 'hour').format('HH:00:00'),
     },
   });
   const { categories } = useCategory();
   const { createPlan } = usePlan();
-  const location = useLocation();
   const navigate = useNavigate();
   const { showAlert } = useAlert();
-
-  useEffect(() => {
-    const selectedDate = location.state?.selectedDate;
-    if (selectedDate) {
-      setValue('date', selectedDate);
-    } else {
-      // 선택된 날짜가 없으면 오늘 날짜를 기본값으로 설정
-      setValue('date', getDateFormat(new Date()));
-    }
-  }, [setValue, location.state]);
 
   const onCreatePlan = (data: CreatePlanFormI) => {
     if (data.startTime >= data.endTime) {
