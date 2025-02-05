@@ -16,7 +16,7 @@ const SearchPlanSpan = styled.span`
   color: #4b5563;
 `;
 
-function SearchPlanBox({}: SearchPlanBoxProps) {
+const SearchPlanBox = ({}: SearchPlanBoxProps) => {
   return (
     <ContentUIBox bgColor={palette.white}>
       <SearchPlanBoxStyle>
@@ -25,6 +25,6 @@ function SearchPlanBox({}: SearchPlanBoxProps) {
       </SearchPlanBoxStyle>
     </ContentUIBox>
   );
-}
+};
 
 export default SearchPlanBox;

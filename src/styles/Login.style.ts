@@ -4,13 +4,14 @@ import Content from '../components/layout/Content';
 import Button from '../components/common/Button';
 
 export const FormContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 24px;
   position: absolute;
   top: 50%;
   transform: translate(0, -50%);
+  padding: 24px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 export const LogoContainer = styled.div`

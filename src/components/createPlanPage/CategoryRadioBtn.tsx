@@ -31,13 +31,15 @@ const CategoryRadioBtnStyle = styled.div`
 interface CategoryRadioBtnProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
   category: CategoryI;
+  defaultCategoryId?: number;
 }
 
 const CategoryRadioBtn = React.forwardRef(
   (
-    { category, ...props }: CategoryRadioBtnProps,
+    { category, defaultCategoryId, ...props }: CategoryRadioBtnProps,
     ref: ForwardedRef<HTMLInputElement>,
   ) => {
+    const defaultChecked = defaultCategoryId === category.id;
     return (
       <CategoryRadioBtnStyle color={category.color}>
         <input
@@ -45,6 +47,7 @@ const CategoryRadioBtn = React.forwardRef(
           id={category.name}
           name="category"
           value={category.id}
+          defaultChecked={defaultChecked}
           {...props}
           ref={ref}
         />

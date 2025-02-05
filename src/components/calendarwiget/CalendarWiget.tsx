@@ -5,6 +5,7 @@ import { ChevronLeft, ChevronRight, Trash2 } from 'lucide-react';
 import { useCalendar } from '../../hooks/useCalendar';
 import { useSchedule } from '../../hooks/useSchedule';
 import { getDateFormat } from '../../utils/date';
+import { useCategory } from '../../hooks/useCategory';
 import type { Schedule } from '../../types/schedule';
 import {
   CalendarContainer,
@@ -46,9 +47,9 @@ const CalendarWidget: React.FC = () => {
     setSelectedDate,
   } = useCalendar();
 
-  const { schedules, getSchedulesByDate, isLoading } = useSchedule();
-
-  const [editingSchedule, setEditingSchedule] = useState<Schedule | null>(null);
+  const { schedules, getSchedulesByDate, isLoading, deleteSchedule } =
+    useSchedule();
+  const { categories } = useCategory(); // 추가
 
   const scheduleCounts = useMemo<Record<string, number>>(() => {
     const counts: Record<string, number> = {};
@@ -75,8 +76,20 @@ const CalendarWidget: React.FC = () => {
   );
 
   const handleEditClick = (schedule: Schedule) => {
-    setEditingSchedule(schedule);
-    // TODO: 수정 모달 또는 페이지로 이동
+    navigate('/plans/edit', {
+      state: {
+        id: schedule.id,
+        title: schedule.title,
+        detail: schedule.description,
+        startTime: `${schedule.date} ${schedule.startTime}`,
+        endTime: `${schedule.date} ${schedule.endTime}`,
+        categoryId: categories.find(c => c.name === schedule.category)?.id,
+      },
+    });
+  };
+
+  const handleDeleteClick = (schedule: Schedule) => {
+    deleteSchedule(schedule.id);
   };
 
   return (
@@ -168,7 +181,10 @@ const CalendarWidget: React.FC = () => {
             ))
           ) : selectedDateSchedules.length > 0 ? (
             selectedDateSchedules.map(schedule => (
-              <ScheduleItem key={schedule.id}>
+              <ScheduleItem
+                key={schedule.id}
+                onClick={() => handleEditClick(schedule)}
+              >
                 <ScheduleItemHeader>
                   <ScheduleInfo>
                     <ScheduleItemTitle>{schedule.title}</ScheduleItemTitle>
@@ -176,7 +192,12 @@ const CalendarWidget: React.FC = () => {
                       {schedule.startTime} - {schedule.endTime}
                     </ScheduleTime>
                   </ScheduleInfo>
-                  <IconButton onClick={() => handleEditClick(schedule)}>
+                  <IconButton
+                    onClick={e => {
+                      e.stopPropagation(); // 부모 클릭 이벤트 막기
+                      handleDeleteClick(schedule);
+                    }}
+                  >
                     <Trash2 size={16} />
                   </IconButton>
                 </ScheduleItemHeader>
