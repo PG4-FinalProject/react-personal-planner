@@ -1,26 +1,16 @@
 import styled from 'styled-components';
 import { palette } from './palette';
 import Content from '../components/layout/Content';
-import Button from '../components/common/LongBtn';
-
-export const StyledContent = styled(Content)`
-  display: block;
-  justify-content: center;
-  align-items: flex-start;
-  padding-top: 120px;
-  min-height: calc(100vh - 112px);
-  margin-top: 20px;
-`;
+import Button from '../components/common/Button';
 
 export const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
-  max-width: 502px;
-  padding: 0 20px;
-  padding-top: 150px;
-  margin: 50px auto 0;
+  padding: 24px;
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
 `;
 
 export const LogoContainer = styled.div`
@@ -40,13 +30,6 @@ export const InputContainer = styled.div`
   flex-direction: column;
   gap: 16px;
   margin-bottom: 24px;
-`;
-
-export const LoginButton = styled(Button)`
-  width: 100%;
-  height: 54px;
-  margin-bottom: 36px;
-  background-color: #4285f4;
 `;
 
 export const SignupText = styled.p`

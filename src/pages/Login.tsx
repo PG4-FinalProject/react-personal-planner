@@ -3,17 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 import { palette } from '../styles/palette';
-import styled from 'styled-components';
 import InputText from '../components/common/InputText';
 import Logo from '../components/common/Logo';
 import BackBtn from '../components/common/BackBtn';
 import {
-  StyledContent,
   FormContainer,
   LogoContainer,
   Subtitle,
   InputContainer,
-  LoginButton,
   SignupText,
   Divider,
   SocialLoginContainer,
@@ -21,13 +18,8 @@ import {
 } from '../styles/Login.style';
 import { useAuth } from '../hooks/useAuth';
 import { LayoutWrapper } from '../components/layout/MainLayout';
-
-const HeaderContent = styled.div`
-  display: flex;
-  align-items: center;
-  width: 100%;
-  padding: 0 10px;
-`;
+import Content from '../components/layout/Content';
+import Button from '../components/common/Button';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -52,7 +44,7 @@ const Login: React.FC = () => {
       <Header borderWidth="0px">
         <BackBtn onClick={() => navigate(-1)} />
       </Header>
-      <StyledContent color={palette.white}>
+      <Content color={palette.white}>
         <FormContainer>
           <LogoContainer>
             <Logo height="40px" />
@@ -61,6 +53,7 @@ const Login: React.FC = () => {
 
           <InputContainer>
             <InputText
+              type="email"
               height="48px"
               width="100%"
               bgColor="#f8f8f8"
@@ -68,14 +61,15 @@ const Login: React.FC = () => {
               placeholder="이메일"
               borderWidth="0px"
               value={email}
+              autoFocus
               onChange={e => setEmail(e.target.value)}
             />
             <InputText
+              type="password"
               height="48px"
               width="100%"
               bgColor="#f8f8f8"
               fontSize="16px"
-              type="password"
               placeholder="비밀번호"
               borderWidth="0px"
               value={password}
@@ -83,9 +77,9 @@ const Login: React.FC = () => {
             />
           </InputContainer>
 
-          <LoginButton onClick={handleLogin} width="100%" height="54px">
+          <Button onClick={handleLogin} width="100%" height="54px">
             로그인
-          </LoginButton>
+          </Button>
 
           <SignupText>
             아직 회원이 아니세요?
@@ -114,8 +108,8 @@ const Login: React.FC = () => {
             </SocialButtons>
           </SocialLoginContainer>
         </FormContainer>
-      </StyledContent>
-      <Footer onPageChange={handlePageChange} borderWidth="0px" />
+      </Content>
+      <Footer borderWidth="0px" />
     </LayoutWrapper>
   );
 };

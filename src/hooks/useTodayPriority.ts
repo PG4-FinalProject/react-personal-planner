@@ -30,56 +30,18 @@ export const useTodayPriority = () => {
   const [error, setError] = useState<string | null>(null);
   const { isLogin } = useAuthStore();
 
-  // 기존에 작성했던 시간 관련 함수들
-  const isTimeInProgress = (startTime: string, endTime: string): boolean => {
-    const now = new Date();
-    const start = new Date();
-    const end = new Date();
-
-    const [startHour, startMinute] = startTime.split(':').map(Number);
-    start.setHours(startHour, startMinute, 0, 0);
-
-    const [endHour, endMinute] = endTime.split(':').map(Number);
-    end.setHours(endHour, endMinute, 0, 0);
-
-    return now >= start && now <= end;
-  };
-
-  const isTimeUpcoming = (startTime: string): boolean => {
-    const now = new Date();
-    const start = new Date();
-
-    const [startHour, startMinute] = startTime.split(':').map(Number);
-    start.setHours(startHour, startMinute, 0, 0);
-
-    return now < start;
-  };
-
   const processPriorityTasks = async (): Promise<EnhancedPriorityTask[]> => {
     try {
       if (!isLogin) {
         const today = getDateFormat(new Date());
 
-        const todaySchedules = mockSchedules.filter(
-          schedule => schedule.date === today,
-        );
-
-        const filteredSchedules = todaySchedules
-          .filter(
-            schedule =>
-              isTimeInProgress(schedule.startTime, schedule.endTime) ||
-              isTimeUpcoming(schedule.startTime),
-          )
+        return mockSchedules
+          .filter(schedule => schedule.date === today)
           .map(schedule => ({
             name: schedule.title,
             duration: `${schedule.startTime} - ${schedule.endTime}`,
-            isInProgress: isTimeInProgress(
-              schedule.startTime,
-              schedule.endTime,
-            ),
+            isInProgress: false,
           }));
-
-        return filteredSchedules;
       }
 
       const response: TodayPlanResponse = await notifyTodayPlan();

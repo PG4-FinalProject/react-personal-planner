@@ -1,12 +1,10 @@
 import styled from 'styled-components';
 
-interface PlanDateRadioBtnStyleProps {
-  $isChecked: boolean;
-}
-
-const PlanDateRadioBtnStyle = styled.div<PlanDateRadioBtnStyleProps>`
+const PlanDateRadioBtnStyle = styled.div<{
+  $isChecked?: boolean;
+}>`
   display: flex;
-  height: 30px;
+  height: 34px;
   justify-content: center;
   align-items: center;
   background-color: ${({ $isChecked }) => ($isChecked ? '#3578FF' : '#e5e7eb')};
@@ -28,34 +26,18 @@ const PlanDateRadioBtnStyle = styled.div<PlanDateRadioBtnStyleProps>`
   }
 `;
 
-interface PlanDateRadioBtnProps {
-  value: string;
+interface PlanDateRadioBtnProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {
   name: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  defaultChecked?: boolean | undefined;
-  disabled?: boolean | undefined;
+  value: string;
 }
 
-function PlanDateRadioBtn({
-  value,
-  name,
-  onChange,
-  defaultChecked,
-  disabled,
-}: PlanDateRadioBtnProps) {
-  const isChecked = value === name;
+function PlanDateRadioBtn({ name, value, ...props }: PlanDateRadioBtnProps) {
+  const isChecked = name === value;
 
   return (
     <PlanDateRadioBtnStyle $isChecked={isChecked}>
-      <input
-        type="radio"
-        id={name}
-        name="planDate"
-        value={name}
-        defaultChecked={defaultChecked}
-        disabled={disabled}
-        onChange={onChange}
-      />
+      <input type="radio" id={name} name="planDate" value={name} {...props} />
       <label htmlFor={name}>{name}</label>
     </PlanDateRadioBtnStyle>
   );

@@ -5,7 +5,9 @@ import PlanDateRadioBtn from './PlanDateRadioBtn';
 import { useState } from 'react';
 import { PlanDateType } from '../../types/plan.type';
 import PlanBox from './PlanBox';
-import { usePlans } from '../../hooks/usePlans';
+import { usePlan } from '../../hooks/usePlan';
+import { useSearchParams } from 'react-router-dom';
+import { addDateToday, getDateFormat } from '../../utils/date';
 
 const PlanDateBtnsFieldset = styled.fieldset`
   display: flex;
@@ -36,12 +38,30 @@ const PlansCount = styled.div`
 interface PlansBoxProps {}
 
 function PlansBox({}: PlansBoxProps) {
-  // const { plans, isPlansLoading } = usePlans();
+  const { plans, deletePlan } = usePlan();
 
+  const [searchParams, setSearchParams] = useSearchParams();
   const [planDate, setPlanDate] = useState<PlanDateType>('오늘');
 
   const handlePlanDate = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPlanDate(e.target.value as PlanDateType);
+    const planDate = e.target.value;
+    setPlanDate(planDate as PlanDateType);
+    const newSearchParams = new URLSearchParams(searchParams);
+    switch (planDate) {
+      case '오늘':
+        newSearchParams.delete('startDate');
+        newSearchParams.delete('endDate');
+        break;
+      case '예정':
+        newSearchParams.set('startDate', getDateFormat(addDateToday(1)));
+        newSearchParams.set('endDate', getDateFormat(addDateToday(3)));
+        break;
+      case '완료':
+        newSearchParams.set('startDate', getDateFormat(addDateToday(-3)));
+        newSearchParams.set('endDate', getDateFormat(addDateToday(-1)));
+        break;
+    }
+    setSearchParams(newSearchParams);
   };
 
   return (
@@ -68,7 +88,9 @@ function PlansBox({}: PlansBoxProps) {
         <PlanDateTitle>오늘</PlanDateTitle>
         <PlansCount>3개의 할 일</PlansCount>
       </PlanDateBox>
-      <PlanBox />
+      {plans.map(plan => (
+        <PlanBox key={plan.id} plan={plan} deletePlan={deletePlan} />
+      ))}
     </ContentUIBox>
   );
 }
