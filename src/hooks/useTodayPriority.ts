@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useAuthStore } from '../store/authStore';
-import { Plan, TodayPlanResponse } from '../types/plan.type';
+import { PlanI, TodayPlanResponse } from '../types/plan.type';
 import { EnhancedPriorityTask } from '../types/priority';
 import { notifyTodayPlan } from '../apis/plans.api';
 import { formatTime } from '../utils/date';
@@ -32,49 +32,78 @@ export const useTodayPriority = () => {
 
   const processPriorityTasks = async (): Promise<EnhancedPriorityTask[]> => {
     try {
+      // 비로그인 상태에서만 목 데이터 사용
       if (!isLogin) {
         const today = getDateFormat(new Date());
+        const currentTime = new Date().getTime();
 
-        return mockSchedules
+        const inProgressTasks = mockSchedules
           .filter(schedule => schedule.date === today)
-          .map(schedule => ({
-            name: schedule.title,
-            duration: `${schedule.startTime} - ${schedule.endTime}`,
-            isInProgress: false,
-          }));
+          .map(schedule => {
+            const startTime = new Date(
+              `${today} ${schedule.startTime}`,
+            ).getTime();
+            const endTime = new Date(`${today} ${schedule.endTime}`).getTime();
+
+            return {
+              name: schedule.title,
+              duration: `${schedule.startTime} - ${schedule.endTime}`,
+              isInProgress: currentTime >= startTime && currentTime <= endTime,
+            };
+          })
+          .filter(task => task.isInProgress);
+
+        const upcomingTasks = mockSchedules
+          .filter(schedule => schedule.date === today)
+          .map(schedule => {
+            const startTime = new Date(
+              `${today} ${schedule.startTime}`,
+            ).getTime();
+
+            return {
+              name: schedule.title,
+              duration: `${schedule.startTime} - ${schedule.endTime}`,
+              isInProgress: false,
+              remainingTime: formatRemainingTime(
+                startTime - new Date().getTime(),
+              ),
+            };
+          })
+          .filter(task => !task.isInProgress && task.remainingTime);
+
+        return [...inProgressTasks, ...upcomingTasks];
       }
 
+      // 로그인 상태에서는 API 데이터만 사용
       const response: TodayPlanResponse = await notifyTodayPlan();
 
-      // 진행 중인 플랜이 있으면 진행 중인 플랜 표시
-      if (response.inProgressPlans?.length) {
-        return response.inProgressPlans.map(plan => ({
+      // 진행 중인 플랜 처리
+      const inProgressPlans =
+        response.inProgressPlans?.map(plan => ({
           name: plan.title,
-          duration: `${formatTime(plan.start_time.split(' ')[1])} - ${formatTime(plan.end_time.split(' ')[1])}`,
+          duration: `${formatTime(plan.startTime.split(' ')[1])} - ${formatTime(plan.endTime.split(' ')[1])}`,
           isInProgress: true,
-        }));
-      }
+        })) || [];
 
-      // 진행 중인 플랜 없으면 다가오는 플랜 계산
-      if (response.todayPlan) {
+      // 다가오는 플랜 처리
+      const upcomingPlans: EnhancedPriorityTask[] = [];
+      if (response.todayPlan && inProgressPlans.length > 0) {
         const diffInMilliseconds = calculateTimeDifference(
-          response.todayPlan.start_time,
+          response.todayPlan.startTime,
         );
         const remainingTimeText = formatRemainingTime(diffInMilliseconds);
 
         if (remainingTimeText) {
-          return [
-            {
-              name: response.todayPlan.title,
-              duration: `${formatTime(response.todayPlan.start_time.split(' ')[1])} - ${formatTime(response.todayPlan.end_time.split(' ')[1])}`,
-              isInProgress: false,
-              remainingTime: remainingTimeText,
-            },
-          ];
+          upcomingPlans.push({
+            name: response.todayPlan.title,
+            duration: `${formatTime(response.todayPlan.startTime.split(' ')[1])} - ${formatTime(response.todayPlan.endTime.split(' ')[1])}`,
+            isInProgress: false,
+            remainingTime: remainingTimeText,
+          });
         }
       }
 
-      return [];
+      return [...inProgressPlans, ...upcomingPlans];
     } catch (err) {
       const errorMessage =
         err instanceof Error
