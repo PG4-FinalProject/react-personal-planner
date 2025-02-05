@@ -32,7 +32,7 @@ interface PlanDateRadioBtnProps
   value: string;
 }
 
-function PlanDateRadioBtn({ name, value, ...props }: PlanDateRadioBtnProps) {
+const PlanDateRadioBtn = ({ name, value, ...props }: PlanDateRadioBtnProps) => {
   const isChecked = name === value;
 
   return (
@@ -41,6 +41,6 @@ function PlanDateRadioBtn({ name, value, ...props }: PlanDateRadioBtnProps) {
       <label htmlFor={name}>{name}</label>
     </PlanDateRadioBtnStyle>
   );
-}
+};
 
 export default PlanDateRadioBtn;

@@ -3,13 +3,6 @@ import { ArrowLeft } from 'lucide-react';
 import styled from 'styled-components';
 import { palette } from '../../styles/palette';
 
-interface BackBtnProps {
-  onClick?: () => void;
-  size?: number;
-  color?: string;
-  ariaLabel?: string;
-}
-
 const Button = styled.button`
   background: none;
   border: none;
@@ -30,6 +23,13 @@ const Button = styled.button`
     box-shadow: 0 0 0 2px ${palette.blue}20;
   }
 `;
+
+interface BackBtnProps {
+  onClick?: () => void;
+  size?: number;
+  color?: string;
+  ariaLabel?: string;
+}
 
 const BackBtn = ({
   onClick,

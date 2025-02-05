@@ -1,10 +1,9 @@
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import BackBtn from '../components/common/BackBtn';
 import Title from '../components/common/Title';
 import { LayoutWrapper } from '../components/layout/MainLayout';
 import Header from '../components/layout/Header';
 import Content from '../components/layout/Content';
-import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { CreatePlanFormI } from '../types/plan.type';
 import InputText from '../components/common/InputText';
@@ -15,56 +14,45 @@ import Button from '../components/common/Button';
 import { useAlert } from '../hooks/useAlert';
 import { usePlan } from '../hooks/usePlan';
 import LucideIcon from '../components/common/LucideIcon';
+import {
+  CategoriesBox,
+  CreatePlanForm,
+  HeaderContent,
+  PlanP,
+  PlanTimeBox,
+} from './CreatePlan';
 import dayjs from 'dayjs';
 
-export const HeaderContent = styled.div`
-  position: relative;
-  width: 100%;
-  display: flex;
-  align-items: center;
-`;
-
-export const CreatePlanForm = styled.form`
-  padding: 16px;
-`;
-
-export const PlanP = styled.p`
-  margin: 20px 0px 8px;
-  font-weight: bold;
-  color: #4b5563;
-`;
-
-export const PlanTimeBox = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-`;
-
-export const CategoriesBox = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-`;
-
-const CreatePlan: React.FC = () => {
+const EditPlan: React.FC = () => {
+  const location = useLocation();
+  const {
+    id,
+    title,
+    detail,
+    startTime,
+    endTime,
+    categoryId: defaultCategoryId,
+  } = location.state;
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<CreatePlanFormI>({
     defaultValues: {
-      date: dayjs().format('YYYY-MM-DD'),
-      startTime: dayjs().format('HH:00:00'),
-      endTime: dayjs().add(1, 'hour').format('HH:00:00'),
+      title,
+      detail,
+      date: dayjs(startTime).format('YYYY-MM-DD'),
+      startTime: dayjs(startTime).format('HH:mm:ss'),
+      endTime: dayjs(endTime).format('HH:mm:ss'),
     },
   });
   const { categories } = useCategory();
-  const { createPlan } = usePlan();
+  const { editPlan } = usePlan();
 
   const navigate = useNavigate();
   const { showAlert } = useAlert();
 
-  const onCreatePlan = (data: CreatePlanFormI) => {
+  const onEditPlan = (data: CreatePlanFormI) => {
     if (data.startTime >= data.endTime) {
       showAlert('일정 시작 시간이 종료 시간 전이어야 합니다.');
       return;
@@ -74,7 +62,8 @@ const CreatePlan: React.FC = () => {
     const startDateTime = date + ' ' + startTime;
     const endDateTime = date + ' ' + endTime;
 
-    createPlan({
+    editPlan({
+      id,
       title,
       detail,
       startTime: startDateTime,
@@ -88,17 +77,16 @@ const CreatePlan: React.FC = () => {
       <Header borderWidth="1px">
         <HeaderContent>
           <BackBtn onClick={() => navigate(-1)} />
-          <Title absoluteCenter>일정 기록</Title>
+          <Title absoluteCenter>일정 수정</Title>
         </HeaderContent>
       </Header>
       <Content>
-        <CreatePlanForm id="createPlan" onSubmit={handleSubmit(onCreatePlan)}>
+        <CreatePlanForm id="editPlan" onSubmit={handleSubmit(onEditPlan)}>
           <fieldset>
             <PlanP>이름</PlanP>
             <InputText
               height="48px"
               width="100%"
-              autoFocus
               placeholder="일정 이름을 입력하세요."
               borderWidth="0px"
               fontWeight="bold"
@@ -157,6 +145,7 @@ const CreatePlan: React.FC = () => {
                 <CategoryRadioBtn
                   key={category.id}
                   category={category}
+                  defaultCategoryId={defaultCategoryId}
                   {...register('categoryId', { required: true })}
                 />
               ))}
@@ -165,12 +154,12 @@ const CreatePlan: React.FC = () => {
         </CreatePlanForm>
       </Content>
       <Footer borderWidth="0px">
-        <Button type="submit" form="createPlan" margin="16px" height="48px">
-          생성하기
+        <Button type="submit" form="editPlan" margin="16px" height="48px">
+          수정하기
         </Button>
       </Footer>
     </LayoutWrapper>
   );
 };
 
-export default CreatePlan;
+export default EditPlan;

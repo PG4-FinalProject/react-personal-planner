@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import LucideIcon from '../common/LucideIcon';
 import { PlanI } from '../../types/plan.type';
 import { useAlert } from '../../hooks/useAlert';
+import dayjs from 'dayjs';
+import { useNavigate } from 'react-router-dom';
 
 const PlanBoxStyle = styled.div`
   display: flex;
@@ -54,8 +56,17 @@ interface PlanBoxProps {
   deletePlan: (planId: number) => void;
 }
 
-function PlanBox({ plan, deletePlan }: PlanBoxProps) {
+const PlanBox = ({ plan, deletePlan }: PlanBoxProps) => {
   const { showConfirm } = useAlert();
+
+  const navigate = useNavigate();
+
+  const startTime = dayjs(plan.startTime).format('HH:mm');
+  const endTime = dayjs(plan.endTime).format('HH:mm');
+
+  const handlePlanClick = () => {
+    navigate('/plans/edit', { state: plan });
+  };
 
   const handleDelete = () => {
     showConfirm('정말 삭제하시겠습니까?', () => {
@@ -64,12 +75,14 @@ function PlanBox({ plan, deletePlan }: PlanBoxProps) {
   };
 
   return (
-    <PlanBoxStyle>
+    <PlanBoxStyle onClick={handlePlanClick}>
       <PlanContent>
         <ColorDot $bgColor={plan.color} />
         <div>
           <PlanTitle>{plan.title}</PlanTitle>
-          <PlanTime>{plan.startTime}</PlanTime>
+          <PlanTime>
+            {startTime} - {endTime}
+          </PlanTime>
         </div>
       </PlanContent>
       <TrashBtn type="button" onClick={handleDelete}>
@@ -77,6 +90,6 @@ function PlanBox({ plan, deletePlan }: PlanBoxProps) {
       </TrashBtn>
     </PlanBoxStyle>
   );
-}
+};
 
 export default PlanBox;
