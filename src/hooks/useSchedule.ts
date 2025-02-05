@@ -10,7 +10,7 @@ import {
   createPlanReq,
   editPlanReq,
   deletePlanReq,
-} from '../apis/plans.api';
+} from '../apis/plan.api';
 import { useAlert } from './useAlert';
 import { useCategory } from './useCategory';
 

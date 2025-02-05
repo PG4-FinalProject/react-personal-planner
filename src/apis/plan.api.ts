@@ -20,3 +20,9 @@ export const editPlanReq = async (data: EditPlanReqBody) => {
 export const deletePlanReq = async (planId: number) => {
   return await requestHandler('delete', `/plans/${planId}`);
 };
+
+export const getWeekPlanStats = async (currentTime: string) => {
+  return await requestHandler('get', '/plans/statistics/week', {
+    params: { currentTime },
+  });
+};
