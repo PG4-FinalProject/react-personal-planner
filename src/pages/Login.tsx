@@ -92,7 +92,7 @@ const Login: React.FC = () => {
 
           <SocialLoginContainer>
             <h3>SNS 간편 로그인</h3>
-            <SocialButtons>
+            {/* <SocialButtons>
               <button>
                 <img src="/google" alt="Google 로그인" />
               </button>
@@ -102,10 +102,7 @@ const Login: React.FC = () => {
               <button>
                 <img src="/naver" alt="Naver 로그인" />
               </button>
-              <button>
-                <img src="/phone" alt="휴대폰 로그인" />
-              </button>
-            </SocialButtons>
+            </SocialButtons> */}
           </SocialLoginContainer>
         </FormContainer>
       </Content>
