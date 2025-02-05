@@ -23,7 +23,7 @@ const CategoryRadioBtnStyle = styled.div`
   }
 
   input:checked + label {
-    background-color: ${prop => prop.color};
+    background-color: ${prop => prop.bgColor};
     color: ${palette.white};
   }
 `;
@@ -41,7 +41,7 @@ const CategoryRadioBtn = React.forwardRef(
   ) => {
     const defaultChecked = defaultCategoryId === category.id;
     return (
-      <CategoryRadioBtnStyle color={category.color}>
+      <CategoryRadioBtnStyle bgColor={category.color}>
         <input
           type="radio"
           id={category.name}

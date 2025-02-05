@@ -21,6 +21,13 @@ const PlanCount = styled.span`
   font-weight: bold;
 `;
 
+const CategoryProgressBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 12px 0px;
+`;
+
 const Statistics: React.FC = () => {
   const { weekPlanStats } = useStatistic();
   const { dailyStats, weeklyStats, weeklyCategoryStatsArr } = weekPlanStats;
@@ -59,6 +66,27 @@ const Statistics: React.FC = () => {
       </ContentUIBox>
       <ContentUIBox>
         <Title>카테고리별 통계</Title>
+        <br />
+        {weeklyCategoryStatsArr.map(weeklyCategoryStats => {
+          const { id, name, color, totalCount, completedCount } =
+            weeklyCategoryStats;
+          const WeeklyCategoryProgressPercent = Math.floor(
+            (completedCount / totalCount) * 100,
+          );
+          return (
+            <CategoryProgressBox key={id}>
+              <span style={{ fontWeight: 'bold' }}>{name}</span>
+              <ProgressBar
+                percent={WeeklyCategoryProgressPercent}
+                width="50%"
+                bgColor={color}
+              />
+              <span style={{ fontWeight: 'bold', color: palette.silver }}>
+                총 {totalCount}건
+              </span>
+            </CategoryProgressBox>
+          );
+        })}
       </ContentUIBox>
     </MainLayout>
   );

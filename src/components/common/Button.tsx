@@ -4,18 +4,18 @@ import { palette } from '../../styles/palette';
 
 const StyledButton = styled.button<{
   $margin?: string;
-  height?: string;
-  width?: string;
-  color?: string;
-  fontSize?: string;
-  fontWeight?: string;
+  height: string;
+  width: string;
+  $bgColor: string;
+  fontSize: string;
+  fontWeight: string;
 }>`
   margin: ${props => props.$margin};
-  height: ${props => props.height || '40px'};
-  width: ${props => props.width || '100%'};
-  background-color: ${props => props.color || palette.blue};
-  font-size: ${props => props.fontSize || '16px'};
-  font-weight: ${props => props.fontWeight || 'bold'};
+  height: ${props => props.height};
+  width: ${props => props.width};
+  background-color: ${props => props.$bgColor};
+  font-size: ${props => props.fontSize};
+  font-weight: ${props => props.fontWeight};
   color: #ffffff;
   border: none;
   border-radius: 4px;
@@ -30,7 +30,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   margin?: string;
   height?: string;
   width?: string;
-  color?: string;
+  bgColor?: string;
   fontSize?: string;
   fontWeight?: string;
 }
@@ -38,12 +38,12 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 const Button = ({
   children,
   type = 'button', // 기본값을 'button'으로 설정
-  margin: margin,
-  height,
-  width,
-  color,
-  fontSize,
-  fontWeight,
+  margin,
+  height = '40px',
+  width = '100%',
+  bgColor = palette.blue,
+  fontSize = '16px',
+  fontWeight = 'bold',
   ...props
 }: ButtonProps) => {
   return (
@@ -52,7 +52,7 @@ const Button = ({
       $margin={margin}
       height={height}
       width={width}
-      color={color}
+      $bgColor={bgColor}
       fontSize={fontSize}
       fontWeight={fontWeight}
       {...props}

@@ -13,7 +13,7 @@ const HeaderWrapper = styled.header<{
   width: 100%;
   max-width: 534px;
   height: 65px;
-  background-color: ${props => props.color || palette.white};
+  background-color: ${props => props.bgColor || palette.white};
   border-bottom: ${props => props.$borderWidth || '1px'} solid
     ${props => props.borderColor || '#ebebeb'};
   display: flex;
@@ -38,7 +38,7 @@ const Header: React.FC<HeaderProps> = ({
 }) => {
   return (
     <HeaderWrapper
-      color={color}
+      bgColor={color}
       borderColor={borderColor}
       $borderWidth={borderWidth}
     >
