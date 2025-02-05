@@ -1,16 +1,64 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { useAuthStore } from '../store/authStore';
+import { useQuery } from '@tanstack/react-query';
 import type { Schedule } from '../types/schedule';
+import type { PlanI } from '../types/plan.type';
 import { getDateFormat } from '../utils/date';
 import { mockSchedules } from '../mocks/scheduleDate';
+import {
+  getPlans,
+  createPlanReq,
+  editPlanReq,
+  deletePlanReq,
+} from '../apis/plans.api';
+import { useAlert } from './useAlert';
+import { useCategory } from './useCategory';
+
+// PlanI를 Schedule 형식으로 변환하는 함수
+const convertPlanToSchedule = (plan: PlanI): Schedule => ({
+  id: plan.id,
+  title: plan.title,
+  startTime: plan.startTime.split(' ')[1],
+  endTime: plan.endTime.split(' ')[1],
+  date: plan.startTime.split(' ')[0],
+  category: plan.categoryName,
+  description: plan.detail,
+});
 
 export const useSchedule = () => {
-  // 전체 일정 데이터를 상태로 관리
   const [schedules, setSchedules] = useState<Schedule[]>(mockSchedules);
-  const [isLoading, setIsLoading] = useState(false);
   const { isLogin } = useAuthStore();
+  const { showAlert } = useAlert();
+  const { categories } = useCategory();
 
-  // src/hooks/useSchedule.ts
+  // React Query로 해당 월의 plans 데이터 가져오기
+  const { data: plansData, isLoading } = useQuery({
+    queryKey: ['plans'],
+    queryFn: async () => {
+      if (!isLogin) return null;
+
+      const currentDate = new Date();
+      const startDate = getDateFormat(
+        new Date(currentDate.getFullYear(), currentDate.getMonth(), 1),
+      );
+      const endDate = getDateFormat(
+        new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0),
+      );
+
+      return getPlans({ startDate, endDate });
+    },
+    enabled: isLogin,
+  });
+
+  useEffect(() => {
+    if (isLogin && plansData?.plans) {
+      const convertedSchedules = plansData.plans.map(convertPlanToSchedule);
+      setSchedules(convertedSchedules);
+    } else {
+      setSchedules(mockSchedules);
+    }
+  }, [isLogin, plansData]);
+
   const getSchedulesByDate = useCallback(
     (date: Date) => {
       const dateString = getDateFormat(date);
@@ -21,69 +69,72 @@ export const useSchedule = () => {
 
   const createSchedule = async (schedule: Omit<Schedule, 'id'>) => {
     if (!isLogin) {
-      alert('로그인이 필요한 기능입니다.');
+      showAlert('로그인이 필요한 기능입니다.');
       return;
     }
 
-    setIsLoading(true);
     try {
-      // TODO: 실제 API 연동 시 구현
-      // const response = await scheduleApi.createSchedule(schedule);
-      const newSchedule = {
-        ...schedule,
-        id: Math.max(...schedules.map(s => s.id), 0) + 1,
+      const category = categories.find(c => c.name === schedule.category);
+      const planData = {
+        title: schedule.title,
+        detail: schedule.description || '',
+        startTime: `${schedule.date} ${schedule.startTime}`,
+        endTime: `${schedule.date} ${schedule.endTime}`,
+        categoryId: category?.id || categories[0]?.id || 1,
       };
-      setSchedules(prev => [...prev, newSchedule]);
+
+      await createPlanReq(planData);
+      showAlert('일정이 생성되었습니다.');
     } catch (error) {
+      showAlert('일정 생성에 실패했습니다.');
       console.error('일정 생성 실패:', error);
-    } finally {
-      setIsLoading(false);
     }
   };
 
   const updateSchedule = async (id: number, updateData: Partial<Schedule>) => {
     if (!isLogin) {
-      alert('로그인이 필요한 기능입니다.');
+      showAlert('로그인이 필요한 기능입니다.');
       return;
     }
 
-    setIsLoading(true);
     try {
-      // TODO: 실제 API 연동 시 구현
-      // const response = await scheduleApi.updateSchedule(id, updateData);
-      setSchedules(prev =>
-        prev.map(schedule =>
-          schedule.id === id ? { ...schedule, ...updateData } : schedule,
-        ),
-      );
+      const category = categories.find(c => c.name === updateData.category);
+      const planData = {
+        id,
+        title: updateData.title!,
+        detail: updateData.description || '',
+        startTime: `${updateData.date} ${updateData.startTime}`,
+        endTime: `${updateData.date} ${updateData.endTime}`,
+        categoryId: category?.id || categories[0]?.id || 1,
+      };
+
+      await editPlanReq(planData);
+      showAlert('일정이 수정되었습니다.');
     } catch (error) {
+      showAlert('일정 수정에 실패했습니다.');
       console.error('일정 수정 실패:', error);
-    } finally {
-      setIsLoading(false);
     }
   };
 
   const deleteSchedule = async (id: number) => {
     if (!isLogin) {
-      alert('로그인이 필요한 기능입니다.');
+      showAlert('로그인이 필요한 기능입니다.');
       return;
     }
 
-    setIsLoading(true);
     try {
-      // TODO: 실제 API 연동 시 구현
-      // await scheduleApi.deleteSchedule(id);
+      await deletePlanReq(id);
+      showAlert('일정이 삭제되었습니다.');
       setSchedules(prev => prev.filter(schedule => schedule.id !== id));
     } catch (error) {
+      showAlert('일정 삭제에 실패했습니다.');
       console.error('일정 삭제 실패:', error);
-    } finally {
-      setIsLoading(false);
     }
   };
 
   return {
-    schedules, // 전체 일정 목록
-    getSchedulesByDate, // 특정 날짜의 일정을 가져오는 함수
+    schedules,
+    getSchedulesByDate,
     isLoading,
     createSchedule,
     updateSchedule,
