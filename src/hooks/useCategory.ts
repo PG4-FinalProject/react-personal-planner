@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 
 export const useCategory = () => {
   const [categories, setCategories] = useState<CategoryI[]>([]);
-  const navigate = useNavigate();
 
   useEffect(() => {
     getCategories().then(
@@ -13,7 +12,7 @@ export const useCategory = () => {
         setCategories(res);
       },
       err => {
-        navigate(-1);
+        console.log('카테고리 조회 실패!');
       },
     );
   }, []);
