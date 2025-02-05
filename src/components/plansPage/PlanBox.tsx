@@ -4,6 +4,7 @@ import { PlanI } from '../../types/plan.type';
 import { useAlert } from '../../hooks/useAlert';
 import dayjs from 'dayjs';
 import { useNavigate } from 'react-router-dom';
+import { palette } from '../../styles/palette';
 
 const PlanBoxStyle = styled.div`
   display: flex;
@@ -11,7 +12,7 @@ const PlanBoxStyle = styled.div`
   margin: 8px 0px;
   padding: 12px;
   border-radius: 8px;
-  background-color: #f9fafb;
+  background-color: ${palette.lightblue};
   align-items: center;
   justify-content: space-between;
 

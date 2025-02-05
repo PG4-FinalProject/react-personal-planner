@@ -57,7 +57,7 @@ const PlansBox = ({}: PlansBoxProps) => {
         newSearchParams.set('endDate', getDateFormat(addDateToday(3)));
         break;
       case '완료':
-        newSearchParams.set('startDate', getDateFormat(addDateToday(-3)));
+        newSearchParams.set('startDate', getDateFormat(addDateToday(-1)));
         newSearchParams.set('endDate', getDateFormat(addDateToday(-1)));
         break;
     }
@@ -89,8 +89,8 @@ const PlansBox = ({}: PlansBoxProps) => {
         />
       </PlanDateBtnsFieldset>
       <PlanDateBox>
-        <PlanDateTitle>오늘</PlanDateTitle>
-        <PlansCount>3개의 할 일</PlansCount>
+        <PlanDateTitle>{planDate}</PlanDateTitle>
+        <PlansCount>{plans.length}개의 할 일</PlansCount>
       </PlanDateBox>
       {plans.map(plan => (
         <PlanBox key={plan.id} plan={plan} deletePlan={deletePlan} />
