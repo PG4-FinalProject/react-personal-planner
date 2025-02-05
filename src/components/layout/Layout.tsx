@@ -26,6 +26,7 @@ interface LayoutProps {
   children: ReactNode;
   headerContent?: ReactNode;
   footerContent?: ReactNode;
+  onPageChange: (path: string) => void; // onPageChange 추가
 }
 
 const Layout = ({ children, headerContent, footerContent }: LayoutProps) => {
