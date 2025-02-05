@@ -26,7 +26,7 @@ const convertPlanToSchedule = (plan: PlanI): Schedule => ({
 });
 
 export const useSchedule = () => {
-  const [schedules, setSchedules] = useState<Schedule[]>(mockSchedules);
+  const [schedules, setSchedules] = useState<Schedule[]>([]);
   const { isLogin } = useAuthStore();
   const { showAlert } = useAlert();
   const { categories } = useCategory();
@@ -51,11 +51,15 @@ export const useSchedule = () => {
   });
 
   useEffect(() => {
-    if (isLogin && plansData?.plans) {
-      const convertedSchedules = plansData.plans.map(convertPlanToSchedule);
-      setSchedules(convertedSchedules);
+    if (isLogin) {
+      if (plansData?.plans) {
+        const convertedSchedules = plansData.plans.map(convertPlanToSchedule);
+        setSchedules(convertedSchedules);
+      } else {
+        setSchedules([]); // plans 데이터가 없으면 빈 배열로
+      }
     } else {
-      setSchedules(mockSchedules);
+      setSchedules(mockSchedules); // 비로그인 시에만 목데이터 사용
     }
   }, [isLogin, plansData]);
 
