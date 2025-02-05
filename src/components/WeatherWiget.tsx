@@ -5,26 +5,40 @@ import ContentUIBox from './layout/ContentUIBox';
 import LucideIcon from './common/LucideIcon';
 import { useWeather } from '../hooks/useWeather';
 
+const WeatherInfo = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1rem;
+`;
+
 const StyledWeatherContainer = styled(ContentUIBox)`
-  width: 600px;
+  width: 100%;
+  max-width: 100%;
+  min-width: 280px; // 최소 너비 설정
   cursor: pointer;
-  transition: transform 0.2s;
-  border-radius: 8px;
-  &:hover {
-    transform: translateY(-2px);
+
+  @media (max-width: 1200px) {
+    padding: 12px; // 패딩 조정
+  }
+
+  @media (max-width: 768px) {
+    padding: 8px; // 더 작은 화면에서 패딩 추가 축소
+  }
+
+  // 내부 요소들의 반응형 스타일도 조정
+  ${WeatherInfo} {
+    @media (max-width: 480px) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
   }
 `;
 
 const LocationText = styled.h2`
   font-size: 0.875rem;
   color: #666;
-`;
-
-const WeatherInfo = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 1rem;
 `;
 
 const WeatherTemp = styled.div`
