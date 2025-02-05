@@ -27,12 +27,12 @@ const PlanDateBox = styled.div`
 
 const PlanDateTitle = styled.div`
   font-weight: bold;
-  color: #4b5563;
+  color: ${palette.gray};
 `;
 
 const PlansCount = styled.div`
   font-size: 14px;
-  color: #91929f;
+  color: ${palette.silver};
 `;
 
 interface PlansBoxProps {}

@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import BackBtn from '../components/common/BackBtn';
 import Title from '../components/common/Title';
@@ -17,7 +16,6 @@ import { useAlert } from '../hooks/useAlert';
 import { usePlan } from '../hooks/usePlan';
 import LucideIcon from '../components/common/LucideIcon';
 import dayjs from 'dayjs';
-import { getDateFormat } from '../utils/date'; // getDateFormat import 추가
 
 export const HeaderContent = styled.div`
   position: relative;

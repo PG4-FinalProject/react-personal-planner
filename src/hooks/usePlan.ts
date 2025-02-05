@@ -5,7 +5,7 @@ import {
   deletePlanReq,
   editPlanReq,
   getPlans,
-} from '../apis/plans.api';
+} from '../apis/plan.api';
 import { getDateFormat } from '../utils/date';
 import { useState } from 'react';
 import { CreatePlanReqBody, EditPlanReqBody, PlanI } from '../types/plan.type';

@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react';
 import { useAuthStore } from '../store/authStore';
 import { PlanI } from '../types/plan.type';
 import { EnhancedPriorityTask } from '../types/priority';
-import { getPlans } from '../apis/plans.api';
+import { getPlans } from '../apis/plan.api';
 import { formatTime, getDateFormat } from '../utils/date';
+
 import { mockSchedules } from '../mocks/scheduleDate';
 
 export const useTodayPriority = () => {

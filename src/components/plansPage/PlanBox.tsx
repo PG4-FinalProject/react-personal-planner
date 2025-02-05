@@ -49,7 +49,7 @@ const PlanTitle = styled.div`
 
 const PlanTime = styled.div`
   font-size: 14px;
-  color: #91929f;
+  color: ${palette.silver};
 `;
 
 interface PlanBoxProps {
