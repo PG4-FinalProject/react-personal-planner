@@ -3,7 +3,7 @@ import Content from '../components/layout/Content';
 import { palette } from '../styles/palette';
 
 export const StyledContent = styled(Content)`
-  margin-top: 65px; /* 헤더 높이만큼 마진 */
+  margin-top: 0px; /* 헤더 높이만큼 마진 */
   margin-bottom: 65px; /* 헤더 높이만큼 마진 */
   padding-bottom: 65px; /* 푸터 높이만큼 패딩 */
   background-color: ${palette.background};
@@ -17,8 +17,6 @@ export const WeatherContainer = styled.div`
   max-width: 518px;
   padding: 8px;
   margin: 8px;
-  margin-top: 65px;
-  margin-bottom: 65px; /* 헤더 높이만큼 마진 */
   gap: 16px;
   min-height: calc(100vh - 65px); /* 헤더 높이를 뺀 전체 높이 */
 `;

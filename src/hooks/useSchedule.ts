@@ -67,49 +67,29 @@ export const useSchedule = () => {
     [schedules],
   );
 
-  const createSchedule = async (schedule: Omit<Schedule, 'id'>) => {
-    if (!isLogin) {
-      showAlert('로그인이 필요한 기능입니다.');
-      return;
-    }
-
-    try {
-      const category = categories.find(c => c.name === schedule.category);
-      const planData = {
-        title: schedule.title,
-        detail: schedule.description || '',
-        startTime: `${schedule.date} ${schedule.startTime}`,
-        endTime: `${schedule.date} ${schedule.endTime}`,
-        categoryId: category?.id || categories[0]?.id || 1,
-      };
-
-      await createPlanReq(planData);
-      showAlert('일정이 생성되었습니다.');
-    } catch (error) {
-      showAlert('일정 생성에 실패했습니다.');
-      console.error('일정 생성 실패:', error);
-    }
-  };
-
   const updateSchedule = async (id: number, updateData: Partial<Schedule>) => {
-    if (!isLogin) {
-      showAlert('로그인이 필요한 기능입니다.');
-      return;
-    }
-
     try {
-      const category = categories.find(c => c.name === updateData.category);
-      const planData = {
-        id,
-        title: updateData.title!,
-        detail: updateData.description || '',
-        startTime: `${updateData.date} ${updateData.startTime}`,
-        endTime: `${updateData.date} ${updateData.endTime}`,
-        categoryId: category?.id || categories[0]?.id || 1,
-      };
-
-      await editPlanReq(planData);
-      showAlert('일정이 수정되었습니다.');
+      if (isLogin) {
+        const category = categories.find(c => c.name === updateData.category);
+        const planData = {
+          id,
+          title: updateData.title!,
+          detail: updateData.description || '',
+          startTime: `${updateData.date} ${updateData.startTime}`,
+          endTime: `${updateData.date} ${updateData.endTime}`,
+          categoryId: category?.id || categories[0]?.id || 1,
+        };
+        await editPlanReq(planData);
+        showAlert('일정이 수정되었습니다.');
+      } else {
+        // 목데이터 수정
+        setSchedules(prev =>
+          prev.map(schedule =>
+            schedule.id === id ? { ...schedule, ...updateData } : schedule,
+          ),
+        );
+        showAlert('일정이 수정되었습니다.');
+      }
     } catch (error) {
       showAlert('일정 수정에 실패했습니다.');
       console.error('일정 수정 실패:', error);
@@ -117,18 +97,43 @@ export const useSchedule = () => {
   };
 
   const deleteSchedule = async (id: number) => {
-    if (!isLogin) {
-      showAlert('로그인이 필요한 기능입니다.');
-      return;
-    }
-
     try {
-      await deletePlanReq(id);
-      showAlert('일정이 삭제되었습니다.');
+      if (isLogin) {
+        await deletePlanReq(id);
+      }
+      // 로그인 상태와 관계없이 로컬 상태 업데이트
       setSchedules(prev => prev.filter(schedule => schedule.id !== id));
+      showAlert('일정이 삭제되었습니다.');
     } catch (error) {
       showAlert('일정 삭제에 실패했습니다.');
       console.error('일정 삭제 실패:', error);
+    }
+  };
+
+  const createSchedule = async (schedule: Omit<Schedule, 'id'>) => {
+    try {
+      if (isLogin) {
+        const category = categories.find(c => c.name === schedule.category);
+        const planData = {
+          title: schedule.title,
+          detail: schedule.description || '',
+          startTime: `${schedule.date} ${schedule.startTime}`,
+          endTime: `${schedule.date} ${schedule.endTime}`,
+          categoryId: category?.id || categories[0]?.id || 1,
+        };
+        await createPlanReq(planData);
+      } else {
+        // 목데이터에 새 일정 추가
+        const newSchedule = {
+          ...schedule,
+          id: Math.max(...schedules.map(s => s.id), 0) + 1,
+        };
+        setSchedules(prev => [...prev, newSchedule]);
+      }
+      showAlert('일정이 생성되었습니다.');
+    } catch (error) {
+      showAlert('일정 생성에 실패했습니다.');
+      console.error('일정 생성 실패:', error);
     }
   };
 
