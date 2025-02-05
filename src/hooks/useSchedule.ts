@@ -12,8 +12,9 @@ import {
   deletePlanReq,
 } from '../apis/plans.api';
 import { useAlert } from './useAlert';
+import { useCategory } from './useCategory';
 
-// Plan을 Schedule 형식으로 변환하는 함수
+// PlanI를 Schedule 형식으로 변환하는 함수
 const convertPlanToSchedule = (plan: PlanI): Schedule => ({
   id: plan.id,
   title: plan.title,
@@ -28,8 +29,9 @@ export const useSchedule = () => {
   const [schedules, setSchedules] = useState<Schedule[]>(mockSchedules);
   const { isLogin } = useAuthStore();
   const { showAlert } = useAlert();
+  const { categories } = useCategory();
 
-  // React Query로 plans 데이터 가져오기
+  // React Query로 해당 월의 plans 데이터 가져오기
   const { data: plansData, isLoading } = useQuery({
     queryKey: ['plans'],
     queryFn: async () => {
@@ -48,7 +50,6 @@ export const useSchedule = () => {
     enabled: isLogin,
   });
 
-  // plans 데이터가 업데이트되면 schedules 상태 업데이트
   useEffect(() => {
     if (isLogin && plansData?.plans) {
       const convertedSchedules = plansData.plans.map(convertPlanToSchedule);
@@ -73,12 +74,13 @@ export const useSchedule = () => {
     }
 
     try {
+      const category = categories.find(c => c.name === schedule.category);
       const planData = {
         title: schedule.title,
         detail: schedule.description || '',
         startTime: `${schedule.date} ${schedule.startTime}`,
         endTime: `${schedule.date} ${schedule.endTime}`,
-        categoryId: 1, // 카테고리 ID 설정 필요
+        categoryId: category?.id || categories[0]?.id || 1,
       };
 
       await createPlanReq(planData);
@@ -96,13 +98,14 @@ export const useSchedule = () => {
     }
 
     try {
+      const category = categories.find(c => c.name === updateData.category);
       const planData = {
         id,
         title: updateData.title!,
         detail: updateData.description || '',
         startTime: `${updateData.date} ${updateData.startTime}`,
         endTime: `${updateData.date} ${updateData.endTime}`,
-        categoryId: 1, // 카테고리 ID 설정 필요
+        categoryId: category?.id || categories[0]?.id || 1,
       };
 
       await editPlanReq(planData);
@@ -122,6 +125,7 @@ export const useSchedule = () => {
     try {
       await deletePlanReq(id);
       showAlert('일정이 삭제되었습니다.');
+      setSchedules(prev => prev.filter(schedule => schedule.id !== id));
     } catch (error) {
       showAlert('일정 삭제에 실패했습니다.');
       console.error('일정 삭제 실패:', error);
