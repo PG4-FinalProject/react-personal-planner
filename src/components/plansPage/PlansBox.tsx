@@ -65,7 +65,7 @@ const PlansBox = ({}: PlansBoxProps) => {
   };
 
   useEffect(() => {
-    setPlanDate('오늘');
+    setSearchParams(new URLSearchParams());
   }, []);
 
   return (
