@@ -24,7 +24,7 @@ const PlanBoxStyle = styled.div`
 const TrashBtn = styled.button`
   height: 100%;
   padding: 8px;
-  background-color: #f9fafb;
+  background-color: ${palette.lightblue};
   border: none;
 `;
 
@@ -69,7 +69,8 @@ const PlanBox = ({ plan, deletePlan }: PlanBoxProps) => {
     navigate('/plans/edit', { state: plan });
   };
 
-  const handleDelete = () => {
+  const handleDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
     showConfirm('정말 삭제하시겠습니까?', () => {
       deletePlan(plan.id);
     });
